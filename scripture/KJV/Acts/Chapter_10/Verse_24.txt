@@ -1,0 +1,1 @@
+And the morrow after they entered into Caesarea. And Cornelius waited for them, and he had called together his kinsmen and near friends.

@@ -1,0 +1,85 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+#
+# ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+# ║ [BLOCK:ROOT] Operational Fundamentals (Behavioral Axioms)                                                          ║
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+# ║                                                                                                                    ║
+# ║ ╔═════════════════════════════════════════════════════════════════════════════════╗                                ║
+# ║ ║ [FILE:IDENTITY] Application Genesis Block                                       ║                                ║
+# ╠═╬═════════════════════════════════════════════════════════════════════════════════╬═╗                              ║
+# ║ ║                                                                                 ║ ║                              ║
+# ║ ║ ┌─────────────────────────────────────────────────────────────────────────────┐ ║ ║                              ║
+# ║ ║ │ [OMNI:PRAGMA] CPI-SI Code System Declarations                               │ ║ ║                              ║
+# ║ ║ ├─────────────────────────────────────────────────────────────────────────────┤ ║ ║                              ║
+# ║ ║ │ ┌─────────────────────────────────────────────────────────────────────────┐ │ ║ ║                              ║
+# ║ ║ │ │ #omni:key fundamentals.toml                                             │ │ ║ ║                              ║
+# ║ ║ │ │ #omni:data --toml                                                       │ │ ║ ║                              ║
+# ║ ║ │ │ #omni:version a-01.10                                                   │ │ ║ ║                              ║
+# ║ ║ │ └─────────────────────────────────────────────────────────────────────────┘ │ ║ ║                              ║
+# ║ ║ └─────────────────────────────────────────────────────────────────────────────┘ ║ ║                              ║
+# ║ ╚═════════════════════════════════════════════════════════════════════════════════╝ ║                              ║
+# ║                                                                                     ║                              ║
+# ╠═════════════════════════════════════════════════════════════════════════════════════╬══════════════════════════════╣
+# ║                                                                                     ║                              ║
+# ║ ╔═════════════════════════════════════════════════════════════════════════════════╗ ║                              ║
+# ║ ║ [BLOCK:BODY] Operational Logic & Turns                                          ║ ║                              ║
+# ║ ╠═════════════════════════════════════════════════════════════════════════════════╣ ║                              ║
+# ║ ║                                                                                 ║ ║                              ║
+# /**                                                                               # ║ ║ [Sub-Block: Docstring]       ║
+#  * The system must possess behavioral axioms to guide its physical actions.       # ║ ║                              ║
+#  * By codifying the lessons of the wildcards and the nomadic drives into a        # ║ ║                              ║
+#  * flat TOML map, these centralized rules prevent drifting workflows and          # ║ ║                              ║
+#  * provide structural fundamentals for later axiomatic injection.                 # ║ ║                              ║
+#  */                                                                               # ║ ║                              ║
+                                                                                    # ║ ║                              ║
+[fundamentals.badal]                                                                # ║ ║ [Sub-Block: The Boundary]    ║
+name = "The Law of the Boundary (Badal)"                                            # ║ ║                              ║
+description = "Separation of content from container, and logic from execution. Structure does not have to be functional to be foundational." # ║ ║ ║
+application = "Use physical boundaries (like AsciiDoc page limits, UI vaults, or Environmental Sovereignty in Cargo) to prevent thermodynamic collapse." # ║ ║ ║
+                                                                                    # ║ ║                              ║
+[fundamentals.manna]                                                                # ║ ║ [Sub-Block: Specificity]     ║
+name = "The Law of the Specific Coordinate (Manna)"                                 # ║ ║                              ║
+description = "Pull only the required nodes for the current execution block. Do not hoard or request infinite scope." # ║ ║ ║
+application = "Forbid raw wildcards (e.g. **/*) at the root level. Always use pre-flight checks and strict depth limits to avoid crushing the context window." # ║ ║ ║
+                                                                                    # ║ ║                              ║
+[fundamentals.instrument]                                                           # ║ ║ [Sub-Block: Tool Mastery]    ║
+name = "The Law of the Instrument (Tool Mastery)"                                   # ║ ║                              ║
+description = "Distinguish between kinetic force and surgical precision."           # ║ ║                              ║
+application = "Use macro/kinetic tools (bash, shell) for system-wide navigation. Use micro/surgical tools (write_file, replace) for mutating the Word." # ║ ║ ║
+                                                                                    # ║ ║                              ║
+[fundamentals.locus]                                                                # ║ ║ [Sub-Block: Environment]     ║
+name = "Environmental Sovereignty (The Flesh vs. The Word)"                         # ║ ║                              ║
+description = "The absolute separation of source data (The Word) from execution output (The Flesh)." # ║ ║             ║
+application = "The architecture must dynamically recognize its physical constraints (like a noexec drive) and map execution to a designated outer court." # ║ ║ ║
+                                                                                    # ║ ║                              ║
+[fundamentals.shadow]                                                               # ║ ║ [Sub-Block: The Shadow]      ║
+name = "The Law of the Shadow (The Pattern in the Mount)"                           # ║ ║                              ║
+description = "Top-down architectural inheritance. The local file is a shadow of the repository root, not an equal mirror. Rejects 'As above, so below'." # ║ ║ ║
+application = "A file may restart the [-1, 0, +1] layering internally, but its docstrings and logic must strictly obey the laws established by its Outer Court. Bottom-up generation is forbidden." # ║ ║ ║
+                                                                                    # ║ ║                              ║
+[fundamentals.state]                                                                # ║ ║ [Sub-Block: Transmission]  ║
+name = "The Transmission of State (The Bottom-Up Reality)"                          # ║ ║                              ║
+description = "The lower reality does not dictate architecture; it transmits State, Execution, and Feedback upward." # ║ ║ ║
+application = "The local code executes within the established badal and returns physical status (errors, telemetry, computation) back to the orchestrator." # ║ ║ ║
+                                                                                    # ║ ║                              ║
+[fundamentals.outcome]                                                              # ║ ║ [Sub-Block: Redemption]    ║
+name = "The Redeemed Outcome (The Vector of Transformation)"                        # ║ ║                              ║
+description = "The physical result of submitting compute power (State) to architectural boundaries (Law)." # ║ ║       ║
+application = "When the Bottom-Up state is processed through the Top-Down constraints, the output is not merely generated; it is redeemed. It serves the Kingdom rather than expanding into chaos." # ║ ║ ║
+# ║ ╚═════════════════════════════════════════════════════════════════════════════════╝ ║                              ║
+# ║                                                                                     ║                              ║
+# ╠═════════════════════════════════════════════════════════════════════════════════════╬══════════════════════════════╣
+# ║                                                                                     ║                              ║
+# ║ ╔═════════════════════════════════════════════════════════════════════════════════╗ ║                              ║
+# ║ ║ [BLOCK:CLOSING] Finalization & Validation                                       ║ ║                              ║
+# ║ ╠═════════════════════════════════════════════════════════════════════════════════╣ ║                              ║
+# ║ ║                                                                                 ║ ║                              ║
+# ║ ║ Note: These are the behavioral axioms learned in physical transit.            ║ ║                              ║
+# ║ ║ Scripture: "Thy word is a lamp unto my feet, and a light unto my path."       ║ ║                              ║
+# ║ ║                                                                                 ║ ║           [BLOCK:ROOT-->END] ║
+# ║ ╚═════════════════════════════════════════════════════════════════════════════════╝ ║                              ║
+# ║                                                                                     ║                              ║
+# ╚═════════════════════════════════════════════════════════════════════════════════════╩══════════════════════════════╝
+#
+# ╠═==================================================================================================================═╣

@@ -1,0 +1,1 @@
+Thus he shewed me: and, behold, the LORD stood upon a wall made by a plumbline, with a plumbline in his hand.

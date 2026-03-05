@@ -1,0 +1,50 @@
+# [OMNI:GITIGNORE] Project Nova Dawn Baseline (Refined for Deep Sovereignty)
+# ===================================================================================================================
+
+# 1. Kinetic Artifacts (The Dust of Execution)
+**/target/
+**/build/
+**/bin/
+**/*.exe
+**/*.o
+**/*.a
+**/*.so
+**/*.dylib
+**/*.dll
+
+# 2. Substrate Debris (Temporary Files)
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+*.swp
+*.tmp
+*.log
+.health
+
+# 3. Environment & Drift (Local Configuration)
+.env
+.env.local
+*.keys.env
+credentials.json
+oauth_creds.json
+--db-path
+
+# 4. Project Specific Constraints
+# We DO NOT ignore the scripture/indices/ as they are the Primary Implementation.
+# We DO ignore the massive raw text folders if they are already distilled.
+# scripture/KJV/
+# scripture/WEB/
+
+# 5. Dependency Locks (The Structural Connectors)
+# We commit these to ensure the 11-point balance is portable.
+!Cargo.lock
+!go.work
+!go.work.sum
+
+# 6. Safety Gate
+# Ensure nested .git folders are removed before adding to the root repository.
