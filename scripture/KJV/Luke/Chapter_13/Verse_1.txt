@@ -1,1 +1,0 @@
-There were present at that season some that told him of the Galilaeans, whose blood Pilate had mingled with their sacrifices.

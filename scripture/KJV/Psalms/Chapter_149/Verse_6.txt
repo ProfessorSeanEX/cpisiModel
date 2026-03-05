@@ -1,1 +1,0 @@
-Let the high praises of God be in their mouth, and a two-edged sword in their hand;

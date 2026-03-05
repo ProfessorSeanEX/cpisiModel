@@ -1,1 +1,0 @@
-Violence is risen up into a rod of wickedness: none of them shall remain, nor of their multitude, nor of any of their's: neither shall there be wailing for them.

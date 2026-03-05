@@ -1,1 +1,0 @@
-The men of Bethazmaveth, forty and two.

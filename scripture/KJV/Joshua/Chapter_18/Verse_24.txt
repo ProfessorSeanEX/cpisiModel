@@ -1,1 +1,0 @@
-And Chepharhaammonai, and Ophni, and Gaba; twelve cities with their villages:

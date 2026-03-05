@@ -1,1 +1,0 @@
-The children also of Benjamin from Geba dwelt at Michmash, and Aija, and Bethel, and in their villages.

@@ -1,1 +1,0 @@
-Of which salvation the prophets have enquired and searched diligently, who prophesied of the grace that should come unto you:

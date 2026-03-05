@@ -1,1 +1,0 @@
-And if he be not redeemed in these years, then he shall go out in the year of jubile, both he, and his children with him.

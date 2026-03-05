@@ -1,1 +1,0 @@
-And Isaac came from the way of the well Lahairoi; for he dwelt in the south country.

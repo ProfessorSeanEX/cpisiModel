@@ -1,1 +1,0 @@
-And when Saul enquired of the LORD, the LORD answered him not, neither by dreams, nor by Urim, nor by prophets.

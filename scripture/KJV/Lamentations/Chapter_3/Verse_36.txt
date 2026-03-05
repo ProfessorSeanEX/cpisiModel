@@ -1,1 +1,0 @@
-To subvert a man in his cause, the LORD approveth not.

@@ -1,1 +1,0 @@
-Zelek the Ammonite, Nahari the Beerothite, armourbearer to Joab the son of Zeruiah,

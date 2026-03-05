@@ -1,1 +1,0 @@
-Fire, and hail; snow, and vapours; stormy wind fulfilling his word:

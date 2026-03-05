@@ -1,1 +1,0 @@
-Though I speak, my grief is not asswaged: and though I forbear, what am I eased?

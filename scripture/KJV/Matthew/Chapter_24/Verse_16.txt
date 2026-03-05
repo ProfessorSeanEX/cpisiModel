@@ -1,1 +1,0 @@
-Then let them which be in Judaea flee into the mountains:

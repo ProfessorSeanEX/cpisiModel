@@ -1,1 +1,0 @@
-And Bethzur, and Shoco, and Adullam,

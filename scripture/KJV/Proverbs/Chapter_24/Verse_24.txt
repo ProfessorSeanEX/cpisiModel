@@ -1,1 +1,0 @@
-He that saith unto the wicked, Thou are righteous; him shall the people curse, nations shall abhor him:

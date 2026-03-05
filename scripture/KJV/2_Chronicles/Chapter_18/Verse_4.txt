@@ -1,1 +1,0 @@
-And Jehoshaphat said unto the king of Israel, Enquire, I pray thee, at the word of the LORD to day.

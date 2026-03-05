@@ -1,1 +1,0 @@
-Is it time for you, O ye, to dwell in your cieled houses, and this house lie waste?

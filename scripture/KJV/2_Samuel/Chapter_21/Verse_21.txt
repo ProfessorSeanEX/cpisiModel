@@ -1,1 +1,0 @@
-And when he defied Israel, Jonathan the son of Shimeah the brother of David slew him.

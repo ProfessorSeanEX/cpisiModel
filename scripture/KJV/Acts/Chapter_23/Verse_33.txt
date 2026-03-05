@@ -1,1 +1,0 @@
-Who, when they came to Caesarea and delivered the epistle to the governor, presented Paul also before him.

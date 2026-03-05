@@ -1,1 +1,0 @@
-And Solomon built Gezer, and Bethhoron the nether,

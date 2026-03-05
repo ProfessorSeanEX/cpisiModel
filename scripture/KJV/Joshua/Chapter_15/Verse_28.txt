@@ -1,1 +1,0 @@
-And Hazarshual, and Beersheba, and Bizjothjah,

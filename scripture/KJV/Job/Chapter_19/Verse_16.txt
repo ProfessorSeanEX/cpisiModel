@@ -1,1 +1,0 @@
-I called my servant, and he gave me no answer; I intreated him with my mouth.

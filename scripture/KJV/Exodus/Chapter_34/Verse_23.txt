@@ -1,1 +1,0 @@
-Thrice in the year shall all your menchildren appear before the LORD God, the God of Israel.

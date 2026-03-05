@@ -1,1 +1,0 @@
-For if the word spoken by angels was stedfast, and every transgression and disobedience received a just recompence of reward;

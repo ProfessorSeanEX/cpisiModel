@@ -1,1 +1,0 @@
-And Janum, and Bethtappuah, and Aphekah,

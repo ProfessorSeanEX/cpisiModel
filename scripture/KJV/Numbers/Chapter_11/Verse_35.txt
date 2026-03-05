@@ -1,1 +1,0 @@
-And the people journeyed from Kibrothhattaavah unto Hazeroth; and abode at Hazeroth.

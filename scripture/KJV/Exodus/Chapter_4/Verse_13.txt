@@ -1,1 +1,0 @@
-And he said, O my LORD, send, I pray thee, by the hand of him whom thou wilt send.

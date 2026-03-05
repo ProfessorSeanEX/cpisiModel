@@ -1,1 +1,0 @@
-Whom resist stedfast in the faith, knowing that the same afflictions are accomplished in your brethren that are in the world.

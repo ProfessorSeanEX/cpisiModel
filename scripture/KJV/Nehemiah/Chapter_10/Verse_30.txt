@@ -1,1 +1,0 @@
-And that we would not give our daughters unto the people of the land, not take their daughters for our sons:

@@ -1,1 +1,0 @@
-And Nebuzaradan captain of the guard took these, and brought them to the king of Babylon to Riblah:

@@ -1,1 +1,0 @@
-And Moses went out from Pharaoh, and intreated the LORD.

@@ -1,1 +1,0 @@
-So Hazael king of Syria died; and Benhadad his son reigned in his stead.

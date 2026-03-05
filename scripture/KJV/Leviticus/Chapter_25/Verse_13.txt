@@ -1,1 +1,0 @@
-In the year of this jubile ye shall return every man unto his possession.

@@ -1,1 +1,0 @@
-Salma the father of Bethlehem, Hareph the father of Bethgader.

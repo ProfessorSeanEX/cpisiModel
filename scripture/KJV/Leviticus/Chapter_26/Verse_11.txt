@@ -1,1 +1,0 @@
-And I set my tabernacle among you: and my soul shall not abhor you.

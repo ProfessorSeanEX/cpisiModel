@@ -1,1 +1,0 @@
-And Jacob went out from Beersheba, and went toward Haran.

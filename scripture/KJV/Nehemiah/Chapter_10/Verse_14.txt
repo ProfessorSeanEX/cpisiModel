@@ -1,1 +1,0 @@
-The chief of the people; Parosh, Pahathmoab, Elam, Zatthu, Bani,

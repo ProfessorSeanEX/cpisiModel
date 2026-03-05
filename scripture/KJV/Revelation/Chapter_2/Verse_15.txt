@@ -1,1 +1,0 @@
-So hast thou also them that hold the doctrine of the Nicolaitanes, which thing I hate.

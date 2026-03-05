@@ -1,1 +1,0 @@
-I intreated thy favour with my whole heart: be merciful unto me according to thy word.

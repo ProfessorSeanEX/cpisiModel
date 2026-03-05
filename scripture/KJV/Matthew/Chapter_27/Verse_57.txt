@@ -1,1 +1,0 @@
-When the even was come, there came a rich man of Arimathaea, named Joseph, who also himself was Jesus' disciple:

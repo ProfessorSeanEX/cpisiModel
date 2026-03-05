@@ -1,1 +1,0 @@
-And Hazargaddah, and Heshmon, and Bethpalet,

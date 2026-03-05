@@ -1,1 +1,0 @@
-And unto man he said, Behold, the fear of the LORD, that is wisdom; and to depart from evil is understanding.

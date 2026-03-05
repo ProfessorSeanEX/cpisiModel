@@ -1,1 +1,0 @@
-And Jehud, and Beneberak, and Gathrimmon,

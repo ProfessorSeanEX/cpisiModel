@@ -1,1 +1,0 @@
-And Bethpeor, and Ashdothpisgah, and Bethjeshimoth,

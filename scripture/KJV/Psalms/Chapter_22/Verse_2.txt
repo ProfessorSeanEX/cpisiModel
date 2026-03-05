@@ -1,1 +1,0 @@
-O my God, I cry in the day time, but thou hearest not; and in the night season, and am not silent.

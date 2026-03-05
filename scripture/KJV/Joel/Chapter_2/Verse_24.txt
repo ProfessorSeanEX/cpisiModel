@@ -1,1 +1,0 @@
-And the floors shall be full of wheat, and the vats shall overflow with wine and oil.

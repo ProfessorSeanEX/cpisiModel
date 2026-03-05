@@ -1,1 +1,0 @@
-And when the inhabitants of Jabeshgilead heard of that which the Philistines had done to Saul;

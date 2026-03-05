@@ -1,1 +1,0 @@
-And Dannah, and Kirjathsannah, which is Debir,

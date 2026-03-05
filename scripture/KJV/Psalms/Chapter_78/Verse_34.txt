@@ -1,1 +1,0 @@
-When he slew them, then they sought him: and they returned and enquired early after God.

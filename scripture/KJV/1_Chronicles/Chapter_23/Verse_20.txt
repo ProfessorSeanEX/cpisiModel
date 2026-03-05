@@ -1,1 +1,0 @@
-Of the sons of Uzziel; Micah the first and Jesiah the second.

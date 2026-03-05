@@ -1,1 +1,0 @@
-And Hazarshual, and Balah, and Azem,

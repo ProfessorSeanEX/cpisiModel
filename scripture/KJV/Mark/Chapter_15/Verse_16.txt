@@ -1,1 +1,0 @@
-And the soldiers led him away into the hall, called Praetorium; and they call together the whole band.

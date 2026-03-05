@@ -1,1 +1,0 @@
-And they clothed him with purple, and platted a crown of thorns, and put it about his head,

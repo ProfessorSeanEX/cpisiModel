@@ -1,1 +1,0 @@
-And they removed from Benejaakan, and encamped at Horhagidgad.

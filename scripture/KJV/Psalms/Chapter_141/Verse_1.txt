@@ -1,1 +1,0 @@
-Lord, I cry unto thee: make haste unto me; give ear unto my voice, when I cry unto thee.

@@ -1,1 +1,0 @@
-That word, I say, ye know, which was published throughout all Judaea, and began from Galilee, after the baptism which John preached;

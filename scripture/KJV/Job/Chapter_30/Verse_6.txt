@@ -1,1 +1,0 @@
-To dwell in the cliffs of the valleys, in caves of the earth, and in the rocks.

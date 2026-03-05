@@ -1,1 +1,0 @@
-And Betharabah, and Zemaraim, and Bethel,

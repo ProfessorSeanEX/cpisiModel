@@ -1,1 +1,0 @@
-If he sanctify his field from the year of jubile, according to thy estimation it shall stand.

@@ -1,1 +1,0 @@
-Rebuke not an elder, but intreat him as a father; and the younger men as brethren;

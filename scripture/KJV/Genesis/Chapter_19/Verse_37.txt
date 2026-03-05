@@ -1,1 +1,0 @@
-And the first born bare a son, and called his name Moab: the same is the father of the Moabites unto this day.

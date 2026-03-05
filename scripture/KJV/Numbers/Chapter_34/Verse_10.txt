@@ -1,1 +1,0 @@
-And ye shall point out your east border from Hazarenan to Shepham:

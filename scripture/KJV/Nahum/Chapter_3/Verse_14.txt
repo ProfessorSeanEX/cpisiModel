@@ -1,1 +1,0 @@
-Draw thee waters for the siege, fortify thy strong holds: go into clay, and tread the morter, make strong the brickkiln.

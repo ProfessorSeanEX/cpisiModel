@@ -1,1 +1,0 @@
-Then enquired he of them the hour when he began to amend. And they said unto him, Yesterday at the seventh hour the fever left him.

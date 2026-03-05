@@ -1,1 +1,0 @@
-O god, the heathen are come into thine inheritance; thy holy temple have they defiled; they have laid Jerusalem on heaps.

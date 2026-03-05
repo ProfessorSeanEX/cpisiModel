@@ -1,1 +1,0 @@
-The tongue deviseth mischiefs; like a sharp razor, working deceitfully.

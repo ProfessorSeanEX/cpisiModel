@@ -1,1 +1,0 @@
-And Shobal the father of Kirjathjearim had sons; Haroeh, and half of the Manahethites.

@@ -1,1 +1,0 @@
-Lord, who shall abide in thy tabernacle? who shall dwell in thy holy hill?

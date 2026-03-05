@@ -1,1 +1,0 @@
-Jarmuth with her suburbs, Engannim with her suburbs; four cities.

@@ -1,1 +1,0 @@
-And when he had landed at Caesarea, and gone up, and saluted the church, he went down to Antioch.

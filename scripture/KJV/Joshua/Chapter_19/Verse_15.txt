@@ -1,1 +1,0 @@
-And Kattath, and Nahallal, and Shimron, and Idalah, and Bethlehem: twelve cities with their villages.

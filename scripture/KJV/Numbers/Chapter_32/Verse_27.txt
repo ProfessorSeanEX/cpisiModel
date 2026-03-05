@@ -1,1 +1,0 @@
-But thy servants will pass over, every man armed for war, before the Lord to battle, as my lord saith.

@@ -1,1 +1,0 @@
-The men of Bethel and Ai, two hundred twenty and three.

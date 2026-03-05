@@ -1,1 +1,0 @@
-And Saul died, and Baalhanan the son of Achbor reigned in his stead.

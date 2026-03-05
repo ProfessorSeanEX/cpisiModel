@@ -1,1 +1,0 @@
-The poor useth intreaties; but the rich answereth roughly.

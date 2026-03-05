@@ -1,1 +1,0 @@
-And upon Kiriathaim, and upon Bethgamul, and upon Bethmeon,

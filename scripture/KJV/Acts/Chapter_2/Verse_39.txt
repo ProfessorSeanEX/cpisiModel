@@ -1,1 +1,0 @@
-For the promise is unto you, and to your children, and to all that are afar off, even as many as the LORD our God shall call.

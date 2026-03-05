@@ -1,1 +1,0 @@
-And they began to enquire among themselves, which of them it was that should do this thing.

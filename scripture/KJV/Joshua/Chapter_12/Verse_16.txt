@@ -1,1 +1,0 @@
-The king of Makkedah, one; the king of Bethel, one;

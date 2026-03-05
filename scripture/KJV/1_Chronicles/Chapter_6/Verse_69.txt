@@ -1,1 +1,0 @@
-And Aijalon with her suburbs, and Gathrimmon with her suburbs:

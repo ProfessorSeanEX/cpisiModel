@@ -1,1 +1,0 @@
-And Israel took his journey with all that he had, and came to Beersheba, and offered sacrifices unto the God of his father Isaac.

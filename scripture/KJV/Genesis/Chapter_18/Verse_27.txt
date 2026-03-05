@@ -1,1 +1,0 @@
-And Abraham answered and said, Behold now, I have taken upon me to speak unto the LORD, which am but dust and ashes:

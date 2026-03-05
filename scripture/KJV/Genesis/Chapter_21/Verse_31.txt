@@ -1,1 +1,0 @@
-Wherefore he called that place Beersheba; because there they sware both of them.

@@ -1,1 +1,0 @@
-For vain men would be wise, though man be born like a wild ass's colt.

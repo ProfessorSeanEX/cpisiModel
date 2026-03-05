@@ -1,1 +1,0 @@
-And when Jesus departed thence, two blind men followed him, crying, and saying, Thou son of David, have mercy on us.

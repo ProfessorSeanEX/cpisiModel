@@ -1,1 +1,0 @@
-Say not thou, What is the cause that the former days were better than these? for thou dost not enquire wisely concerning this.

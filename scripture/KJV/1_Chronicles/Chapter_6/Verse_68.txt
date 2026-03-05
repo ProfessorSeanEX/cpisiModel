@@ -1,1 +1,0 @@
-And Jokmeam with her suburbs, and Bethhoron with her suburbs,

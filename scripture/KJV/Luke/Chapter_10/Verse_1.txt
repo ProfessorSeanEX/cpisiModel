@@ -1,1 +1,0 @@
-After these things the LORD appointed other seventy also, and sent them two and two before his face into every city and place, whither he himself would come.

@@ -1,1 +1,0 @@
-Lord, how are they increased that trouble me! many are they that rise up against me.

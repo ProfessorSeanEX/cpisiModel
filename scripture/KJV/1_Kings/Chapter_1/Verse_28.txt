@@ -1,1 +1,0 @@
-Then king David answered and said, Call me Bathsheba. And she came into the king's presence, and stood before the king.

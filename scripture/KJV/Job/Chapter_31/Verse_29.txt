@@ -1,1 +1,0 @@
-If I rejoice at the destruction of him that hated me, or lifted up myself when evil found him:

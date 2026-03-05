@@ -1,1 +1,0 @@
-Three years reigned he in Jerusalem. and his mother's name was Maachah, the daughter of Abishalom.

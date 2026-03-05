@@ -1,1 +1,0 @@
-Thou that art full of stirs, a tumultuous city, joyous city: thy slain men are not slain with the sword, nor dead in battle.

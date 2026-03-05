@@ -1,1 +1,0 @@
-And Bethlebaoth, and Sharuhen; thirteen cities and their villages:
