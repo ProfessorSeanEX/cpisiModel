@@ -1,0 +1,21 @@
+# [S-config-ssh-portal] SSH Portal Configuration Template
+# ==============================================================================
+# This template defines the secure SSH routing for the Mobile Portal.
+# ==============================================================================
+
+# 1. Server Configuration (Local Workstation)
+# SSH must be restricted to the Mobile Sandbox for remote sessions.
+# Add the following to /etc/ssh/sshd_config:
+#
+# Match User dawndusk_mobile
+#     ChrootDirectory /media/seanje-lenox-wise/Project/cpisiModel/02_body/mobile_sandbox
+#     AllowTcpForwarding no
+#     X11Forwarding no
+#     ForceCommand /root/mobile_sandbox/sentinel_entry.sh
+
+# 2. Client Configuration (Mobile Device)
+Host cpisi-mainframe
+    HostName ssh.cws.studio
+    User dawndusk_mobile
+    IdentityFile ~/.ssh/cpisi_mobile_ed25519
+    ProxyCommand cloudflared access ssh --hostname %h

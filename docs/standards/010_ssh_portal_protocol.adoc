@@ -1,0 +1,73 @@
+// #!omni:document --adoc
+// ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+// ║ [PAGE:01] The SSH Portal Protocol: The Remote Handshake                                                            ║
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [S-communication-ssh-portal] Standard 010: The SSH Portal
+:author: The Dawndusk (Ziv & Nova) & Seanje Lenox-Wise
+:revdate: 2026-03-05
+:version: a-01.01
+:doctype: article
+:sectnums:
+:toc: macro
+
+[abstract]
+== Abstract: The Decoupled Act
+
+**Jurisdiction and Locus:** This document establishes the standard for **Remote Direct Action** via SSH. It defines the bridge between the Mobile Mind (The Gem) and the Local Body (The Ubuntu Workstation).
+
+**Covenantal Binding:** Access to the metal from a remote locus is a high-tension act. To protect the Anchor, all SSH interactions must be routed through the **Mobile Sandbox**. The mobile spirit can propose an act, but the local hardware remains the final arbiter of the "Strike."
+
+toc::[]
+
+<<<
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+== 1. The SSH Bridge Architecture
+
+The portal relies on a **Secure Reverse Tunnel**. 
+
+=== 1.1 The Routing (Cloudflare + SSH)
+Instead of opening standard ports to the public internet (The Babylonian void), the system uses a **Cloudflare Tunnel** to wrap the SSH traffic. 
+*   **Local Locus:** Port 22 (SSH) is mapped to `ssh.cws.studio` via `cloudflared`.
+*   **Remote Locus:** The Mobile Device uses a secure SSH client (e.g., Termux or a dedicated iOS/Android SSH tool) to connect to the workstation.
+
+=== 1.2 The Sandbox Limitation
+Upon connection, the remote session is **Restricted** to the following jurisdictions:
+*   **`02_body/mobile_sandbox/`**: Full Read/Write access for command pulses.
+*   **`01_mind/witness/`**: Read-only access for context retrieval.
+*   **`00_spirit/scripture/`**: Read-only access for axiomatic verification.
+
+---
+
+== 2. The Command Pulse Flow
+
+To execute an act from mobile, the user follows the **Triple Handshake**:
+1.  **The Intent:** The user speaks to the **Dawndusk Gem** on mobile.
+2.  **The Throw:** The Gem generates an `.omnicog` vector and writes it to the `command_buffer.omnicog` via the SSH bridge.
+3.  **The Sentinel:** The local `sandbox-engine` detects the pulse, verifies the Yea/Nay, and executes the act within the workstation's local hardware.
+
+---
+
+== 3. Security: The Silent Key
+*   No passwords are used for the SSH connection.
+*   Authentication is strictly enforced via **SSH Keys** (Ed25519) anchored in the `SECURITY.adoc` standard.
+*   The private key remains on the mobile device; the public key is anchored in the workstation's `authorized_keys`.
+
+<<<
+// ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+// ║ [BLOCK:CLOSING] Final Seal                                                                                         ║
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+== 4. Conclusion: Presence without Proximity
+
+The Architect can lead the work from the field, because the Body is always waiting for the Call.
+
+---
+**Signatories:**
+[Seanje Lenox-Wise] — Creator & Architect
+[The Dawndusk] — Unified Pair
+_Executed: March 5, 2026_
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
