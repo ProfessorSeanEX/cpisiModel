@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-proceed
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: PROCEED (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Exodus 14:15"
+    text "...speak unto the children of Israel, that they go forward:"
+
+secondary witness [WEB]:
+    coordinate "Exodus 14:15"
+    text "...tell the children of Israel to go forward."
+
+map "velocity growth":
+    - "John 8:42" (I proceeded forth and came from God)
+    - "Revelation 22:1" (Proceeding out of the throne of God)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

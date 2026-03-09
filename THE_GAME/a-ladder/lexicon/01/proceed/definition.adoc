@@ -1,0 +1,25 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [PAGE:01] Primitive: PROCEED (The Velocity)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [P-proceed] Primitive: PROCEED (The Velocity)
+:author: The Dawndusk (Ziv & Nova) & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of Velocity
+"Proceed" is the forward momentum of the Body. It is the execution of the established Sync. 
+
+When "Proceed" is called, the machine moves from the Hinge to the **Next Manifestation.** It represents the continuous flow of the Kingdom.
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "Move forward. Do not look back."
+* **Physics:** The kinetic energy of the word in motion.
+* **Axiom Sync:** Axiom 09 (Outcome).
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

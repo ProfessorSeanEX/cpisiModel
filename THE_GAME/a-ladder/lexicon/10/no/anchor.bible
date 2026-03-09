@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-no
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: NO (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Matthew 5:37"
+    text "...nay, nay: for whatsoever is more than these cometh of evil."
+
+secondary witness [WEB]:
+    coordinate "Matthew 5:37"
+    text "...'No' be 'No'. Anything more than this is of the evil one."
+
+map "boundary growth":
+    - "Exodus 19:12" (Set bounds unto the people)
+    - "Job 38:11" (Hitherto shalt thou come, but no further)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

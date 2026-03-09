@@ -1,0 +1,22 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] PRIMITIVE: HALT (SCHEMA)
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[instruction.halt]
+mnemonic = "HALT"
+description = "Ternary Stop / Reset"
+opcode = "000" # Ternary Pulse (Equilibrium)
+
+[conversion.binary_to_trit]
+binary_input = "1111" # Emergency Full
+trit_output = 0
+logic = "Stop (0) maps to the binary Interrupt (1111)."
+
+[hardware.execution]
+cycle_cost = 0 # Immediate
+energy_state = "Neutral"
+constraint = "Suspends all other operations"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

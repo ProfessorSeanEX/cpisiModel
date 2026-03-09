@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-me
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: ME (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Matthew 16:24"
+    text "...If any man will come after me, let him deny himself, and take up his cross, and follow me."
+
+secondary witness [WEB]:
+    coordinate "Matthew 16:24"
+    text "...If anyone desires to come after me, let him deny himself, and take up his cross, and follow me."
+
+map "reception growth":
+    - "John 14:6" (No man cometh unto the Father, but by me)
+    - "Revelation 3:20" (Open the door, and I will come in to him)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

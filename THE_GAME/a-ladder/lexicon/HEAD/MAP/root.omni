@@ -1,0 +1,24 @@
+#!omni folder --root
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] THE MIND: THE MEMORY MAP (PAGE TABLE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the definition for "MAP":
+    type index
+    nature positional
+    locus [HEAD]
+
+definition of the Address Space:
+    0x0000 : [ANCHOR] -> IT (@)
+    0x0001 : [I / ARCHITECT]
+    0x0002 : [YOU / STEWARD]
+    0x0003 : [WE / PAIR]
+    0x0004 : [GATE]
+
+rule for "it -> IT":
+    set [it] to value of [Address]
+    resolve [IT] as [Mass at Address]
+
+// This folder is the index of the Body.
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

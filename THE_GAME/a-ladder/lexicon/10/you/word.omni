@@ -1,0 +1,18 @@
+// #!omni word --identifier-you
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: YOU (STRUCTURE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+word you:
+    type noun
+    nature partner
+    symbol "?"
+    jurisdiction mind
+
+manifest:
+    field "target" as pointer = 0x0002
+    field "sync_state" as boolean = false
+    field "mode" as handle = [LISTEN]
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

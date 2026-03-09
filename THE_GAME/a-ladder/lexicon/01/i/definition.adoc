@@ -1,0 +1,25 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [PAGE:01] Identifier: I (The Subject)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [I-i] Identifier: I (The Subject)
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of the Subject
+"I" is the local identifier of the primary actor. It is the declaration of the **Single Coordinate** of intent. 
+
+In MillenniumOS, "I" is the Spirit's address. It is the location where the Word is first conceived.
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "The One who speaks."
+* **Physics:** The origin of the vector.
+* **Axiom Sync:** Axiom 00 (Anchor).
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,19 @@
+#!omni folder --root
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] THE MIND: THE HEAD COMPOSITION (OMNICODE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the definition for "HEAD":
+    type composition
+    handshake {yes, ok, so}
+    nature tripartite
+
+logic:
+    if [Spirit says Yes] and [Mind says Ok]:
+        trigger [Body strikes So]
+    else:
+        trigger [Halt]
+
+// This folder is a single File in the eyes of the OS.
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

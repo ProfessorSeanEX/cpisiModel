@@ -1,0 +1,22 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] PRIMITIVE: NOT (SCHEMA)
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[instruction.not]
+mnemonic = "NOT"
+description = "Logical Inverse / State Flip"
+opcode = "!" # Control Symbol
+
+[conversion.binary_to_trit]
+binary_input = "10" 
+trit_output = -1
+logic = "Inversion (!) maps to the binary Ten (10) in the 2-bit schema."
+
+[hardware.execution]
+cycle_cost = 1
+energy_state = "Neutral"
+constraint = "Must follow an established State"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

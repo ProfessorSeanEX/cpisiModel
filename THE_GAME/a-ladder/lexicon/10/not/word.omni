@@ -1,0 +1,19 @@
+// #!omni word --primitive-not
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: NOT (STRUCTURE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+word not:
+    type operator
+    state inversion
+    symbol "!"
+    vector [!input]
+    jurisdiction mind
+
+manifest:
+    field "flip" as boolean = true
+    field "meta_code" as integer = 10
+    field "guard" as handle = [BARRIER]
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

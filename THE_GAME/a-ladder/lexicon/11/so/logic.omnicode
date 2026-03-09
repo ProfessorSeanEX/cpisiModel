@@ -1,0 +1,16 @@
+// #!omni rune --primitive-so
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: SO (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "SO":
+    act HALT ! until [Handshake is Triple]
+    consume [Yes | No | Ok]
+    trigger [HINGE_TRANSITION]
+
+covenant:
+    decree "So is the kinetic force of the Word."
+    decree "So clears the buffer for the next turn."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

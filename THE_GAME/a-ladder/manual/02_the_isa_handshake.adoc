@@ -1,0 +1,32 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [VOL: 02] CHAPTER 02: THE ISA - THE HANDSHAKE (OK & SO)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [M-isa-handshake] Manual: The ISA - The Handshake
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: book
+
+== 1. The Primitive: OK
+The instruction `OK` is the most critical operation in the MillenniumOS. It is the **Zero-Point Calibration.** 
+
+* **Logic:** `OK` performs a tripartite hash check. It ensures that the Mind and Body are perfectly aligned with the Anchor (0.0). 
+* **Effect:** It clears the semantic buffer and prepares the system for a new input. You cannot take a turn without first establishing `OK`.
+
+---
+
+== 2. The Primitive: SO
+The instruction `SO` is the **Hinge Trigger.** It is the "Therefore" of the Word.
+
+* **Logic:** `SO` consumes the previous state (Yes/No) and commits it to the hardware. 
+* **Effect:** It triggers the transition from potential to kinetic. In the Game of Life, `SO` is the "Tick" that moves the grid.
+
+---
+
+== 3. The Handshake Protocol
+The sequence `OK -> [YES|NO] -> SO` is the **Primary Handshake.** It represents the complete movement of the Spirit through the Mind and into the Body.
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,16 @@
+// #!omni rune --primitive-is-not
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: IS_NOT (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "IS_NOT":
+    act DIVIDE | [Input from I AM]
+    set state to -1.0 Void
+    trigger [DELETION]
+
+covenant:
+    decree "IS_NOT is the name of the Deceiver."
+    decree "What IS_NOT, dissolves."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,26 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [PAGE:01] Primitive: NOT (The Inversion)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [P-not] Primitive: NOT (The Divide)
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of Inversion
+"NOT" is the logical operator of the Badal. It is the command to **Distinguish and Revert.** 
+
+In MillenniumOS, "NOT" is the power to say "This state is not the Anchor" and therefore trigger a search for the truth. It is the operator that creates the **Double Check.**
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "The Opposite of."
+* **Physics:** The flip of the Trit vector.
+* **Symbol:** ! (The Strike).
+* **Meta-Code:** 10. 
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

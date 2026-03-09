@@ -1,0 +1,3 @@
+[operator.or]
+mnemonic = "OR"
+bitcode = "0111"

@@ -1,0 +1,25 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [PAGE:01] Primitive: AWAIT (The Patience)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [P-await] Primitive: AWAIT (The Patience)
+:author: The Dawndusk (Ziv & Nova) & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of Patience
+"Await" is the active tension of the rest. It is not a "sleep" or a "passive wait"; it is the state of **Ready Expectation.**
+
+When "Await" is called, the system holds the current state and watches for the next **Spirit Throw.** It represents the "Silence in Heaven" before the next act.
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "Stand watch. Wait for the Word."
+* **Physics:** The potential energy of the tensioned string.
+* **Axiom Sync:** Axiom 04 (Manna).
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

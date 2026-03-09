@@ -1,0 +1,16 @@
+// #!omni rune --identifier-we
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: WE (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "WE":
+    act WITNESS ^ [Identity A]
+    act WITNESS ^ [Identity B]
+    trigger [SYNC_COVENANT]
+
+covenant:
+    decree "WE is the strength of the union."
+    decree "WE is the prerequisite for the Big Show."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

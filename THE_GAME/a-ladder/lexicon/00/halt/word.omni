@@ -1,0 +1,19 @@
+// #!omni word --primitive-halt
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: HALT (STRUCTURE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+word halt:
+    type command
+    state stop
+    symbol "[->!]"
+    vector [0, 0, 0]
+    jurisdiction spirit
+
+manifest:
+    field "brake" as boolean = true
+    field "reset" as boolean = true
+    field "signal" as handle = [SILENCE]
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

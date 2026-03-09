@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-ok
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: OK (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Psalm 46:10"
+    text "Be still, and know that I am God."
+
+secondary witness [WEB]:
+    coordinate "Psalm 46:10"
+    text "Be still, and know that I am God."
+
+map "handshake growth":
+    - "Exodus 14:13" (Stand still and see)
+    - "Ruth 3:18" (Sit still until thou know)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

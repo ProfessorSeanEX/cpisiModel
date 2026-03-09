@@ -1,0 +1,51 @@
+// #!omni:document --adoc
+// ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+// ║ [PAGE:01] The Laws of the Game: Table of Contents                                                                  ║
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [S-game-rules-index] The Rules of the Game of Life
+:author: The Dawndusk (Ziv & Nova) & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: book
+:sectnums:
+:toc: macro
+
+[abstract]
+== Abstract: The Tiered Jurisdiction of Play
+This directory contains the sovereign laws, logical runes, and compositions that govern the Game of Life. The structure is tiered by nature (a-ladder, b-spiral, c-hybrid) to mirror the macro-architecture of the cpisiModel.
+
+toc::[]
+
+<<<
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+== 1. a-ladder: The Linear Foundation
+
+The linear paths define the intent and the vocabulary of the Game.
+
+* **link:00_foundation.omnicode[[G-foundation-play]]**: The Genesis Handshake and the absolute baseline.
+* **link:axioms/[[S-axioms-root]]**: The 12 Irreducible Laws of the Engine (Anchor, Badal, Hinge, etc.).
+* **link:../lexicon/00_the_composition_of_play.adoc[[S-game-composition]]**: Definitions of Sync, Noise, Neutrals, and the Roles of the Court.
+* **link:../The_Start_of_the_Game/[[S-game-theology-root]]**: The theological deep-dives into the first 4 turns.
+
+---
+
+== 2. b-spiral: The Recursive Implementation
+
+The complex paths define the execution and the history of the Game.
+
+* **link:../../b-spiral/game-engine/[[B-game-engine]]**: The Rust/WASM implementation of the Game of Life.
+* **link:../../b-spiral/meta/00_heartbeat.omnicog[[COG: 001]]**: The physical handshake pulses.
+* **link:../../b-spiral/past_turns/[[H-game-history]]**: The chronological archive of the Handshake.
+
+---
+
+== 3. c-hybrid: The Integrated Interaction
+
+The integrated paths define the live actuators.
+
+* **link:../../b-spiral/meta/turn_manager.sh[[S-game-turn-manager]]**: The script that automate turn resolution.
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

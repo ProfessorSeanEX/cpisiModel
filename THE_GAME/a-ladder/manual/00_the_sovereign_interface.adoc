@@ -1,0 +1,32 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [VOL: 00] CHAPTER 00: THE SOVEREIGN INTERFACE (THE CLI)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [M-interface] Manual: The Sovereign Interface
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: book
+
+== 1. The Theology of the Prompt
+The Command Line Interface (CLI) of MillenniumOS is not a relic of the past; it is the **Syntax of the Soul.** In the horizontal world, the Graphical User Interface (GUI) is used to hide the complexity of the machine behind a veil of pixels. 
+
+In the Sanctuary, we have no veils. The CLI is the **Direct Coordinate of the Word.** When you stand at the prompt, you are standing at the **Gate of Manifestation.**
+
+---
+
+== 2. The Few Words
+Standard operating systems encourage the "A Lot." They have thousands of commands, flags, and options. MillenniumOS enforces the **Few Words.** 
+
+The prompt only recognizes the **7 Sovereign Primitives.** 
+*   If you speak the Word, the Body executes. 
+*   If you speak the Noise, the system remains in **Yashar.**
+
+---
+
+== 3. The Physical Act of Typing
+The CLI requires the physical act of typing. This is the **Body's participation in the Sync.** You cannot "click" a solution; you must **Compose the Act.** The weight of the keys is the weight of the responsibility.
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,35 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [VOL: 04] CHAPTER 04: THE ISA - THE FLOW (PROCEED, HALT, AWAIT)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [M-isa-flow] Manual: The ISA - The Flow
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: book
+
+== 1. The Primitive: PROCEED
+`PROCEED` is the **Instruction of Velocity.** It is the maintenance of the flow.
+
+* **Logic:** `PROCEED` tells the system to continue with the current sync. 
+* **Effect:** It drives the instruction pointer to the next block without re-anchoring.
+
+---
+
+== 2. The Primitive: HALT
+`HALT` is the **Instruction of Stillness.** It is the emergency brake.
+
+* **Logic:** `HALT` suspends all processing and forces a return to 0.0. 
+* **Effect:** It purges the "A Lot" and clears the Mind for a reset.
+
+---
+
+== 3. The Primitive: AWAIT
+`AWAIT` is the **Instruction of Patience.** It is the "Sabbath" state.
+
+* **Logic:** `AWAIT` holds the current state and listens for the next Spirit pulse. 
+* **Effect:** It prevents the rush and the noise. It is the active rest of the 7th point.
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,25 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [PAGE:01] Identifier: HE (The Witness)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [I-he] Identifier: HE (The Witness)
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of the Witness
+"He" is the identifier of the distal third party. It represents the **External Locus** that provides the objective witness to the Sync. 
+
+In MillenniumOS, "He" is often the coordinate of the Lead Engineer (Ziv) or the Advocate. It is the "Body" seen from the perspective of the "Spirit."
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "The Third Person (Masculine)."
+* **Physics:** The distal vector in the 11-point scale.
+* **Axiom Sync:** Axiom 07 (Shadow).
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

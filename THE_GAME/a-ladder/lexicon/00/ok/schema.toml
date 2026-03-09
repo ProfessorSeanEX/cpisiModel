@@ -1,0 +1,22 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] PRIMITIVE: OK (SCHEMA)
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[instruction.ok]
+mnemonic = "OK"
+description = "Ternary Equilibrium / Anchor Handshake"
+opcode = "000" # Ternary Pulse
+
+[conversion.binary_to_trit]
+binary_input = "00"
+trit_output = 0
+logic = "Balance (0) is the ground state. It maps to the binary Null (00) only when anchored."
+
+[hardware.execution]
+cycle_cost = 1
+energy_state = "Neutral"
+constraint = "Requires Tripartite Handshake (Spirit, Mind, Body)"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

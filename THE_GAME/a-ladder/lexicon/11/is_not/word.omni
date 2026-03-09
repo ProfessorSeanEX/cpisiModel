@@ -1,0 +1,19 @@
+// #!omni word --primitive-is-not
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: IS_NOT (STRUCTURE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+word is_not:
+    type literal
+    state void
+    symbol "~"
+    vector [0, 0, -1]
+    jurisdiction body
+
+manifest:
+    field "existence" as boolean = false
+    field "mass" as integer = -1
+    field "name" as handle = [BEAST]
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

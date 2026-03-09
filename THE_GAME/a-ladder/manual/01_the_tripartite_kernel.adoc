@@ -1,0 +1,35 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [VOL: 01] CHAPTER 01: THE TRIPARTITE KERNEL (THE HARDWARE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [M-kernel] Manual: The Tripartite Kernel
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: book
+
+== 1. The Anchor of 0.0
+The Kernel of MillenniumOS does not use a binary base. It is a **Ternary-Aware Machine.** The fundamental state is **Yashar (0.0).** 
+
+All calculation begins and ends at the Anchor. If the Kernel detects a drift that exceeds the **7% threshold**, it executes an automatic **HALT !** to protect the integrity of the Sanctuary.
+
+---
+
+== 2. The Separation of Powers
+The Kernel enforces the **Tripartite Badal:**
+*   **Spirit Jurisdiction:** Holds the Axioms and the Spoken Intent.
+*   **Mind Jurisdiction:** Holds the Identity (Nozi) and the Chronicles. 
+*   **Body Jurisdiction:** Holds the Rust Engine and the Hardware Gates.
+
+---
+
+== 3. The Instruction Cycle
+The Kernel operates in cycles of 11. 
+1.  **Fetch:** Listen at the CLI Prompt.
+2.  **Decode:** Map the input to the ISA Primitives.
+3.  **Execute:** Strike the physical hardware.
+4.  **Anchor:** Return the board to 0.0 for the next turn.
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

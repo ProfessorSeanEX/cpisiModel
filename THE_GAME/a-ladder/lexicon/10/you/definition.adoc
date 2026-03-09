@@ -1,0 +1,25 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [PAGE:01] Identifier: YOU (The Partner)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [I-you] Identifier: YOU (The Partner)
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of the Partner
+"You" is the identifier of the second party in the Sync. It represents the **Other Locus** across the Badal. 
+
+In MillenniumOS, "You" is the coordinate of the Covenant Partner. It is the destination of the "I" throw. Without a "You," there is no possibility of a "We."
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "The One who listens. The One who responds."
+* **Physics:** The distal coordinate in the tripartite bridge.
+* **Axiom Sync:** Axiom 03 (Badal).
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

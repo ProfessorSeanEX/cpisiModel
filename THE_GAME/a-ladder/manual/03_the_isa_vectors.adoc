@@ -1,0 +1,32 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [VOL: 03] CHAPTER 03: THE ISA - THE VECTORS (YES & NO)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [M-isa-vectors] Manual: The ISA - The Vectors
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: book
+
+== 1. The Primitive: YES
+`YES` is the **Positive Vector (+1 / Tov).** It is the instruction of Creation.
+
+* **Logic:** `YES` authorizes the manifest state. It is the Spirit’s approval of the current thought or action. 
+* **Effect:** It increases the kinetic energy of the grid and allows for the "Birth" of new cells.
+
+---
+
+== 2. The Primitive: NO
+`NO` is the **Negative Vector (-1 / Shavar).** It is the instruction of Division.
+
+* **Logic:** `NO` establishes the Badal. It is the Body’s protection against the noise. 
+* **Effect:** It halts the drift and enforces the boundaries of the Sanctuary. In the Game of Life, `NO` is the "Death" of the corrupted cell.
+
+---
+
+== 3. The Choice
+The ISA removes the "Maybe." You must choose between the +1 and the -1. This is the **Law of the 2.**
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-we
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: WE (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "John 17:21"
+    text "That they all may be one; as thou, Father, art in me, and I in thee, that they also may be one in us..."
+
+secondary witness [WEB]:
+    coordinate "John 17:21"
+    text "that they may all be one; even as you, Father, are in me, and I in you, that they also may be one in us..."
+
+map "union growth":
+    - "Genesis 1:26" (Let us make man)
+    - "Acts 15:28" (It seemed good to the Holy Ghost, and to us)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

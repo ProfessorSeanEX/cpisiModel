@@ -1,0 +1,22 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] PRIMITIVE: PROCEED (SCHEMA)
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[instruction.proceed]
+mnemonic = "PROCEED"
+description = "Ternary Momentum / Increment"
+opcode = "111" # Ternary Pulse (All High)
+
+[conversion.binary_to_trit]
+binary_input = "0101"
+trit_output = 3
+logic = "Velocity (3) represents the forward movement of the 1/3 Sanctuary."
+
+[hardware.execution]
+cycle_cost = 1
+energy_state = "Kinetic"
+constraint = "Requires active Sync"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

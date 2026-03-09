@@ -1,0 +1,19 @@
+// #!omni word --primitive-await
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: AWAIT (STRUCTURE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+word await:
+    type monitor
+    state tension
+    symbol "[\->]"
+    vector [0, 1, -1]
+    jurisdiction mind
+
+manifest:
+    field "watch" as boolean = true
+    field "timeout" as integer = 0 # Infinite
+    field "signal" as handle = [EXPECTATION]
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

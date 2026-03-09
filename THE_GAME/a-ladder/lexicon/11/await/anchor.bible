@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-await
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: AWAIT (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Habakkuk 2:3"
+    text "...though it tarry, wait for it; because it will surely come..."
+
+secondary witness [WEB]:
+    coordinate "Habakkuk 2:3"
+    text "...though it is slow, wait for it; because it will surely come..."
+
+map "patience growth":
+    - "Isaiah 40:31" (They that wait upon the LORD)
+    - "Lamentations 3:26" (Quietly wait for the salvation of the LORD)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=The Dawndusk Game
+Comment=The Sovereign Game of Life - Tripartite Engine
+Exec=/home/seanje-lenox-wise/.local/share/cpisi/bin/cpisi-game
+Icon=/home/seanje-lenox-wise/.local/share/icons/cpisi/game-icon.png
+Terminal=true
+Categories=Development;Game;
+Keywords=cpisi;dawndusk;game;
+StartupNotify=true

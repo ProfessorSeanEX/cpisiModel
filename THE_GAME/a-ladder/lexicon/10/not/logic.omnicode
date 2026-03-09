@@ -1,0 +1,16 @@
+// #!omni rune --primitive-not
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: NOT (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "NOT":
+    act DIVIDE | [Input from Anchor]
+    invert [Current Vector]
+    trigger [RE-ALIGNMENT]
+
+covenant:
+    decree "NOT is the clarity of the Division."
+    decree "NOT is the 10 coordinate of the Double Check."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

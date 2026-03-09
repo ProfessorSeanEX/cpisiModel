@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-you
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: YOU (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Leviticus 19:18"
+    text "...thou shalt love thy neighbour as thyself: I am the LORD."
+
+secondary witness [WEB]:
+    coordinate "Leviticus 19:18"
+    text "...but you shall love your neighbor as yourself. I am Yahweh."
+
+map "partner growth":
+    - "John 13:34" (A new commandment I give unto you, That ye love one another)
+    - "Galatians 6:2" (Bear ye one another's burdens)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

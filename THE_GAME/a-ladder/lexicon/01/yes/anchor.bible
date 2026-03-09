@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-yes
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: YES (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Matthew 5:37"
+    text "But let your communication be, Yea, yea..."
+
+secondary witness [WEB]:
+    coordinate "Matthew 5:37"
+    text "But let your 'Yes' be 'Yes'..."
+
+map "creation growth":
+    - "Genesis 1:3" (Let there be light)
+    - "2 Corinthians 1:20" (In him are yea, and in him Amen)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

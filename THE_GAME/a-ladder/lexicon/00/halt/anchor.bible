@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-halt
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: HALT (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "1 Kings 18:21"
+    text "...How long halt ye between two opinions?"
+
+secondary witness [WEB]:
+    coordinate "1 Kings 18:21"
+    text "...How long will you waver between two opinions?"
+
+map "stillness growth":
+    - "Joshua 10:13" (And the sun stood still)
+    - "Psalm 4:4" (Stand in awe, and sin not)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

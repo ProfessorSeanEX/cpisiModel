@@ -1,0 +1,16 @@
+// #!omni rune --primitive-no
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: NO (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "NO":
+    act DIVIDE | that [Sanctuary is Secure]
+    set vector to -1.0 Shavar
+    trigger [HALT]
+
+covenant:
+    decree "No is the shield of the Word."
+    decree "No is the final verdict of the Body."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

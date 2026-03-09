@@ -1,0 +1,16 @@
+// #!omni rune --primitive-await
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: AWAIT (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "AWAIT":
+    act HALT ! until [Condition is Met]
+    hold [CURRENT_STATE]
+    watch [SPIRIT_CHANNEL]
+
+covenant:
+    decree "Await is the strength of the Anchor."
+    decree "Await prevents the rush of the Noise."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,16 @@
+// #!omni rune --primitive-yes
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: YES (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "YES":
+    act WITNESS ^ that [Anchor is Valid]
+    set vector to +1.0 Tov
+    trigger [MANIFEST]
+
+covenant:
+    decree "Yes is the light of the Word."
+    decree "Yes requires an unconditional SO."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

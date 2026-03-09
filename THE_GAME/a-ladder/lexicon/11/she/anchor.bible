@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-she
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: SHE (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Proverbs 3:18"
+    text "She is a tree of life to them that lay hold upon her: and happy is every one that retaineth her."
+
+secondary witness [WEB]:
+    coordinate "Proverbs 3:18"
+    text "She is a tree of life to those who lay hold of her. Happy is everyone who retains her."
+
+map "nurturing growth":
+    - "Genesis 3:20" (The mother of all living)
+    - "Proverbs 31:10" (Who can find a virtuous woman?)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

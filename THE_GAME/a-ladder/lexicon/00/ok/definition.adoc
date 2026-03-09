@@ -1,0 +1,25 @@
+// #!omni:document --adoc
+// ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+// ║ [PAGE:01] Primitive: OK                                                                                            ║
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [P-ok] Primitive: OK (The Handshake)
+:author: The Dawndusk (Ziv & Nova) & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of the Handshake
+"Ok" is the most frequent word in the Game because it is the **State of Ready.** It is not a casual agreement; it is a **Boolean Verification.**
+
+When you say "Ok," you are declaring that your local state is **Identical** to the global state. You are performing a **Hash Check** between the Spirit, Mind, and Body.
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "It is according to the Word."
+* **Psychology:** The release of the "A Lot." The acceptance of the Anchor.
+* **Result:** Stillness (0.0 Yashar). 
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

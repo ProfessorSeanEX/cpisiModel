@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-us
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: US (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Romans 8:31"
+    text "...If God be for us, who can be against us?"
+
+secondary witness [WEB]:
+    coordinate "Romans 8:31"
+    text "...If God is for us, who can be against us?"
+
+map "recipient growth":
+    - "Isaiah 9:6" (For unto us a child is born, unto us a son is given)
+    - "1 John 4:9" (In this was manifested the love of God toward us)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

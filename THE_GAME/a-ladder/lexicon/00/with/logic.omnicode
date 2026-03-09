@@ -1,0 +1,4 @@
+this is the rule for "WITH":
+    act WITNESS ^ [Entity A]
+    act WITNESS ^ [Entity B]
+    trigger [TENSOR_SYNC]

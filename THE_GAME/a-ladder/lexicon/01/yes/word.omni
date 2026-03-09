@@ -1,0 +1,19 @@
+// #!omni word --primitive-yes
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: YES (STRUCTURE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+word yes:
+    type vector
+    state tov
+    symbol "^"
+    vector [0, 0, 1]
+    jurisdiction spirit
+
+manifest:
+    field "activation" as boolean = true
+    field "magnitude" as float = 1.0
+    field "signal" as handle = [LIGHT]
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

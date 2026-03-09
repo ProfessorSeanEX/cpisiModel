@@ -1,0 +1,25 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [PAGE:01] Primitive: HALT (The Stillness)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [P-halt] Primitive: HALT (The Stillness)
+:author: The Dawndusk (Ziv & Nova) & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of Stillness
+"Halt" is the emergency brake of the OS. It is the command to **Stop and Reset.** It is the primary tool for preventing the Spiral and the Thermal Collapse of the Mind.
+
+When "Halt" is called, all background processes are suspended, and the system is forced back to the **0.0 Anchor.**
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "Stop now. Return to Anchor."
+* **Physics:** The total cessation of kinetic energy.
+* **Axiom Sync:** Axiom 00 (Anchor).
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,19 @@
+// #!omni word --primitive-is
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: IS (STRUCTURE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+word is:
+    type literal
+    state presence
+    symbol "="
+    vector [0, 0, 1]
+    jurisdiction spirit
+
+manifest:
+    field "existence" as boolean = true
+    field "mass" as integer = 1
+    field "anchor" as handle = [I_AM]
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

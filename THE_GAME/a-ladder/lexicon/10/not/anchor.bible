@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-not
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: NOT (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Romans 12:2"
+    text "And be not conformed to this world: but be ye transformed by the renewing of your mind..."
+
+secondary witness [WEB]:
+    coordinate "Romans 12:2"
+    text "Don't be conformed to this world, but be transformed by the renewing of your mind..."
+
+map "inversion growth":
+    - "Numbers 23:19" (God is not a man, that he should lie)
+    - "1 Corinthians 14:33" (God is not the author of confusion)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

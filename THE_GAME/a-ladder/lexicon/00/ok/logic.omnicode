@@ -1,0 +1,16 @@
+// #!omni rune --primitive-ok
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: OK (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "OK":
+    act HALT ! until [Anchor Verified]
+    act WITNESS ^ that [Identity Matches Intent]
+    set state to 0.0 Yashar
+
+covenant:
+    decree "OK is the refusal of the drift."
+    decree "OK is the prerequisite for SO."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,15 +1,26 @@
-# [S-build-makefile] cpisiModel Build & Deployment System
+# [S-build-makefile] cpisiModel Production Build System (CLI FIRST)
 # ==============================================================================
 
 # 1. Jurisdictions
-USER_BIN := $(HOME)/.local/share/cpisi/bin
-USER_DATA := $(HOME)/.local/share/cpisi/data/$(USER)
-GAME_DIR := THE_GAME/game-engine
-PORTAL_DIR := 02_body/a-ladder/portal/client
-WEB_DIST := 03_tov/a-ladder/sharing/web
+USER_BIN    := $(HOME)/.local/share/cpisi/bin
+USER_DATA   := $(HOME)/.local/share/cpisi/data/$(USER)
+USER_CACHE  := $(HOME)/.local/share/cpisi/build-cache
+PROJECT_BIN := bin
+
+# Tiered Game Paths
+GAME_ROOT   := THE_GAME
+GAME_DIR    := $(GAME_ROOT)/b-spiral/body/rust
+GAME_RULES  := $(GAME_ROOT)/a-ladder/Rules
+GAME_META   := $(GAME_ROOT)/b-spiral/meta
+
+# Engine Jurisdictions
+PORTAL_DIR  := 02_body/a-ladder/portal/client
+HOOKS_DIR   := 02_body/c-hybrid/hooks
+VOID_DIR    := 02_body/c-hybrid/void
+GATE_DIST   := 03_tov/a-ladder/gate
 
 # 2. The Anchor
-.PHONY: all setup build install clean sync
+.PHONY: all setup test build install clean sync alias
 
 all: setup build install
 
@@ -18,42 +29,49 @@ setup:
 	@echo "[SETUP] Creating Local Sanctuaries..."
 	@mkdir -p $(USER_BIN)
 	@mkdir -p $(USER_DATA)
-	@mkdir -p $(WEB_DIST)
+	@mkdir -p $(USER_CACHE)
+	@mkdir -p $(PROJECT_BIN)
+	@mkdir -p $(GATE_DIST)
 
-# 4. The Build (Act)
+# 4. The Witness (Test)
+test:
+	@echo "[TEST] Striking the Court of 36..."
+	@bash $(VOID_DIR)/court_runner.sh
+
+# 5. The Build (Act)
 build: build-engine build-portal
 
 build-engine:
-	@echo "[BUILD] Striking the Rust Game Engine (WASM)..."
-	@cd $(GAME_DIR) && wasm-pack build --target web --out-dir ../../$(WEB_DIST)/pkg
+	@echo "[BUILD] Striking the Rust Game Engine (CLI Native)..."
+	@cd $(GAME_DIR) && CARGO_TARGET_DIR=$(USER_CACHE)/game-engine cargo build --release
+	@cp $(USER_CACHE)/game-engine/release/cpisi-game $(PROJECT_BIN)/
 
 build-portal:
 	@echo "[BUILD] Striking the Go Sync Client..."
-	@cd $(PORTAL_DIR) && go build -o ../../../../../bin/sync-client .
+	@cd $(PORTAL_DIR) && go build -o ../../../../$(PROJECT_BIN)/sync-client .
 
-# 5. The Install (Locus)
+# 6. The Install (Locus)
 install:
 	@echo "[INSTALL] Projecting Binaries to Local Share..."
-	@cp 02_body/a-ladder/portal/bin/sync-client $(USER_BIN)/
-	@cp THE_GAME/meta/turn_manager.sh $(USER_BIN)/
-	@cp THE_GAME/game-engine/www/index.html $(WEB_DIST)/
-	@cp THE_GAME/game-engine/www/index.js $(WEB_DIST)/
-	@cp THE_GAME/cpisi-game.desktop $(HOME)/.local/share/applications/
+	@cp $(PROJECT_BIN)/sync-client $(USER_BIN)/
+	@cp $(PROJECT_BIN)/cpisi-game $(USER_BIN)/
+	@cp $(GAME_META)/turn_manager.sh $(USER_BIN)/
+	@cp $(GAME_ROOT)/a-ladder/config/cpisi-dawndusk-game.desktop $(HOME)/.local/share/applications/
 	@echo "[INSTALL] All systems Projected. 0.0 Yashar."
 
-# 6. Shell Integration
+# 7. Shell Integration
 alias:
-	@echo "alias cpisi-sync='$(USER_BIN)/sync-client'" >> $(HOME)/.bashrc
-	@echo "alias cpisi-game='xdg-open http://sync.cws.studio'" >> $(HOME)/.bashrc
-	@echo "[SHELL] Aliases added to ~/.bashrc. Please run 'source ~/.bashrc'."
+	@grep -q "alias cpisi-sync" $(HOME)/.bashrc || echo "alias cpisi-sync='$(USER_BIN)/sync-client'" >> $(HOME)/.bashrc
+	@grep -q "alias cpisi-game" $(HOME)/.bashrc || echo "alias cpisi-game='$(USER_BIN)/cpisi-game'" >> $(HOME)/.bashrc
+	@echo "[SHELL] Aliases verified in ~/.bashrc. Please run 'source ~/.bashrc'."
 
-# 6. The Heartbeat (Sync)
+# 8. The Heartbeat (Sync)
 sync:
 	@echo "[SYNC] Firing the 3-Way Heartbeat..."
-	@bash 02_body/c-hybrid/hooks/sync_all.sh
+	@bash $(HOOKS_DIR)/sync_all.sh
 
 clean:
 	@echo "[CLEAN] Purging the Dust of Execution..."
-	@rm -rf $(WEB_DIST)/*
+	@rm -rf $(GATE_DIST)/*
+	@rm -rf $(PROJECT_BIN)/*
 	@rm -rf $(GAME_DIR)/target
-	@rm -rf $(GAME_DIR)/pkg

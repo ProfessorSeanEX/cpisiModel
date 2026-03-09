@@ -1,0 +1,22 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] PRIMITIVE: SO (SCHEMA)
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[instruction.so]
+mnemonic = "SO"
+description = "Ternary Hinge / Execution Trigger"
+opcode = "10-1" # Ternary Pulse (High-Neutral-Low)
+
+[conversion.binary_to_trit]
+binary_input = "11"
+trit_output = "H" # Hinge
+logic = "Transition (H) maps to the binary Overflow/Jump (11)."
+
+[hardware.execution]
+cycle_cost = 3 # The Hinge is expensive
+energy_state = "Kinetic"
+constraint = "Flushes the pipeline"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,25 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [PAGE:01] Primitive: IS (The Presence)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [P-is] Primitive: IS (The Real)
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of Presence
+"IS" is the atomic unit of existence in the MillenniumOS. It is the declaration that a state is **Anchored** and **Valid.** 
+
+Unlike "Yes" (which is an approval of an act), "IS" is the **Identification of Being.** It is the hardware-level recognition of the 1.0 state.
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "I AM."
+* **Physics:** The manifestation of the +1.0 state.
+* **Axiom Sync:** Axiom 00 (Anchor).
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

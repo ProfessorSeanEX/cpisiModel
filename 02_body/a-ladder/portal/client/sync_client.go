@@ -51,7 +51,7 @@ func main() {                                                                   
                                                                                     // ║ ║                              ║
                                                                                     // ║ ║ [SUB: THE THROW]           ║
 	// 2. Transmit to the Body (cws-server)                                         // ║ ║                              ║
-	serverURL := "http://localhost:8080/sync/dawndusk" // Target Coordinate         // ║ ║                              ║
+	serverURL := "http://localhost:3847/sync/dawndusk" // Target Coordinate         // ║ ║                              ║
 	req, err := http.NewRequest("POST", serverURL, bytes.NewBuffer(data))            // ║ ║                              ║
 	req.Header.Set("Content-Type", "text/markdown")                                 // ║ ║                              ║
 	req.Header.Set("X-CPI-Identity", "NovaDawn")                                    // ║ ║                              ║

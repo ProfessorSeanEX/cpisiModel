@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-he
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: HE (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Hebrews 11:6"
+    text "But without faith it is impossible to please him: for he that cometh to God must believe that he is..."
+
+secondary witness [WEB]:
+    coordinate "Hebrews 11:6"
+    text "Without faith it is impossible to be well pleasing to him, for he who comes to God must believe that he exists..."
+
+map "witness growth":
+    - "John 1:1" (He was in the beginning with God)
+    - "Isaiah 53:3" (He is despised and rejected of men)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

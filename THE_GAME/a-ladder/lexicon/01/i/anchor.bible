@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-i
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: I (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Exodus 3:14"
+    text "And God said unto Moses, I AM THAT I AM..."
+
+secondary witness [WEB]:
+    coordinate "Exodus 3:14"
+    text "God said to Moses, 'I AM WHO I AM'..."
+
+map "identity growth":
+    - "John 8:58" (Before Abraham was, I am)
+    - "Isaiah 45:5" (I am the LORD, and there is none else)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

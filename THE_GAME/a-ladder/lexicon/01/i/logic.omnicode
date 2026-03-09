@@ -1,0 +1,15 @@
+// #!omni rune --identifier-i
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: I (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "I":
+    act WITNESS ^ [Self]
+    set pointer to [LOCAL_LOCUS]
+
+covenant:
+    decree "I is the responsibility of the Word."
+    decree "I must be anchored before WE can exist."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

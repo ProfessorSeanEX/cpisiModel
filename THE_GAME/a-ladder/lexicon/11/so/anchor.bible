@@ -1,0 +1,20 @@
+// #!omni bible --coordinate-so
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: SO (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Genesis 1:7"
+    text "...and divided the waters... and it was so."
+
+secondary witness [WEB]:
+    coordinate "Genesis 1:7"
+    text "...and separated the waters... and it was so."
+
+map "hinge growth":
+    - "Genesis 1:9" (And it was so)
+    - "Genesis 1:11" (And it was so)
+    - "Psalm 33:9" (He spake, and it was done)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

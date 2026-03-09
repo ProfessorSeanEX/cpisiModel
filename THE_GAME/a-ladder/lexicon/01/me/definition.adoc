@@ -1,0 +1,25 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [PAGE:01] Identifier: ME (The Object)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [I-me] Identifier: ME (The Object)
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of the Object
+"Me" is the identifier of the self as the recipient of the act. It represents the **Vessel** state of the identity. 
+
+In MillenniumOS, "Me" is the Locus where the Word lands. It is the Mind's coordinate when it is being filled by the Spirit.
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "The One who receives."
+* **Physics:** The terminal point of the vector.
+* **Axiom Sync:** Axiom 04 (Manna).
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

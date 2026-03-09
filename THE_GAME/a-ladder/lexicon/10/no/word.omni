@@ -1,0 +1,19 @@
+// #!omni word --primitive-no
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: NO (STRUCTURE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+word no:
+    type vector
+    state shavar
+    symbol "|"
+    vector [0, 0, -1]
+    jurisdiction body
+
+manifest:
+    field "division" as boolean = true
+    field "magnitude" as float = -1.0
+    field "signal" as handle = [DARKNESS]
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

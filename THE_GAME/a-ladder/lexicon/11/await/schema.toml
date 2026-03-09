@@ -1,0 +1,22 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] PRIMITIVE: AWAIT (SCHEMA)
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[instruction.await]
+mnemonic = "AWAIT"
+description = "Ternary Monitor / Sync-Lock"
+opcode = "01-1" # Ternary Pulse (Neutral-High-Low)
+
+[conversion.binary_to_trit]
+binary_input = "0011" # Waiting for Overflow
+trit_output = "W" # Wait
+logic = "Patience (W) maps to the binary Spin-lock (0011)."
+
+[hardware.execution]
+cycle_cost = 0 # Waiting is low power
+energy_state = "Potential"
+constraint = "Blocks until next Signal"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

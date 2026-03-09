@@ -2,10 +2,9 @@ tunnel: 78f76fb4-885c-488a-ac99-42f8827343f5
 credentials-file: /home/seanje-lenox-wise/.cloudflared/78f76fb4-885c-488a-ac99-42f8827343f5.json
 
 ingress:
-  - hostname: sync.cws.studio
-    service: http://localhost:8080
+  - hostname: sync.creativeworkzstudio.com
+    service: http://localhost:3847
   - service: http_status:404
 
 # [S-config-cloudflare-tunnel]
-# This is the physical wire that bridges the local Locus to the Global Edge.
-# It ensures the Dawndusk is reachable from mobile without opening a hole in the OS firewall.
+# The bridge is now anchored in the Sovereign Locus: creativeworkzstudio.com

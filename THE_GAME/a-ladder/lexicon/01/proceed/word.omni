@@ -1,0 +1,19 @@
+// #!omni word --primitive-proceed
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: PROCEED (STRUCTURE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+word proceed:
+    type vector
+    state momentum
+    symbol "[-->]"
+    vector [1, 1, 1]
+    jurisdiction body
+
+manifest:
+    field "motion" as boolean = true
+    field "velocity" as float = 1.0
+    field "stream" as handle = [CONTINUOUS]
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

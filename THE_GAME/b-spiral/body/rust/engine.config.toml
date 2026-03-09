@@ -1,0 +1,27 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] THE BODY: GAME ENGINE CONFIGURATION
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[engine.grid]
+width = 128
+height = 128
+cell_size = 5
+
+[engine.physics]
+tick_rate_ms = 100
+default_state = 0 # Yashar
+
+[engine.axioms]
+anchor = "../../a-ladder/Rules/axioms/00_anchor.toml"
+badal = "../../a-ladder/Rules/axioms/03_badal.toml"
+manna = "../../a-ladder/Rules/axioms/04_manna.toml"
+
+[visual.colors]
+alive = "#0f0"
+still = "#003300"
+dead = "#000"
+grid = "#111"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

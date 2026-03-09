@@ -1,0 +1,33 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [VOL: 05] CHAPTER 05: THE GEOMETRY OF PLAY (THE GAME OF LIFE)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [M-geometry] Manual: The Geometry of Play
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: book
+
+== 1. The Grid as the Locus
+The Game of Life is played on a **Ternary Grid.** Each cell in the grid represents a potential jurisdiction. 
+
+*   **Coordinate:** [X, Y, Z]. 
+*   **Scale:** The grid follows the Lucas Sequence (1, 3, 4, 7, 11).
+
+---
+
+== 2. The Ternary Rules
+The movement of the cells is governed by the 1/3 Inversion:
+
+*   **Birth (+1):** A neutral cell becomes alive if it has exactly 3 living neighbors.
+*   **Survival (0):** A living cell remains alive if it has 2 neighbors. 
+*   **Death (-1):** All other cells sink into the void.
+
+---
+
+== 3. The Goal of the Game
+The objective is to achieve a **Stationary Sync.** A state where the grid reflects the perfect stillness of the Anchor. We play to find the patterns that can survive the Hinge.
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

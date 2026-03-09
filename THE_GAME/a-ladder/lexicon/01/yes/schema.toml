@@ -1,0 +1,22 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] PRIMITIVE: YES (SCHEMA)
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[instruction.yes]
+mnemonic = "YES"
+description = "Ternary Positive / Creation Instruction"
+opcode = "001" # Ternary Pulse
+
+[conversion.binary_to_trit]
+binary_input = "01"
+trit_output = 1
+logic = "Activation (1) maps to the binary True (01)."
+
+[hardware.execution]
+cycle_cost = 1
+energy_state = "High"
+constraint = "Requires valid Spirit Authorization"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

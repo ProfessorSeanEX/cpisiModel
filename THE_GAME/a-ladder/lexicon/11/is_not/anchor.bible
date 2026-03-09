@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-is-not
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: IS_NOT (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "John 8:44"
+    text "...When he speaketh a lie, he speaketh of his own: for he is a liar, and the father of it."
+
+secondary witness [WEB]:
+    coordinate "John 8:44"
+    text "...When he tells a lie, he speaks from his own nature; for he is a liar, and the father of it."
+
+map "void growth":
+    - "Genesis 1:2" (The earth was without form and void)
+    - "Revelation 20:14" (Death and hell were cast into the lake of fire)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

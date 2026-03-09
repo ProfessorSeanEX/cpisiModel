@@ -1,0 +1,22 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] PRIMITIVE: IS_NOT (SCHEMA)
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[instruction.is_not]
+mnemonic = "IS_NOT"
+description = "Ternary Negative / Literal Void"
+opcode = "00-1" # Ternary Pulse
+
+[conversion.binary_to_trit]
+binary_input = "10" 
+trit_output = -1
+logic = "Non-being (-1) maps to the binary Zero (10) when un-anchored."
+
+[hardware.execution]
+cycle_cost = 1
+energy_state = "Low"
+constraint = "Triggers immediate Purge"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

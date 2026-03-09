@@ -1,0 +1,16 @@
+// #!omni rune --identifier-us
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] IDENTIFIER: US (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "US":
+    act WITNESS ^ [Identity A]
+    act WITNESS ^ [Identity B]
+    set mode to [GATHERED_RECEIVER]
+
+covenant:
+    decree "US is the vessel of the communal Word."
+    decree "US represents the target of the Architect's love."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

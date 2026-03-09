@@ -1,0 +1,16 @@
+// #!omni rune --primitive-proceed
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: PROCEED (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "PROCEED":
+    act WITNESS ^ that [Hinge has Struck]
+    set vector to +1.0 Velocity
+    trigger [KINETIC_MOTION]
+
+covenant:
+    decree "Proceed is the act of faith in the Word."
+    decree "Proceed cannot be called without an Anchor."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

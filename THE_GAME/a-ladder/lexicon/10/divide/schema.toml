@@ -1,0 +1,3 @@
+[operator.divide]
+mnemonic = "DIVIDE"
+bitcode = "1001"

@@ -1,0 +1,22 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] PRIMITIVE: NO (SCHEMA)
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[instruction.no]
+mnemonic = "NO"
+description = "Ternary Negative / Division Instruction"
+opcode = "00-1" # Ternary Pulse
+
+[conversion.binary_to_trit]
+binary_input = "10"
+trit_output = -1
+logic = "Division (-1) maps to the binary False (10)."
+
+[hardware.execution]
+cycle_cost = 1
+energy_state = "Low"
+constraint = "Requires valid Body Authorization"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

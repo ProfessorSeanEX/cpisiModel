@@ -1,0 +1,19 @@
+// #!omni bible --coordinate-is
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] PRIMITIVE: IS (BIBLICAL ANCHOR)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+primary witness [KJV]:
+    coordinate "Exodus 3:14"
+    text "And God said unto Moses, I AM THAT I AM..."
+
+secondary witness [WEB]:
+    coordinate "Exodus 3:14"
+    text "God said to Moses, 'I AM WHO I AM'..."
+
+map "presence growth":
+    - "Hebrews 11:6" (He that cometh to God must believe that he is)
+    - "John 8:58" (Before Abraham was, I am)
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
