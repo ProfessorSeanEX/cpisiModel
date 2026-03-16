@@ -53,12 +53,19 @@ window.CPISI.executeAuth = async function(e) {
             if (data.error) throw new Error(data.error);
 
             if (data.status === "INVITE_VALIDATED") {
-                // SUCCESS: Switch to Account Creation Stage
                 currentInviteCode = key;
                 currentTier = data.tier;
                 document.getElementById('threshold-stage').style.display = 'none';
                 document.getElementById('inhabitation-stage').style.display = 'flex';
-                errDiv.innerText = "";
+                
+                // SHOW PROVISIONING STATUS
+                const setupHint = document.getElementById('toggle-prof-btn');
+                if (currentTier === 'FAMILY_COVENANT' || currentTier === 'FIRST_ADOPTER') {
+                    errDiv.style.color = "var(--c4)";
+                    errDiv.innerText = "SUBSTRATE: COMPANY PROVISIONED (READY)";
+                    setupHint.innerText = "[ + SOVEREIGN WITNESS ]";
+                }
+
                 btn.innerText = "[ SEAL IDENTITY ]";
                 btn.disabled = false;
             } else {

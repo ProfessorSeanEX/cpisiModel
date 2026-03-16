@@ -15,13 +15,13 @@ Every interaction within the Sanctuary is anchored in *0.0 YASHAR*—the coordin
 The CPISI ecosystem is divided into five classes of stewardship:
 
 |===
-| Tier | Stewardship | Model | Responsibility
+| Tier | Stewardship | Model | Substrate Provisioning
 
-| *Family* | Covenant Circle | Included | Company provides all substrate costs.
-| *Adopter* | The Foundation | Hybrid | Grandfathered access with early feature testing.
-| *Average* | The Congregation | Scaffolded | Operator provides LLM keys (BYOK).
-| *Power* | The Builder | Premium | Substrate Terminal access + Custom Logic.
-| *Enterprise* | Arch-Steward | Isolated | Dedicated infrastructure + SSH security.
+| *Family* | Covenant Circle | Included | *Zero-Config:* Automatically provisioned by the company.
+| *Adopter* | The Foundation | Hybrid | *Zero-Config:* Automatically provisioned (Limited).
+| *Average* | The Congregation | Scaffolded | *BYOK:* Operator provides Gemini API Key.
+| *Power* | The Builder | Premium | *BYOK:* Operator provides Gemini + GitHub Keys.
+| *Enterprise* | Arch-Steward | Isolated | *Dedicated:* Fully private infrastructure.
 |===
 
 == 3. Technical Setup (The Scaffold)
