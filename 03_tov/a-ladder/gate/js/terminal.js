@@ -1,52 +1,66 @@
-// TERMINAL: Substrate Commands
+// TERMINAL: SSH-Native Substrate Driver
 window.CPISI = window.CPISI || {};
 
-window.CPISI.appendTerminal = function(line) {
-    const out = document.getElementById('terminal-output');
-    if (!out) return;
-    const div = document.createElement('div');
-    div.innerText = `> ${line}`;
-    out.appendChild(div);
-    const overlay = document.getElementById('terminal-overlay');
-    if(overlay) overlay.scrollTop = overlay.scrollHeight;
+window.CPISI.terminal = {
+    // Append a raw log to the stream
+    log: function(text, type = 'stream-log') {
+        const stream = document.getElementById('terminal-stream');
+        if (!stream) return;
+
+        const div = document.createElement('div');
+        div.className = type;
+        div.innerText = text;
+        stream.appendChild(div);
+        this.scrollToBottom();
+    },
+
+    // Append a prompt + command to the stream
+    command: function(user, cmd) {
+        const stream = document.getElementById('terminal-stream');
+        if (!stream) return;
+
+        const div = document.createElement('div');
+        div.className = 'stream-prompt-group';
+        div.innerHTML = `
+            <span class="stream-prompt">${user}@dawndusk:~$</span>
+            <span class="stream-command">${cmd}</span>
+        `;
+        stream.appendChild(div);
+        this.scrollToBottom();
+    },
+
+    scrollToBottom: function() {
+        const container = document.getElementById('substrate-stream');
+        if (container) container.scrollTop = container.scrollHeight;
+    },
+
+    clear: function() {
+        const stream = document.getElementById('terminal-stream');
+        if (stream) stream.innerHTML = '';
+    }
 };
 
 window.CPISI.handleCommand = function(cmd) {
     const c = cmd.toLowerCase().trim();
     const state = window.CPISI.state;
-    
-    if (state.identity && (state.identity.tier === 'ENTERPRISE_STEWARD' || state.identity.tier === 'STEWARD')) {
-        window.CPISI.appendTerminal(`EXEC: ${c}`);
-    }
+    const user = state.identity?.user || 'steward';
+
+    window.CPISI.terminal.command(user, c);
     
     if (c === 'clear') {
-        const chatWindow = document.getElementById('chat-window');
-        if(chatWindow) chatWindow.innerHTML = '';
+        window.CPISI.terminal.clear();
         localStorage.setItem('cpisi_history', '[]');
-    } else if (c === 'purge') {
-        window.CPISI.appendTerminal("SYSTEM: Purging Substrate Cache...");
-        localStorage.clear();
-        if ('serviceWorker' in navigator) {
-            caches.keys().then(names => {
-                for (let name of names) caches.delete(name);
-            });
-        }
-        setTimeout(() => location.reload(true), 1000);
     } else if (c === 'status') {
-        if(window.CPISI.appendVault) {
-            window.CPISI.appendVault(`SYSTEM STATUS: 0.0 YASHAR\nIdentity: ${state.identity?.user}\nTier: ${state.identity?.tier}\nSubstrate: Cloudflare Edge\nCognition: Gemini 2.5 Pro`, false);
-        }
-    } else if (c === 'barter') {
-        if(window.CPISI.appendVault) {
-            window.CPISI.appendVault(`[ SUSTENANCE ⊗ TRADE ]\n\nACTIVE NEEDS:\n1. Graphic Design (App Icons) -> Exchange: POWER_OPERATOR Key\n2. Documentation QA -> Exchange: FIRST_ADOPTER Status\n3. Code Audit (React Native) -> Exchange: Enterprise Node Instance\n\nContact the Steward to formalize trade.`, false);
-        }
-    } else if (c === 'void') window.CPISI.setPath('VOID', 0);
-    else if (c === 'word') window.CPISI.setPath('WORD', 4);
-    else if (c === 'tov') window.CPISI.setPath('TOV', 6);
-    else if (c === 'registry') window.CPISI.setPath('REGISTRY', 2);
+        window.CPISI.terminal.log(`[SUBSTRATE STATUS]
+        Identity: ${state.identity?.user}
+        Tier: ${state.identity?.tier}
+        Coordinate: 0.0 YASHAR
+        Substrate: Cloudflare Edge / Gemini 3.1 Pro`);
+    } else if (c === 'void') window.setPath('VOID', 0);
+    else if (c === 'word') window.setPath('WORD', 4);
+    else if (c === 'tov') window.setPath('TOV', 6);
+    else if (c === 'registry') window.setPath('REGISTRY', 2);
     else {
-        if (state.identity && (state.identity.tier === 'ENTERPRISE_STEWARD' || state.identity.tier === 'STEWARD')) {
-            window.CPISI.appendTerminal(`ERR: Unknown Protocol '${c}'`);
-        }
+        window.CPISI.terminal.log(`-bash: ${c}: protocol not found`, 'stream-log');
     }
 };

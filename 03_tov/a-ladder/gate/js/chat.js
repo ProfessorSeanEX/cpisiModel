@@ -1,29 +1,26 @@
-// CHAT: The Holy Place and Persistent Word
+// CHAT: The Visual Parser for the Substrate Stream
 window.CPISI = window.CPISI || {};
 
 window.CPISI.appendVault = function(text, isSteward, skipSave = false) {
+    const stream = document.getElementById('terminal-stream');
+    if (!stream) return;
+
     const vault = document.createElement('div');
     vault.className = `vault-body ${isSteward ? 'steward' : 'dawndusk'}`;
     
-    // THE SEAL TRIGGER
     const seal = document.createElement('div');
     seal.className = 'vault-seal';
     seal.innerText = '✧';
-    seal.title = 'Seal to Mirror';
     seal.onclick = () => window.CPISI.sealWord(text, vault);
     vault.appendChild(seal);
 
-    // THE CONTENT CONTAINER (Explicit targeting)
     const content = document.createElement('div');
     content.className = 'vault-content';
     content.innerText = text;
     vault.appendChild(content);
     
-    const chatWindow = document.getElementById('chat-window');
-    if (chatWindow) {
-        chatWindow.appendChild(vault);
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
+    stream.appendChild(vault);
+    window.CPISI.terminal.scrollToBottom();
 
     if (!skipSave) {
         const history = JSON.parse(localStorage.getItem('cpisi_history') || '[]');
@@ -33,31 +30,9 @@ window.CPISI.appendVault = function(text, isSteward, skipSave = false) {
     return vault;
 };
 
-window.CPISI.sealWord = async function(text, element) {
-    element.classList.add('projecting');
-    const mirror = document.getElementById('mirror-content');
-    
-    mirror.innerText = text;
-    mirror.classList.add('active');
-    setTimeout(() => element.classList.remove('projecting'), 600);
-
-    try {
-        await fetch(window.CPISI.config.WORKER_URL, {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                action: "PUBLISH_TOV",
-                identity: window.CPISI.state.identity,
-                inviteCode: window.CPISI.state.authSecret,
-                vaultBlock: text
-            })
-        });
-        if (window.CPISI.social) window.CPISI.social.loadMirrorFeed();
-    } catch (e) { console.error("CPISI: Mirror Dissonance", e); }
-};
-
 window.CPISI.restoreHistory = async function() {
-    const chatWindow = document.getElementById('chat-window');
-    chatWindow.innerHTML = '';
+    const stream = document.getElementById('terminal-stream');
+    if (stream) stream.innerHTML = '';
     
     try {
         const resp = await fetch(window.CPISI.config.WORKER_URL, {
@@ -86,13 +61,17 @@ window.CPISI.handleMessageSubmit = async function(e) {
     const val = inputEl.value.trim();
     if (!val) return;
     
-    if (val.startsWith('/') && window.CPISI.handleCommand) {
+    const user = window.CPISI.state.identity?.user || 'steward';
+
+    // If it's a command, handle it via terminal logic
+    if (val.startsWith('/')) {
         window.CPISI.handleCommand(val.substring(1));
         inputEl.value = '';
         return;
     }
 
-    window.CPISI.appendVault(val, true);
+    // Otherwise, treat it as a natural language command (Revelation)
+    window.CPISI.terminal.command(user, val);
     inputEl.value = '';
     
     const respVault = window.CPISI.appendVault("...", false);
@@ -114,11 +93,6 @@ window.CPISI.handleMessageSubmit = async function(e) {
             body: JSON.stringify(payload) 
         });
         
-        if (!response.ok) {
-            const err = await response.json();
-            throw new Error(err.error || `Server Error ${response.status}`);
-        }
-
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let buffer = "";
@@ -129,14 +103,13 @@ window.CPISI.handleMessageSubmit = async function(e) {
             
             buffer += decoder.decode(value, { stream: true });
             let lines = buffer.split('\n');
-            buffer = lines.pop(); // Keep partial line in buffer
+            buffer = lines.pop();
             
             for (const line of lines) {
                 if (line.startsWith('data: ')) {
                     try {
                         const json = JSON.parse(line.substring(6));
                         const part = json.candidates?.[0]?.content?.parts?.[0]?.text || "";
-                        
                         if (part) {
                             if (fullReply === "") {
                                 respContent.innerText = "";
@@ -144,8 +117,7 @@ window.CPISI.handleMessageSubmit = async function(e) {
                             }
                             fullReply += part;
                             respContent.innerText = fullReply;
-                            const chatWindow = document.getElementById('chat-window');
-                            if(chatWindow) chatWindow.scrollTop = chatWindow.scrollHeight;
+                            window.CPISI.terminal.scrollToBottom();
                         }
                     } catch (e) {}
                 }
@@ -165,8 +137,13 @@ window.addEventListener('DOMContentLoaded', () => {
         window.CPISI.showMainStage(true);
         window.CPISI.restoreHistory();
         window.CPISI.updatePresence();
-        if(window.CPISI.setPath) {
-            window.CPISI.setPath(localStorage.getItem('cpisi_path') || 'WORD', localStorage.getItem('cpisi_path_idx') || 4);
-        }
+        
+        // Apply tiered visibility to the root
+        const tier = window.CPISI.state.identity?.tier || 'SUPPORT';
+        document.body.className = `tier-${tier.toLowerCase().replace('_', '-')}`;
+        
+        // Update prompt
+        const prompt = document.getElementById('terminal-prompt');
+        if (prompt) prompt.innerText = `${window.CPISI.state.identity.user}@dawndusk:~$`;
     }
 });

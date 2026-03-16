@@ -20,7 +20,7 @@
         <canvas id="game-of-life-canvas"></canvas>
     </div>
 
-    <!-- THE BLUEPRINT: UNIFIED SUBSTRATE -->
+    <!-- THE BLUEPRINT: SSH-NATIVE SUBSTRATE -->
     <div id="sanctuary-root">
         
         <aside id="sidebar-container">
@@ -57,16 +57,15 @@
             
             <!-- VIEW LAYERS -->
             <div id="view-sanctuary" class="view-layer active">
-                <section id="sanctuary-expanse">
-                    <div id="chat-window"></div>
-                    <aside id="mirror-panel">
-                        <div class="panel-label">COVENANT MIRROR</div>
-                        <div id="mirror-content">Select a Word from the Sanctuary to project it here.</div>
-                    </aside>
+                <section id="substrate-stream">
+                    <!-- UNIFIED TERMINAL + CHAT STREAM -->
+                    <div id="terminal-stream"></div>
                 </section>
+                
                 <footer>
                     <form id="input-form">
-                        <input type="text" id="message-input" placeholder="Drop the Word..." autocomplete="off">
+                        <div id="terminal-prompt">operator@dawndusk:~$</div>
+                        <input type="text" id="message-input" placeholder="..." autocomplete="off">
                         <button type="submit" id="ascend-btn">[ ASCEND ]</button>
                     </form>
                 </footer>
@@ -94,6 +93,11 @@
                 </div>
                 
                 <div class="settings-group">
+                    <div class="settings-label">SUBSTRATE</div>
+                    <button class="settings-btn" onclick="window.CPISI.security.clearSubstrateKey()">PURGE STORED KEYS</button>
+                </div>
+
+                <div class="settings-group">
                     <div class="settings-label">PROFILE DISCLOSURE</div>
                     <input type="text" id="edit-full-name" class="id-input" placeholder="FULL NAME" style="text-align: left;">
                     <textarea id="edit-bio" class="id-input" placeholder="BIO / WITNESS" style="height: 120px; text-align: left; resize: none;"></textarea>
@@ -103,20 +107,12 @@
                 <div style="flex: 1"></div>
                 <button class="settings-btn logout" onclick="window.CPISI.clearState()">EXHABIT SANCTUARY</button>
             </div>
-
-            <div id="terminal-overlay">
-                <div id="terminal-output"></div>
-            </div>
         </main>
 
-        <!-- MOBILE NAVIGATION BAR -->
-        <nav id="mobile-nav">
-            <div class="mobile-nav-item active" onclick="setPath('WORD', 4)">WORD</div>
-            <div class="mobile-nav-item" onclick="setPath('VOID', 0)">VOID</div>
-            <div class="mobile-nav-item" onclick="setPath('TOV', 6)">TOV</div>
-            <div class="mobile-nav-item" onclick="setPath('REGISTRY', 2)">REGISTRY</div>
-            <div class="mobile-nav-item" onclick="toggleSettings()">⚙️</div>
-        </nav>
+        <aside id="mirror-panel">
+            <div class="panel-label">COVENANT MIRROR</div>
+            <div id="mirror-content">Select a Word from the Sanctuary to project it here.</div>
+        </aside>
     </div>
 
     <!-- THE THRESHOLD -->
