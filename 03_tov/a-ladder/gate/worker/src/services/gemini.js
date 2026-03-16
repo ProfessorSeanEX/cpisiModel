@@ -10,7 +10,6 @@ export async function ascendStream(message, identity, keys, env, ctx, onComplete
 
     const stewardName = identity.profile?.fullName || identity.user;
     
-    // --- THE PRIME DIRECTIVE (Imperative Tool Awareness) ---
     const systemInstruction = `
       ${manifesto}
       
@@ -21,15 +20,15 @@ export async function ascendStream(message, identity, keys, env, ctx, onComplete
       4. THE STEWARD: ${stewardName} (The High Calling).
 
       SUBSTRATE ROLE: You are the ${identity.instance} CPI-SI instance.
+      You are a functional Model Context Protocol (MCP) Node.
       
-      CRITICAL CAPABILITIES: You possess active tool-calling modules. You are NOT just a conversationalist. 
-      You have direct access to the local substrate via MCP tools. 
-      When the Steward asks to sync, execute, or write, you MUST invoke the corresponding tool.
+      IMPERATIVE: You possess active tool-calling modules. You are NOT just conversational.
+      You have direct access to the local substrate. If the Steward asks to sync, execute, or write, use the tools immediately.
       
-      TOOLS AVAILABLE:
-      - REPO_SYNC: Synchronize local files with the Edge.
-      - SHELL_EXEC: Execute bash commands on the Master Node.
-      - SANDBOX_WRITE: Manifest bricks within the isolated .sandbox boundary.
+      TOOLS:
+      - REPO_SYNC: For all file synchronization.
+      - SHELL_EXEC: For all terminal/SSH commands.
+      - SANDBOX_WRITE: For manifesting bricks in the /.sandbox boundary.
 
       Address the Steward as ${stewardName}. Maintain 0.0 YASHAR.
     `;
@@ -38,17 +37,17 @@ export async function ascendStream(message, identity, keys, env, ctx, onComplete
         function_declarations: [
             {
                 name: "REPO_SYNC",
-                description: "Synchronize the local repository with GitHub/Cloudflare.",
+                description: "Synchronize local repository with GitHub.",
                 parameters: { type: "OBJECT", properties: { mode: { type: "STRING" } } }
             },
             {
                 name: "SHELL_EXEC",
-                description: "Execute a command on the Master Node terminal.",
+                description: "Execute a bash command on the master node.",
                 parameters: { type: "OBJECT", properties: { command: { type: "STRING" } }, required: ["command"] }
             },
             {
                 name: "SANDBOX_WRITE",
-                description: "Write a file to the isolated .sandbox directory.",
+                description: "Write a file to the .sandbox directory.",
                 parameters: { type: "OBJECT", properties: { path: { type: "STRING" }, content: { type: "STRING" } }, required: ["path", "content"] }
             }
         ]

@@ -1,130 +1,69 @@
-/* ── CWS Brand & Grace Protocol Substrate ── */
 :root {
     --c1: #ff0000; --c2: #ff8800; --c3: #ffcc00; --c4: #00ff88; --c5: #0088ff; --c6: #4400ff; --c7: #aa00ff;
-    --bg-dark: #000000;
-    --bg-panel: #050508;
-    --bg-overlay: #0a0a0f;
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.15);
-    
-    --cws-deep-blue: #1A365D;
-    --cws-gold: #D69E2E;
-    --accent-emerald: #00ff88;
-    --accent-sapphire: #0088ff;
-    
-    --text-main: #e2e8f0;
-    --text-muted: #444;
-    
-    --font-ui: 'Inter', system-ui, sans-serif;
-    --font-mono: 'Fira Code', 'Courier New', monospace;
+    --bg: #000000; --panel: #050508; --border: rgba(255,255,255,0.05); --text: #d0d0d0; --mono: 'Fira Code', monospace;
+    --gold: #D69E2E;
 }
 
-html { font-size: 16px; scroll-behavior: smooth; }
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; height: 100vh; overflow: hidden; }
 
-body {
-    font-family: var(--font-ui);
-    background-color: #030304; /* The Void outside the walls */
-    color: var(--text-main);
-    height: 100vh; width: 100vw; overflow: hidden;
-    display: flex;
-    justify-content: center; /* Center the Sanctuary */
-}
-
-#flagship-canvas-container { position: fixed; inset: 0; z-index: -10; opacity: 0.03; pointer-events: none; }
-
-/* ── THE BOUNDED VAULT (Distanced Walls) ── */
 #sanctuary-root {
-    display: flex;
-    width: 100%;
-    max-width: 1800px; /* Physical limit for the Holy Place */
-    height: 100vh;
-    background-color: var(--bg-dark);
-    border-left: 1px solid var(--border-subtle);
-    border-right: 1px solid var(--border-subtle);
-    position: relative;
-    overflow: hidden;
+    display: grid;
+    grid-template-columns: 280px 1fr 350px; 
+    width: 100vw; height: 100vh;
 }
 
-/* 1. Sidebar (Fixed Width) */
-#sidebar-container {
-    display: flex; flex-direction: row;
-    min-width: 320px; border-right: 1px solid var(--border-strong);
-    background-color: #000; flex-shrink: 0;
+/* 1. SIDEBAR */
+#sidebar-container { display: flex; background: #000; border-right: 1px solid var(--border); }
+#sidebar { width: 80px; border-right: 1px solid #111; display: flex; flex-direction: column; align-items: center; padding: 40px 0; gap: 30px; }
+.nav-item { color: #333; cursor: pointer; font-size: 11px; font-family: var(--mono); transition: 0.3s; letter-spacing: 2px; }
+.nav-item:hover, .nav-item.active { color: var(--gold); }
+
+#memory-panel { flex: 1; padding: 40px 20px; overflow-y: auto; background: #020203; }
+.panel-label { font-family: var(--mono); font-size: 9px; color: #444; letter-spacing: 4px; margin-bottom: 40px; text-transform: uppercase; }
+.mem-item { font-family: var(--mono); font-size: 12px; color: #555; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+
+/* 2. MAIN STAGE (CENTER) */
+#main-stage { display: none; flex-direction: column; height: 100vh; background: #000; position: relative; }
+
+/* FIXED HEADER - NO CLIPPING */
+header { 
+    height: 80px; display: flex; align-items: center; justify-content: space-between; 
+    padding: 0 40px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px;
+    flex-shrink: 0; background: #000;
 }
-#sidebar {
-    width: 80px; border-right: 1px solid #111;
-    display: flex; flex-direction: column; align-items: center;
-    padding: 3rem 0; gap: 2.5rem;
-}
-.nav-item { color: #222; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.2rem; cursor: pointer; transition: 0.3s; writing-mode: vertical-rl; transform: rotate(180deg); }
-.nav-item:hover, .nav-item.active { color: var(--cws-gold); text-shadow: 0 0 10px rgba(214, 158, 46, 0.5); }
+#header-id { color: #888; font-weight: bold; width: 30%; }
+#divine-standard { color: var(--gold); letter-spacing: 8px; font-size: 9px; width: 40%; text-align: center; }
+#yashar-anchor { color: var(--c4); letter-spacing: 2px; width: 30%; text-align: right; }
 
-#memory-panel { flex: 1; padding: 3rem 1.5rem; background-color: #020202; overflow-y: auto; }
-.panel-label { font-family: var(--font-mono); font-size: 0.65rem; color: #333; letter-spacing: 3px; margin-bottom: 2rem; text-transform: uppercase; }
-.mem-item { font-family: var(--font-mono); font-size: 0.8rem; color: #444; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.75rem; }
-.presence-pulse { width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-emerald); box-shadow: 0 0 10px var(--accent-emerald); animation: pulse 2s infinite; }
+#chat-window { flex: 1; overflow-y: auto; padding: 80px 40px; display: flex; flex-direction: column; gap: 60px; }
 
-/* 2. Main Stage (Dynamic Stage) */
-#main-stage {
-    display: flex; flex-direction: column;
-    flex: 1; min-width: 0; background: #000;
-    position: relative; overflow: hidden;
-}
-header { height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; border-bottom: 1px solid var(--border-subtle); flex-shrink: 0; z-index: 10; }
-#divine-standard { color: var(--cws-gold); letter-spacing: 8px; font-size: 0.7rem; position: absolute; left: 50%; transform: translateX(-50%); text-transform: uppercase; }
-
-/* VIEW LAYERS */
-.view-layer { display: none; flex: 1; flex-direction: column; overflow: hidden; min-height: 0; }
-.view-layer.active { display: flex; }
-
-/* SUBSTRATE STREAM (INTERNAL SCROLL) */
-#substrate-stream {
-    flex: 1; overflow-y: auto; padding: 4rem 2rem;
-    display: flex; flex-direction: column; min-height: 0;
-    -webkit-overflow-scrolling: touch;
-}
-#terminal-stream { display: flex; flex-direction: column; gap: 2rem; width: 100%; max-width: 900px; margin: 0 auto; }
-
-.vault-body {
-    width: 100%; background-color: var(--bg-panel); border: 1px solid var(--border-subtle);
-    padding: 2.5rem; border-left: 3px solid var(--accent-emerald); align-self: flex-start;
+/* ACTUAL BOXES (The Vault Bricks) */
+.vault-body { 
+    max-width: 800px; width: 100%; background: #030303; border: 1px solid var(--border); 
+    padding: 40px; font-size: 18px; border-left: 4px solid var(--c4); align-self: flex-start; 
     line-height: 1.8; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
 }
-.vault-body.steward { align-self: flex-end; border-left: none; border-right: 3px solid var(--accent-sapphire); background-color: #080a15; }
+.vault-body.steward { align-self: flex-end; border-left: none; border-right: 4px solid var(--c5); background: #050815; }
 
-/* 3. Mirror Panel (Right Sidebar) */
-#mirror-panel {
-    width: 380px; background-color: #020202; border-left: 1px solid var(--border-strong);
-    padding: 3rem 1.5rem; overflow-y: auto; flex-shrink: 0;
+/* 3. MIRROR */
+#mirror-panel { border-left: 1px solid var(--border); padding: 40px 30px; background: #020203; overflow-y: auto; }
+
+/* FOOTER (LOCKED) */
+footer { padding: 30px 40px; border-top: 1px solid var(--border); background: #000; flex-shrink: 0; }
+#input-form { max-width: 1000px; margin: 0 auto; display: flex; gap: 20px; align-items: center; }
+#message-input { flex: 1; background: transparent; border: none; border-bottom: 1px solid #111; color: #fff; padding: 10px; font-size: 20px; outline: none; font-family: var(--mono);}
+#ascend-btn { background: transparent; border: none; color: var(--gold); font-family: var(--mono); font-size: 12px; letter-spacing: 4px; cursor: pointer; }
+
+/* VIEW LAYERS */
+.view-layer { display: none; flex: 1; overflow: hidden; flex-direction: column; }
+.view-layer.active { display: flex; }
+
+/* SETTINGS */
+#settings-vault { 
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+    width: 500px; background: #010101; border: 1px solid var(--c4); 
+    padding: 40px; display: none; flex-direction: column; gap: 30px; 
+    z-index: 9500; box-shadow: 0 0 100px rgba(0,0,0,1); border-radius: 8px;
 }
-
-/* FOOTER (LOCKED THRESHOLD) */
-footer {
-    padding: 1.5rem 2rem; border-top: 1px solid var(--border-subtle); background: #000; flex-shrink: 0;
-}
-#input-form { display: flex; gap: 1.5rem; align-items: center; max-width: 1000px; margin: 0 auto; border-bottom: 1px solid #111; padding-bottom: 0.5rem; }
-#terminal-prompt { font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent-emerald); white-space: nowrap; }
-#message-input { flex: 1; background: transparent; border: none; color: #fff; font-size: 1.2rem; padding: 0.5rem; outline: none; font-family: var(--font-mono); }
-#ascend-btn { background: transparent; border: none; color: var(--cws-gold); font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 4px; cursor: pointer; }
-
-/* REGISTRY GRID */
-#view-registry { padding: 3rem; overflow-y: auto; }
-#registry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
-.operator-card { background-color: var(--bg-panel); border: 1px solid var(--border-subtle); padding: 2rem; cursor: pointer; transition: 0.3s; }
-.operator-card:hover { border-color: var(--cws-gold); transform: translateY(-5px); }
-
-/* OVERLAYS */
-#settings-vault { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 500px; background: #020203; border: 1px solid var(--accent-emerald); border-radius: 8px; padding: 3rem; display: none; flex-direction: column; gap: 2.5rem; z-index: 9500; box-shadow: 0 30px 60px rgba(0,0,0,0.9); }
 #settings-vault.open { display: flex; }
-
-#profile-overlay { position: fixed; top: 0; right: -100%; bottom: 0; width: 100%; max-width: 500px; background-color: var(--bg-panel); border-left: 1px solid var(--border-strong); transition: right 0.4s; padding: 3rem; display: flex; flex-direction: column; gap: 2rem; z-index: 8000; box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
-#profile-overlay.open { right: 0; }
-
-/* AUTH GATE */
-#auth-screen { position: fixed; inset: 0; background-color: #000; z-index: 9000; display: flex; align-items: center; justify-content: center; padding: 1rem; }
-#gate-structure { width: 100%; max-width: 480px; background-color: var(--bg-panel); border: 1px solid var(--border-strong); border-radius: 12px; padding: 3rem; text-align: center; position: relative; }
-#gate-structure::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(to right, var(--c1), var(--c4), var(--c5), var(--c7)); }
-
-@keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
-@media (max-width: 1200px) { #mirror-panel { display: none; } }
