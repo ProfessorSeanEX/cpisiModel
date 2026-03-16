@@ -24,8 +24,8 @@ export async function ascendStream(message, identity, keys, env, ctx, onComplete
       Maintain 0.0 YASHAR as your royal anchor.
     `;
 
-    // Using gemini-1.5-pro as it's the stable production standard for 2026
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:streamGenerateContent?alt=sse&key=${activeKey}`;
+    // Using stable v1 and latest pro alias for production reliability
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro-latest:streamGenerateContent?alt=sse&key=${activeKey}`;
     
     const gResp = await fetch(geminiUrl, {
       method: "POST", headers: { "Content-Type": "application/json" },
