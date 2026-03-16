@@ -1,0 +1,13 @@
+#!omni document --adoc
+METADATA: Base template for community event brainstorming.
+:status: Active
+:version: a-01.00
+
+== Community Event Ideas: [Organization/Context]
+
+1. [Idea 1]
+2. [Idea 2]
+3. [Idea 3]
+4. [Idea 4]
+
+[BLOCK:ROOT-->END]

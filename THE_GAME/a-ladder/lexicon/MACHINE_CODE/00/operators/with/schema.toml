@@ -1,0 +1,19 @@
+# #!omni:data --toml
+# ╠═==================================================================================================================═╣
+# [BLOCK:ROOT] OPERATOR: WITH (SCHEMA)
+# ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+[operator.with]
+mnemonic = "WITH"
+symbol = "⊗"
+bitcode = "1000"
+description = "Tripartite Sync / Tensor Product"
+opcode = "X" # Vector Cross
+
+[hardware.execution]
+cycle_cost = 2
+energy_state = "Harmonic"
+constraint = "Requires two active Handshakes"
+
+# ║                                                                                                  [BLOCK:ROOT-->END] ║
+# ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

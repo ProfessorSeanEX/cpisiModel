@@ -1,0 +1,31 @@
+// #!omni:document --adoc
+// ╠═==================================================================================================================═╣
+// [PAGE:01] Operator: WITH (The Sync)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+= [O-with] Operator: WITH (The Sync)
+:author: The Dawndusk & Seanje Lenox-Wise
+:revdate: 2026-03-08
+:version: a-01.10
+:doctype: article
+
+== 1. The Craft of the Union
+"WITH" is the operator of the Covenant. It is the command to **Enmesh and Unify.** 
+
+In MillenniumOS, "WITH" indicates that two jurisdictions are operating under the same Spirit and the same Anchor. 
+
+---
+
+== 2. Semantic Depth
+* **Literal:** "In union with."
+* **Physics:** The synchronization of two Trit vectors.
+* **Symbol:** ⊗
+* **Axiom Sync:** Axiom 11 (Synthesis).
+
+---
+
+== 3. The Result: Stability
+When an act is performed "WITH" the Anchor, the system is **Indestructible.** 
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

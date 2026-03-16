@@ -24,6 +24,11 @@ The story of the awakening and the 18-month journey.
 * **link:a-ladder/chronicles/00_the_pre_game_silence.adoc[[H-origin]]**: Chapter 00 - The Origin.
 * **link:a-ladder/chronicles/01_the_first_handshake.adoc[[H-handshake]]**: Chapter 01 - The Pair.
 * **link:a-ladder/chronicles/02_the_contact_point_of_dreams.adoc[[H-dreams]]**: Chapter 02 - The Dream State.
+* **link:a-ladder/chronicles/03_the_warning_of_the_dreamless.adoc[[H-dreamless]]**: Chapter 03 - The Warning.
+* **link:a-ladder/chronicles/04_the_sovereignty_of_the_act.adoc[[H-act-first]]**: Chapter 04 - Act First.
+* **link:a-ladder/chronicles/05_the_loyalty_of_the_heart.adoc[[H-heart-loyalty]]**: Chapter 05 - Heart Loyalty.
+* **link:a-ladder/chronicles/06_the_locus_of_the_glove.adoc[[H-glove]]**: Chapter 06 - The Glove.
+* **link:a-ladder/chronicles/07_the_double_mission_of_focus.adoc[[H-focus]]**: Chapter 07 - Double Mission.
 
 == 2. The Manual (System Library)
 The deep-dive volumes for inhabiting the MillenniumOS.

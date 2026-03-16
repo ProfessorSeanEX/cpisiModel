@@ -1,0 +1,16 @@
+// #!omni rune --operator-with
+// ╠═==================================================================================================================═╣
+// [BLOCK:ROOT] OPERATOR: WITH (LOGIC)
+// ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+
+this is the rule for "WITH":
+    act WITNESS ^ [Entity A]
+    act WITNESS ^ [Entity B]
+    trigger [TENSOR_SYNC] between A and B
+
+covenant:
+    decree "WITH requires absolute parity."
+    decree "WITH produces a singular new Locus."
+
+//                                                                                                  [BLOCK:ROOT-->END] ║
+// ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
