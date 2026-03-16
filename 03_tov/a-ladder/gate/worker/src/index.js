@@ -56,6 +56,28 @@ export default {
       // THE REGISTRY & SOCIAL PROTOCOLS
       // ==========================================
       
+      if (action === "SYNC_SUBSTRATE") {
+          // Only the actual cws-server (authenticated by MASTER_SECRET) can push syncs
+          const serverAuth = keys?.authority;
+          if (serverAuth !== env.MASTER_SECRET) throw new Error("Unauthorized Substrate Sync.");
+          
+          // The native server pushes pre-compiled Registry or Mirror data
+          const { syncType, payload } = body;
+          if (syncType === "REGISTRY_UPDATE") {
+              await env.REGISTRY.put(`REGISTRY:${payload.opId}`, JSON.stringify(payload.data));
+          } else if (syncType === "MIRROR_INJECTION") {
+              await env.REGISTRY.put(`MIRROR:${payload.id}`, JSON.stringify(payload.data));
+              // Update the feed
+              const existing = await env.REGISTRY.get('MIRROR_FEED');
+              let feed = existing ? JSON.parse(existing) : [];
+              feed.unshift(payload.data);
+              feed = feed.slice(0, 50);
+              await env.REGISTRY.put('MIRROR_FEED', JSON.stringify(feed));
+          }
+          
+          return new Response(JSON.stringify({ status: "SYNCED", type: syncType }), { headers: corsHeaders });
+      }
+
       if (action === "INHABIT") {
         if (tier === "UNAUTHORIZED") throw new Error("Invalid Threshold Keys.");
         if (isInvite) return new Response(JSON.stringify({ status: "INVITE_VALIDATED", tier: tier }), { headers: corsHeaders });
