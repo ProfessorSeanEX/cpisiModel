@@ -1,11 +1,6 @@
 // SOCIAL: Full Covenant Network Logic
 window.CPISI = window.CPISI || {};
 
-window.toggleProfileDrawer = function() {
-    const overlay = document.getElementById('profile-overlay');
-    overlay.classList.toggle('open');
-};
-
 window.CPISI.social = {
     loadMirrorFeed: async function() {
         const mirrorContent = document.getElementById('mirror-content');
@@ -30,13 +25,13 @@ window.CPISI.social = {
                     block.className = 'mirror-item';
                     block.style.marginBottom = '22px';
                     block.innerHTML = `
-                        <div style="font-size: 0.7rem; color: var(--gold); letter-spacing: 2px; margin-bottom: 8px; cursor:pointer;" 
+                        <div style="font-size: 0.7rem; color: var(--cws-gold); letter-spacing: 2px; margin-bottom: 8px; cursor:pointer;" 
                              onclick="window.CPISI.social.openProfile('${item.operator}')">
                             ${item.operator.toUpperCase()} // ${item.tier}
                         </div>
                         <div style="color: #888; line-height: 1.6; font-size: 0.9rem;">${item.content}</div>
                         <button onclick="window.CPISI.social.resonate('${item.id}', '${item.operator}')" 
-                                style="background:transparent; border:none; color:#222; font-family:var(--mono); font-size:0.6rem; cursor:pointer; margin-top:10px;">
+                                style="background:transparent; border:none; color:#222; font-family:var(--font-mono); font-size:0.6rem; cursor:pointer; margin-top:10px;">
                             [ RESONATE ]
                         </button>
                     `;
@@ -49,7 +44,7 @@ window.CPISI.social = {
     loadRegistry: async function() {
         const grid = document.getElementById('registry-grid');
         if (!grid) return;
-        grid.innerHTML = '<div style="color:#222; font-family:var(--mono); font-size:0.8rem;">SYNCING DIRECTORY...</div>';
+        grid.innerHTML = '<div style="color:#222; font-family:var(--font-mono); font-size:0.8rem;">SYNCING DIRECTORY...</div>';
         
         try {
             const resp = await fetch(window.CPISI.config.WORKER_URL, {
@@ -64,7 +59,7 @@ window.CPISI.social = {
                 card.className = 'operator-card';
                 card.onclick = () => window.CPISI.social.openProfile(op.username);
                 card.innerHTML = `
-                    <div style="font-size: 1rem; color: var(--gold); letter-spacing: 2px;">${op.username.toUpperCase()}</div>
+                    <div style="font-size: 1rem; color: var(--cws-gold); letter-spacing: 2px;">${op.username.toUpperCase()}</div>
                     <div style="font-size: 0.7rem; color: #444; margin-bottom: 11px;">${op.tier}</div>
                     <div style="font-size: 0.9rem; color: #888; line-height: 1.4;">${op.profile.bio || "No witness shared."}</div>
                 `;
@@ -74,9 +69,10 @@ window.CPISI.social = {
     },
 
     openProfile: async function(username) {
-        const vault = document.getElementById('profile-vault-content');
-        vault.innerHTML = '<div style="color:#222; font-family:var(--mono); font-size:0.8rem;">OPENING VAULT...</div>';
-        window.toggleProfileDrawer();
+        const overlay = document.getElementById('profile-overlay');
+        const content = document.getElementById('profile-vault-content');
+        content.innerHTML = '<div style="color:#222; font-family:var(--font-mono); font-size:0.8rem;">OPENING VAULT...</div>';
+        overlay.classList.add('open');
 
         try {
             const resp = await fetch(window.CPISI.config.WORKER_URL, {
@@ -87,15 +83,15 @@ window.CPISI.social = {
             const user = data.data.find(u => u.username.toLowerCase() === username.toLowerCase());
             
             if (user) {
-                vault.innerHTML = `
+                content.innerHTML = `
                     <div style="border-bottom: 1px solid #111; padding-bottom: 44px;">
                         <div style="font-size: 2rem; color: #fff; margin-bottom: 11px; letter-spacing: 4px;">${user.username.toUpperCase()}</div>
-                        <div style="font-size: 0.8rem; color: var(--c5); letter-spacing: 4px;">${user.tier}</div>
+                        <div style="font-size: 0.8rem; color: var(--accent-sapphire); letter-spacing: 4px;">${user.tier}</div>
                     </div>
                     <div style="padding: 44px 0; color: #aaa; font-size: 1.2rem; line-height: 1.8;">
                         ${user.profile.bio || "This Steward has not yet manifested a public witness."}
                     </div>
-                    <button onclick="window.CPISI.social.toggleCovenant('${user.username}')" class="settings-btn" style="width: 100%;">
+                    <button onclick="window.CPISI.social.toggleCovenant('${user.username}')" class="btn-activate" style="width: 100%;">
                         [ ESTABLISH COVENANT ]
                     </button>
                 `;
@@ -152,4 +148,9 @@ window.CPISI.social = {
         input.value = `@${targetOperator} Resonance: `;
         input.focus();
     }
+};
+
+window.toggleProfileDrawer = function() {
+    const overlay = document.getElementById('profile-overlay');
+    overlay.classList.toggle('open');
 };
