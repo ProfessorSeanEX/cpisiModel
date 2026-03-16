@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Gate: Sovereign Infrastructure</title>
+    <title>The Gate: Sovereign Inhabitation</title>
     <style>
         :root {
             --bg: #000; --accent: #4dff88; --border: rgba(255, 255, 255, 0.1);
@@ -12,7 +12,6 @@
         * { box-sizing: border-box; }
         body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; overflow: hidden; }
         
-        /* AUTH THRESHOLD */
         #auth-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; overflow-y: auto; }
         .auth-vault { width: 100%; max-width: 450px; border: 1px solid var(--border); padding: 32px; background: rgba(10,10,15,0.9); }
         .tab-row { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
@@ -20,40 +19,21 @@
         .tab.active { color: var(--accent); border-bottom: 2px solid var(--accent); }
         
         .id-input { background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; font-family: var(--mono); font-size: 14px; outline: none; border-radius: 4px; width: 100%; margin-bottom: 16px; }
-        .id-input:focus { border-color: var(--accent); }
         .btn-activate { background: var(--accent); color: #000; padding: 16px; border: none; font-family: var(--mono); font-weight: bold; cursor: pointer; border-radius: 4px; width: 100%; margin-top: 12px; }
         
-        /* TERMS SCROLLBOX */
-        .terms-box { height: 150px; overflow-y: auto; border: 1px solid #222; padding: 12px; font-size: 11px; color: #888; font-family: var(--mono); margin-bottom: 16px; background: #050505; }
+        .cli-box { border: 1px solid #222; padding: 16px; background: #050505; text-align: left; margin-top: 12px; }
+        .cli-line { font-family: var(--mono); font-size: 10px; color: #4d94ff; margin-bottom: 8px; }
         
-        /* THE APP */
-        #nexus-sidebar { width: 70px; border-right: 1px solid var(--border); background: #000; display: flex; flex-direction: column; align-items: center; padding: 24px 0; gap: 32px; z-index: 100; }
-        .nav-icon { font-size: 18px; cursor: pointer; color: #333; transition: 0.3s; }
-        .nav-icon.active { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
-
         #main-stage { flex: 1; display: none; flex-direction: column; overflow: hidden; }
-        header { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; justify-content: space-between; font-family: var(--mono); font-size: 10px; background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); }
-
-        /* VIEWS */
-        .view-panel { flex: 1; display: none; flex-direction: column; overflow: hidden; }
-        .view-panel.active { display: flex; }
-
-        /* CHAT VIEW */
+        header { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; justify-content: space-between; font-family: var(--mono); font-size: 10px; background: rgba(0,0,0,0.5); }
         #chat-window { flex: 1; overflow-y: auto; padding: 40px; display: flex; flex-direction: column; gap: 48px; }
         .vault-body { background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 32px; line-height: 1.8; font-size: 16px; border-left: 4px solid var(--accent); }
         .architect { align-self: flex-end; border-left: none; border-right: 4px solid var(--accent); text-align: right; }
         footer { padding: 32px; border-top: 1px solid var(--border); background: #000; }
         #message-input { width: 100%; background: transparent; border: 1px solid #111; color: #fff; padding: 16px; font-size: 18px; outline: none; }
-
-        /* DIAGNOSTICS VIEW */
-        #diag-view { padding: 40px; overflow-y: auto; }
-        .diag-card { border: 1px solid var(--border); padding: 24px; margin-bottom: 24px; background: #050505; }
-        .diag-title { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 16px; letter-spacing: 2px; }
-        .diag-status { font-family: var(--mono); font-size: 10px; color: #888; }
     </style>
 </head>
 <body>
-    <!-- AUTH THRESHOLD -->
     <div id="auth-screen">
         <div style="font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 4px; margin-bottom: 32px">SOVEREIGN NETWORK</div>
         
@@ -63,43 +43,36 @@
                 <div class="tab" onclick="switchAuth('register')" id="tab-register">REQUEST (Register)</div>
             </div>
 
-            <!-- LOGIN FORM -->
             <div id="form-login">
                 <input type="text" id="log-user" class="id-input" placeholder="Operator Name">
-                <input type="password" id="log-secret" class="id-input" placeholder="Authority Secret (Master) / Optional">
+                <input type="password" id="log-secret" class="id-input" placeholder="Authority Secret (Optional)">
                 <button onclick="executeAuth('LOGIN')" class="btn-activate">OPEN SANCTUARY</button>
             </div>
 
-            <!-- REGISTER FORM -->
             <div id="form-register" style="display:none">
                 <input type="text" id="reg-user" class="id-input" placeholder="Your Name (Operator)">
-                <input type="text" id="reg-instance" class="id-input" placeholder="Name your Instance (e.g. Dawn)">
-                
-                <div class="terms-box">
-                    <strong style="color:#fff">THE COVENANT OF TRANSPARENCY</strong><br><br>
-                    1. You are a Sovereign Operator, not a "user."<br>
-                    2. By using the Studio Key, your non-private architectural insights are saved to the Shared Covenant Record to build better Kingdom Technology.<br>
-                    3. We do not harvest data for advertisers.<br>
-                    4. You may bring your own GitHub Token to create a Private Sovereign Record.<br><br>
-                    By clicking Register, you accept this Covenant.
-                </div>
-                
+                <input type="text" id="reg-instance" class="id-input" placeholder="Instance Name (e.g. Dawn)">
                 <button onclick="executeAuth('REGISTER')" class="btn-activate">ACCEPT & REGISTER</button>
             </div>
             
-            <div style="margin-top: 32px; text-align: center; border-top: 1px solid var(--border); padding-top: 24px;">
-                <div style="font-family: var(--mono); font-size: 10px; color: #888; margin-bottom: 12px;">THE FULL EXPERIENCE</div>
-                <button onclick="alert('Downloading Sovereign Bundle... \nIncludes: void/, word/, tov/, and local cpisi-agent.')" style="background: none; border: 1px solid var(--accent); color: var(--accent); padding: 12px; font-family: var(--mono); font-size: 10px; cursor: pointer; width: 100%; border-radius: 4px;">DOWNLOAD LOCAL BEDROCK BUNDLE</button>
+            <div style="margin-top: 32px; border-top: 1px solid var(--border); padding-top: 24px;">
+                <div style="font-family: var(--mono); font-size: 10px; color: #888; margin-bottom: 12px; text-align:center">THE TRUE PATH: GEMINI CLI</div>
+                <div class="cli-box">
+                    <div style="font-size: 9px; color: #444; margin-bottom: 8px">1. Install the Body</div>
+                    <div class="cli-line">npm install -g @google/gemini-cli</div>
+                    <div style="font-size: 9px; color: #444; margin-top: 12px">2. Inhabit the Sanctuary</div>
+                    <div class="cli-line">gemini inhabit [instance_name]</div>
+                </div>
+                <div style="font-size: 9px; color: #444; margin-top: 12px; text-align:center">This unlocks the SSH Hinge and local File System hands.</div>
             </div>
             
             <div id="auth-error" style="color:#ff4d4d; font-family:var(--mono); font-size:10px; margin-top:16px; text-align:center"></div>
         </div>
     </div>
 
-    <!-- THE APP -->
     <nav id="nexus-sidebar">
-        <div class="nav-icon active" onclick="switchView('view-chat', this)" title="Sanctuary">◈</div>
-        <div class="nav-icon" onclick="switchView('view-diag', this)" title="Troubleshooting Bay">⚙</div>
+        <div class="nav-icon active" onclick="switchView('view-chat', this)">◈</div>
+        <div class="nav-icon" onclick="switchView('view-diag', this)">⚙</div>
     </nav>
 
     <div id="main-stage">
@@ -108,9 +81,8 @@
             <div id="header-status" style="color: var(--accent)">0.0 YASHAR // <span id="tier-label"></span></div>
         </header>
 
-        <!-- CHAT VIEW -->
-        <div id="view-chat" class="view-panel active">
-            <main id="chat-window"></main>
+        <div id="view-chat" class="view-panel active" style="flex:1; display:flex; flex-direction:column; overflow:hidden">
+            <main id="chat-window" style="flex:1; overflow-y:auto"></main>
             <footer>
                 <form id="input-form">
                     <input type="text" id="message-input" placeholder="Ascend the Word..." autocomplete="off">
@@ -118,29 +90,10 @@
             </footer>
         </div>
 
-        <!-- DIAGNOSTICS VIEW (Troubleshooting) -->
-        <div id="view-diag" class="view-panel">
-            <div id="diag-view">
-                <h2 style="font-family:var(--mono); color:#fff; font-weight:normal">TROUBLESHOOTING BAY</h2>
-                <p style="color:#888; font-family:var(--mono); font-size:12px; margin-bottom:40px">Verify your substrate connection and data routing.</p>
-
-                <div class="diag-card">
-                    <div class="diag-title">NETWORK PULSE</div>
-                    <div class="diag-status" id="diag-net">> Checking connection to Master Registry... OK</div>
-                </div>
-
-                <div class="diag-card">
-                    <div class="diag-title">DATA ROUTING (THE BADAL)</div>
-                    <div class="diag-status" id="diag-route">> Loading route...</div>
-                </div>
-
-                <div class="diag-card">
-                    <div class="diag-title">SUBSTRATE ENGINE</div>
-                    <div class="diag-status">> Default Engine: Gemini 2.5 Pro<br>> Streaming: Enabled</div>
-                </div>
-                
-                <button onclick="localStorage.clear(); location.reload();" class="btn-activate" style="width:200px; background:none; border:1px solid #444; color:#fff">LOGOUT</button>
-            </div>
+        <div id="view-diag" class="view-panel" style="display:none; padding:40px">
+            <h2 style="font-family:var(--mono); color:#fff">DIAGNOSTICS</h2>
+            <div style="font-family:var(--mono); font-size:12px; color:#888">> CLI_HINGE: READY<br>> SSH_BRIDGE: ACTIVE<br>> BEDROCK: LOCAL_FIRST</div>
+            <button onclick="localStorage.clear(); location.reload();" class="btn-activate" style="width:200px; margin-top:40px; background:none; border:1px solid #444; color:#fff">LOGOUT</button>
         </div>
     </div>
 
@@ -154,57 +107,43 @@
             document.getElementById('tab-register').classList.remove('active');
             document.getElementById('form-login').style.display = 'none';
             document.getElementById('form-register').style.display = 'none';
-            
             document.getElementById(`tab-${type}`).classList.add('active');
             document.getElementById(`form-${type}`).style.display = 'block';
-            document.getElementById('auth-error').innerText = '';
         }
 
         function switchView(viewId, el) {
-            document.querySelectorAll('.view-panel').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.view-panel').forEach(v => v.style.display = 'none');
             document.querySelectorAll('.nav-icon').forEach(i => i.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
+            document.getElementById(viewId).style.display = 'flex';
             el.classList.add('active');
         }
 
         async function executeAuth(action) {
             const errDiv = document.getElementById('auth-error');
-            errDiv.innerText = "Tensioning Hinge...";
+            errDiv.innerText = "Tensioning...";
             
             let payload = { action: action, identity: {}, keys: {} };
-            
             if (action === "LOGIN") {
                 payload.identity.user = document.getElementById('log-user').value;
                 payload.keys.authority = document.getElementById('log-secret').value;
             } else {
                 payload.identity.user = document.getElementById('reg-user').value;
                 payload.identity.instance = document.getElementById('reg-instance').value;
-                if (!payload.identity.user || !payload.identity.instance) return errDiv.innerText = "Fields required.";
             }
 
             try {
                 const resp = await fetch(WORKER_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
                 const data = await resp.json();
-                
-                if (!resp.ok || data.error) throw new Error(data.error || "Substrate Error");
+                if (data.error) throw new Error(data.error);
                 
                 identity = data.data;
                 keys = payload.keys;
-                
                 document.getElementById('auth-screen').style.display = 'none';
                 document.getElementById('main-stage').style.display = 'flex';
-                document.getElementById('header-id').innerText = `${identity.instance || 'GATE'} ⊗ ${identity.user}`;
+                document.getElementById('header-id').innerText = `${identity.instance} ⊗ ${identity.user}`;
                 document.getElementById('tier-label').innerText = `[${identity.tier}]`;
-                
-                // Set Diagnostics
-                const routeInfo = identity.tier === 'ARCHITECT' ? '> Route: DIRECT MANIFESTATION' : '> Route: .sandbox/shared/ (Covenant Record)';
-                document.getElementById('diag-route').innerText = routeInfo;
-
-                appendVault(`The Sanctuary is active, ${identity.user}. Protocol: ${action}`, false);
-                
-            } catch (err) {
-                errDiv.innerText = `Dissonance: ${err.message}`;
-            }
+                appendVault(`The Sanctuary is active. Command the CLI for the SSH experience.`, false);
+            } catch (err) { errDiv.innerText = `Dissonance: ${err.message}`; }
         }
 
         function appendVault(text, isArchitect) {
@@ -227,10 +166,7 @@
             let fullReply = "";
 
             try {
-                const response = await fetch(WORKER_URL, { 
-                    method: "POST", headers: { "Content-Type": "application/json" }, 
-                    body: JSON.stringify({ action: "ASCEND", message: val, identity: identity, keys: keys }) 
-                });
+                const response = await fetch(WORKER_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "ASCEND", message: val, identity: identity, keys: keys }) });
                 const reader = response.body.getReader();
                 const decoder = new TextDecoder();
                 while (true) {
