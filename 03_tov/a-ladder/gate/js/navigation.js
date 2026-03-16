@@ -23,6 +23,9 @@ window.CPISI.setPath = function(path, idx) {
     if (path === 'REGISTRY') {
         document.getElementById('view-registry').classList.add('active');
         if (window.CPISI.social) window.CPISI.social.loadRegistry();
+    } else if (path === 'SANDBOX') {
+        document.getElementById('view-sanctuary').classList.add('active'); // Reuses chat window for terminal output
+        if (window.CPISI.sandbox) window.CPISI.sandbox.loadView();
     } else {
         document.getElementById('view-sanctuary').classList.add('active');
     }

@@ -70,6 +70,13 @@ window.CPISI.handleMessageSubmit = async function(e) {
         return;
     }
 
+    // If in Sandbox mode, route to sandbox executor
+    if (window.CPISI.state.currentPath === 'SANDBOX' && window.CPISI.sandbox) {
+        window.CPISI.sandbox.execute(val);
+        inputEl.value = '';
+        return;
+    }
+
     // Otherwise, treat it as a natural language command (Revelation)
     window.CPISI.terminal.command(user, val);
     inputEl.value = '';

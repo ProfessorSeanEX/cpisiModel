@@ -1,6 +1,7 @@
 import { validateThreshold } from './services/auth.js';
 import { inhabitNode, toggleLock, createSovereignAccount } from './services/registry/core.js';
 import { getPublicProfile, updateProfile, saveVaultBlock, getVaultHistory, getFollowedMirrorFeed, publishToMirror, getRegistry, toggleCovenant } from './services/registry/social.js';
+import { processSandboxAction } from './services/registry/sandbox.js';
 import { ascendStream } from './services/gemini.js';
 import { syncCovenantRecord } from './services/github.js';
 import { processNativeLogic } from './services/native_logic.js';
@@ -63,7 +64,7 @@ export default {
       const authResult = await validateThreshold(identity, keys, inviteCode, env);
       const { tier, isEnterpriseSteward, userNameLow, isInvite } = authResult;
 
-      // --- EXTERNAL SUBSTRATE SYNC (cws-server Link) ---
+      // --- EXTERNAL SUBSTRATE SYNC ---
       if (action === "SYNC_SUBSTRATE") {
           const serverAuth = keys?.authority;
           if (serverAuth !== env.MASTER_SECRET) throw new Error("Unauthorized Substrate Sync.");
@@ -91,6 +92,13 @@ export default {
       if (action === "GET_CLI_STATE") {
           const state = await env.REGISTRY.get("CLI_STATE");
           return new Response(state || JSON.stringify({ status: "IDLE" }), { headers: corsHeaders });
+      }
+
+      // --- SANDBOX PROTOCOL ---
+      if (action === "SANDBOX_EXEC") {
+          if (tier === "UNAUTHORIZED") throw new Error("Unauthorized.");
+          const result = await processSandboxAction(env, identity, message);
+          return new Response(JSON.stringify(result), { headers: corsHeaders });
       }
 
       // --- STANDARD ACTIONS ---
