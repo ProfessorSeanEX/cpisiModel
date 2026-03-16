@@ -7,14 +7,15 @@
     <style>
         /* THE WIREFRAME SUBSTRATE - THE COLOR COVENANT */
         :root {
-            --bg: #0A0A0C;      /* Midnight Onyx */
-            --panel: #111114;   /* Brazen Gray */
-            --border: #222226;
+            --bg: #121214;      /* Lifted Onyx (Surface) */
+            --panel: #1A1A1D;   /* Lifted Gray (Court) */
+            --holy: #222226;    /* Holy Place (Workspace) */
+            --border: #333338;  /* Silver Sockets (Visible Edges) */
             --gold: #D69E2E;    /* Divinity */
             --blue: #0088FF;    /* Revelation */
             --scarlet: #FF3344; /* Sacrifice/Action */
             --text: #E0E0E0;    /* Righteousness */
-            --label: #66666A;
+            --label: #88888F;   /* Lifted Labels */
         }
 
         * { box-sizing: border-box; }
@@ -40,7 +41,7 @@
             flex-direction: column;
             align-items: center;
             padding: 11px 0;
-            background: #000;
+            background: #08080A;
         }
 
         /* BOX 2: THE MEMORY (The Brazen Laver) */
@@ -55,7 +56,8 @@
             display: flex;
             flex-direction: column;
             border-right: 1px solid var(--border);
-            background: var(--bg);
+            background: var(--holy); /* Lighter than background to 'pop' */
+            box-shadow: inset 0 0 44px rgba(0,0,0,0.2); /* Subtle depth */
         }
 
         #stage-header {
@@ -65,6 +67,7 @@
             align-items: center;
             justify-content: center;
             color: var(--gold);
+            background: rgba(0,0,0,0.2);
         }
 
         #stage-content {
@@ -82,6 +85,7 @@
             align-items: center;
             padding: 0 11px;
             color: var(--scarlet);
+            background: rgba(0,0,0,0.2);
         }
 
         /* BOX 4: THE MIRROR (The Showbread) */
