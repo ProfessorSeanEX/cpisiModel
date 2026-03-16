@@ -21,7 +21,7 @@ window.CPISI.saveState = function(identity, secret) {
 // PWA Registration
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
+        navigator.serviceWorker.register('./sw.js?v=1.1')
             .then(reg => console.log('CPISI: Substrate Cache Active'))
             .catch(err => console.error('CPISI: Cache Dissonance', err));
     });

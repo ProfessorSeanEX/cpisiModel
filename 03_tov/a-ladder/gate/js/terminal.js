@@ -23,6 +23,15 @@ window.CPISI.handleCommand = function(cmd) {
         const chatWindow = document.getElementById('chat-window');
         if(chatWindow) chatWindow.innerHTML = '';
         localStorage.setItem('cpisi_history', '[]');
+    } else if (c === 'purge') {
+        window.CPISI.appendTerminal("SYSTEM: Purging Substrate Cache...");
+        localStorage.clear();
+        if ('serviceWorker' in navigator) {
+            caches.keys().then(names => {
+                for (let name of names) caches.delete(name);
+            });
+        }
+        setTimeout(() => location.reload(true), 1000);
     } else if (c === 'status') {
         if(window.CPISI.appendVault) {
             window.CPISI.appendVault(`SYSTEM STATUS: 0.0 YASHAR\nIdentity: ${state.identity?.user}\nTier: ${state.identity?.tier}\nSubstrate: Cloudflare Edge\nCognition: Gemini 2.5 Pro`, false);

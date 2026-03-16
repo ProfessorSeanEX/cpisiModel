@@ -6,21 +6,21 @@
     <title>CPISI // The Horizon Node</title>
     
     <!-- PWA & MOBILE INFUSION -->
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json?v=1.1">
     <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="CPISI Gate">
     <link rel="apple-touch-icon" href="logo192.png">
 
-    <link rel="stylesheet" href="gate.css">
+    <link rel="stylesheet" href="gate.css?v=1.1">
 </head>
 <body>
     <div id="flagship-canvas-container">
         <canvas id="game-of-life-canvas"></canvas>
     </div>
 
-    <!-- THE BLUEPRINT: TRIPLE VAULT SUBSTRATE -->
+    <!-- THE BLUEPRINT: 4-PANEL SUBSTRATE -->
     <div id="sanctuary-root">
         
         <aside id="sidebar-container">
@@ -55,13 +55,13 @@
                 <div class="path-segment" style="background: var(--c7)"></div>
             </div>
             
-            <!-- VIEW LAYERS (Social Network Screens) -->
+            <!-- VIEW LAYERS -->
             <div id="view-sanctuary" class="view-layer active">
                 <section id="sanctuary-expanse">
                     <div id="chat-window"></div>
                     <aside id="mirror-panel">
                         <div class="panel-label">LATEST REVELATION MIRROR</div>
-                        <div id="mirror-content">Select a Word from the Sanctuary to project it here.</div>
+                        <div id="mirror-content">...</div>
                     </aside>
                 </section>
                 <footer>
@@ -81,7 +81,7 @@
                 <div id="profile-vault"></div>
             </div>
 
-            <!-- SETTINGS OVERLAY -->
+            <!-- SETTINGS VAULT -->
             <div id="settings-vault">
                 <div class="panel-label">SOVEREIGN SETTINGS</div>
                 <div class="settings-group">
@@ -95,7 +95,6 @@
                     <button class="settings-btn" onclick="window.CPISI.security.clearSubstrateKey()">PURGE STORED KEYS</button>
                 </div>
 
-                <!-- PROFILE EDIT -->
                 <div class="settings-group">
                     <div class="settings-label">PROFILE (DISCLOSURE)</div>
                     <input type="text" id="edit-full-name" class="id-input" placeholder="FULL NAME">
@@ -103,17 +102,10 @@
                     <button class="settings-btn" onclick="window.CPISI.social.updateProfile()">UPDATE DISCLOSURE</button>
                 </div>
 
-                <div class="settings-group">
-                    <div class="settings-label">SUSTENANCE ⊗ TRADE</div>
-                    <button class="settings-btn" onclick="handleCommand('barter')">THE BARTER BOARD</button>
-                    <button class="settings-btn" onclick="alert('Provision: Open Collective link active soon.')">SUPPORT SANCTUARY</button>
-                </div>
-
                 <div style="flex: 1"></div>
                 <button class="settings-btn logout" onclick="window.CPISI.clearState()">EXHABIT SANCTUARY</button>
             </div>
 
-            <!-- THE TERMINAL (Universal) -->
             <div id="terminal-overlay">
                 <div id="terminal-output"></div>
             </div>
@@ -156,13 +148,13 @@
         </div>
     </div>
 
-    <script src="js/core.js"></script>
-    <script src="js/security.js"></script>
-    <script src="js/social.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/navigation.js"></script>
-    <script src="js/terminal.js"></script>
-    <script src="js/chat.js"></script>
-    <script src="flagship.js"></script>
+    <script src="js/core.js?v=1.1"></script>
+    <script src="js/security.js?v=1.1"></script>
+    <script src="js/social.js?v=1.1"></script>
+    <script src="js/auth.js?v=1.1"></script>
+    <script src="js/navigation.js?v=1.1"></script>
+    <script src="js/terminal.js?v=1.1"></script>
+    <script src="js/chat.js?v=1.1"></script>
+    <script src="flagship.js?v=1.1"></script>
 </body>
 </html>
