@@ -19,17 +19,17 @@ export default {
 
     if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
     
-    // --- UI SUBSTRATE PROXY (Instant Updates) ---
+    // --- UI SUBSTRATE PROXY (Absolute Freshness) ---
     if (request.method === "GET") {
         let path = url.pathname;
         if (path === "/" || path === "") path = "/index.html";
         
-        const fileUrl = `${GITHUB_BASE}${path}`;
-        const response = await fetch(fileUrl);
+        // Force GitHub Raw to bypass cache via timestamp
+        const fileUrl = `${GITHUB_BASE}${path}?t=${Date.now()}`;
+        const response = await fetch(fileUrl, { cf: { cacheTtl: 0 } });
         
         if (!response.ok) return new Response("Sanctuary Resource Not Found.", { status: 404 });
         
-        // Map Content Types
         let contentType = "text/plain";
         if (path.endsWith(".html")) contentType = "text/html";
         else if (path.endsWith(".css")) contentType = "text/css";
@@ -39,7 +39,7 @@ export default {
         return new Response(response.body, {
             headers: {
                 "Content-Type": contentType,
-                "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+                "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
                 ...corsHeaders
             }
         });
@@ -48,62 +48,44 @@ export default {
     try {
       const body = await request.json();
       const { action, identity, keys, inviteCode, message, vaultBlock, profile, password, targetId } = body;
-      
       const authResult = await validateThreshold(identity, keys, inviteCode, env);
       const { tier, isEnterpriseSteward, userNameLow, isInvite } = authResult;
 
-      // ==========================================
-      // THE REGISTRY & SOCIAL PROTOCOLS
-      // ==========================================
-      
       if (action === "SYNC_SUBSTRATE") {
-          // Only the actual cws-server (authenticated by MASTER_SECRET) can push syncs
           const serverAuth = keys?.authority;
-          if (serverAuth !== env.MASTER_SECRET) throw new Error("Unauthorized Substrate Sync.");
-          
-          // The native server pushes pre-compiled Registry or Mirror data
+          if (serverAuth !== env.MASTER_SECRET) throw new Error("Unauthorized.");
           const { syncType, payload } = body;
-          if (syncType === "REGISTRY_UPDATE") {
-              await env.REGISTRY.put(`REGISTRY:${payload.opId}`, JSON.stringify(payload.data));
-          } else if (syncType === "MIRROR_INJECTION") {
+          if (syncType === "REGISTRY_UPDATE") await env.REGISTRY.put(`REGISTRY:${payload.opId}`, JSON.stringify(payload.data));
+          else if (syncType === "MIRROR_INJECTION") {
               await env.REGISTRY.put(`MIRROR:${payload.id}`, JSON.stringify(payload.data));
-              // Update the feed
               const existing = await env.REGISTRY.get('MIRROR_FEED');
               let feed = existing ? JSON.parse(existing) : [];
               feed.unshift(payload.data);
-              feed = feed.slice(0, 50);
-              await env.REGISTRY.put('MIRROR_FEED', JSON.stringify(feed));
+              await env.REGISTRY.put('MIRROR_FEED', JSON.stringify(feed.slice(0, 50)));
           }
-          
-          return new Response(JSON.stringify({ status: "SYNCED", type: syncType }), { headers: corsHeaders });
+          return new Response(JSON.stringify({ status: "SYNCED" }), { headers: corsHeaders });
       }
 
       if (action === "INHABIT") {
-        if (tier === "UNAUTHORIZED") throw new Error("Invalid Threshold Keys.");
+        if (tier === "UNAUTHORIZED") throw new Error("Invalid Keys.");
         if (isInvite) return new Response(JSON.stringify({ status: "INVITE_VALIDATED", tier: tier }), { headers: corsHeaders });
-
         const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
-        const record = isEnterpriseSteward ? 
-            await inhabitNode(env, opId, identity, tier, true, profile) :
-            authResult.record; 
-
+        const record = isEnterpriseSteward ? await inhabitNode(env, opId, identity, tier, true, profile) : authResult.record; 
         return new Response(JSON.stringify({ status: "AUTHORIZED", data: record }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
       if (action === "CREATE_ACCOUNT") {
-          if (!isInvite) throw new Error("Creation requires a valid Invite Code.");
           const record = await createSovereignAccount(env, identity.user, password, tier, profile, inviteCode);
           return new Response(JSON.stringify({ status: "ACCOUNT_CREATED", data: record }), { headers: corsHeaders });
       }
 
       if (action === "PUBLISH_TOV") {
-          if (tier === "UNAUTHORIZED") throw new Error("Unauthorized publish.");
           const record = await publishToMirror(env, identity, vaultBlock);
           return new Response(JSON.stringify({ status: "PUBLISHED", data: record }), { headers: corsHeaders });
       }
 
       if (action === "GET_MIRROR") {
-          const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
+          const opId = userNameLow?.replace(/[^a-z0-9]/g, '_');
           const feed = await getFollowedMirrorFeed(env, opId);
           return new Response(JSON.stringify({ status: "SUCCESS", data: feed }), { headers: corsHeaders });
       }
@@ -114,42 +96,30 @@ export default {
       }
 
       if (action === "TOGGLE_COVENANT") {
-          if (tier === "UNAUTHORIZED") throw new Error("Unauthorized.");
           const result = await toggleCovenant(env, userNameLow.replace(/[^a-z0-9]/g, '_'), targetId.toLowerCase());
           return new Response(JSON.stringify({ status: "SUCCESS", ...result }), { headers: corsHeaders });
       }
 
       if (action === "UPDATE_PROFILE") {
-          if (tier === "UNAUTHORIZED") throw new Error("Unauthorized.");
           const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
           const updated = await updateProfile(env, opId, identity.user, body.updates);
           return new Response(JSON.stringify({ status: "SUCCESS", data: updated }), { headers: corsHeaders });
       }
 
       if (action === "GET_HISTORY") {
-          if (tier === "UNAUTHORIZED") throw new Error("Unauthorized.");
           const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
           const history = await getVaultHistory(env, opId, identity.user);
           return new Response(JSON.stringify({ status: "SUCCESS", data: history }), { headers: corsHeaders });
       }
 
       if (action === "TOGGLE_LOCK") {
-        const opId = identity.user.toLowerCase().replace(/[^a-z0-9]/g, '_');
-        const isLocked = await toggleLock(env, opId, identity.user, isEnterpriseSteward);
+        const isLocked = await toggleLock(env, userNameLow.replace(/[^a-z0-9]/g, '_'), identity.user, isEnterpriseSteward);
         return new Response(JSON.stringify({ status: "SUCCESS", locked: isLocked }), { headers: corsHeaders });
       }
 
       if (action === "ASCEND") {
-        const isOverride = message.trim() === "/RECALL" || message.trim() === "[MASTER OVERRIDE]";
-        if (isOverride) {
-           if (!isEnterpriseSteward) throw new Error("Unauthorized: Threshold Override requires Steward Signature.");
-           const resetMsg = `data: ${JSON.stringify({ candidates: [{ content: { parts: [{ text: `[SYSTEM INTERCEPT] Master Identity Verified. Cognitive drift purged. State reset to 0.0 YASHAR.` }] } }] })}\n\n`;
-           return new Response(resetMsg, { headers: { ...corsHeaders, "Content-Type": "text/event-stream" } });
-        }
-
         const opId = identity.user.toLowerCase().replace(/[^a-z0-9]/g, '_');
         const nativeResult = await processNativeLogic(message, identity, env);
-        
         if (nativeResult.handled) {
             const nativeMsg = `data: ${JSON.stringify({ candidates: [{ content: { parts: [{ text: nativeResult.response }] } }] })}\n\n`;
             ctx.waitUntil((async () => {
@@ -158,17 +128,13 @@ export default {
             })());
             return new Response(nativeMsg, { headers: { ...corsHeaders, "Content-Type": "text/event-stream" } });
         }
-
         const stream = await ascendStream(message, identity, keys, env, ctx, async (fullReply) => {
             await syncCovenantRecord(env, identity, opId, message, fullReply);
             await saveVaultBlock(env, opId, message, fullReply, false);
         });
-
         return new Response(stream, { headers: { ...corsHeaders, "Content-Type": "text/event-stream" } });
       }
-
-      throw new Error("Invalid Action Protocol.");
-
+      throw new Error("Invalid Action.");
     } catch (err) {
       return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
