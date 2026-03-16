@@ -5,61 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CPISI // WIREFRAME</title>
     <style>
-        /* THE WIREFRAME SUBSTRATE */
+        /* THE WIREFRAME SUBSTRATE - THE COLOR COVENANT */
         :root {
-            --wire-border: #333;
-            --wire-label: #555;
-            --gold: #D69E2E;
-            --c4: #00ff88;
+            --bg: #0A0A0C;      /* Midnight Onyx */
+            --panel: #111114;   /* Brazen Gray */
+            --border: #222226;
+            --gold: #D69E2E;    /* Divinity */
+            --blue: #0088FF;    /* Revelation */
+            --scarlet: #FF3344; /* Sacrifice/Action */
+            --text: #E0E0E0;    /* Righteousness */
+            --label: #66666A;
         }
 
         * { box-sizing: border-box; }
         body, html { 
             margin: 0; padding: 0; width: 100vw; height: 100vh; 
-            background: #000; color: #fff; font-family: monospace;
+            background: var(--bg); color: var(--text); font-family: monospace;
             overflow: hidden;
         }
 
         /* THE 4-PANEL GRID (THE HOLY PLACE) */
         #sanctuary-root {
             display: grid;
-            /* Sidebar (33) | Memory (176) | Main (1fr) | Mirror (264) */
             grid-template-columns: 33px 176px 1fr 264px;
             width: 100vw;
             height: 100vh;
-            border: 1px solid var(--wire-border);
+            border: 1px solid var(--border);
         }
 
         /* BOX 1: THE LADDER (Sidebar) */
         #ladder-sidebar {
-            border-right: 1px solid var(--wire-border);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 11px 0;
+            background: #000;
         }
 
         /* BOX 2: THE MEMORY (The Brazen Laver) */
         #memory-panel {
-            border-right: 1px solid var(--wire-border);
+            border-right: 1px solid var(--border);
             padding: 11px;
-            background: #050505;
+            background: var(--panel);
         }
 
         /* BOX 3: THE MAIN STAGE (The Altar of Incense) */
         #main-stage {
             display: flex;
             flex-direction: column;
-            border-right: 1px solid var(--wire-border);
+            border-right: 1px solid var(--border);
+            background: var(--bg);
         }
 
         #stage-header {
             height: 33px;
-            border-bottom: 1px solid var(--wire-border);
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--wire-label);
+            color: var(--gold);
         }
 
         #stage-content {
@@ -72,16 +77,17 @@
 
         #stage-footer {
             height: 44px;
-            border-top: 1px solid var(--wire-border);
+            border-top: 1px solid var(--border);
             display: flex;
             align-items: center;
             padding: 0 11px;
+            color: var(--scarlet);
         }
 
         /* BOX 4: THE MIRROR (The Showbread) */
         #mirror-panel {
             padding: 11px;
-            background: #050505;
+            background: var(--panel);
         }
 
         /* OVERLAYS: THE THRESHOLD & THE VAULT */
@@ -103,18 +109,18 @@
         .box-label {
             font-size: 8px;
             letter-spacing: 2px;
-            color: var(--wire-label);
+            color: var(--label);
             text-transform: uppercase;
             margin-bottom: 11px;
         }
 
         .placeholder-box {
-            border: 1px dashed #222;
+            border: 1px dashed var(--border);
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #222;
+            color: var(--label);
             font-size: 10px;
         }
     </style>
