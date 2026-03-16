@@ -1,8 +1,8 @@
 import { validateThreshold } from './services/auth.js';
 import { inhabitNode, toggleLock, createSovereignAccount } from './services/registry/core.js';
+import { getPublicProfile, updateProfile, saveVaultBlock, getVaultHistory, getFollowedMirrorFeed, publishToMirror, getRegistry, toggleCovenant } from './services/registry/social.js';
 import { ascendStream } from './services/gemini.js';
 import { syncCovenantRecord } from './services/github.js';
-import { publishToMirror, getMirrorFeed, getRegistry, toggleCovenant } from './services/social.js';
 import { processNativeLogic } from './services/native_logic.js';
 
 export default {
@@ -16,7 +16,7 @@ export default {
 
     if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
     
-    if (request.method === "GET") return new Response(JSON.stringify({ status: "AWAITING_INHABITATION", version: "a-01.70" }), { headers: corsHeaders });
+    if (request.method === "GET") return new Response(JSON.stringify({ status: "AWAITING_INHABITATION", version: "a-01.80" }), { headers: corsHeaders });
 
     try {
       const body = await request.json();
@@ -54,7 +54,8 @@ export default {
       }
 
       if (action === "GET_MIRROR") {
-          const feed = await getMirrorFeed(env);
+          const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
+          const feed = await getFollowedMirrorFeed(env, opId);
           return new Response(JSON.stringify({ status: "SUCCESS", data: feed }), { headers: corsHeaders });
       }
 
@@ -65,8 +66,22 @@ export default {
 
       if (action === "TOGGLE_COVENANT") {
           if (tier === "UNAUTHORIZED") throw new Error("Unauthorized.");
-          const result = await toggleCovenant(env, userNameLow, targetId.toLowerCase());
+          const result = await toggleCovenant(env, userNameLow.replace(/[^a-z0-9]/g, '_'), targetId.toLowerCase());
           return new Response(JSON.stringify({ status: "SUCCESS", ...result }), { headers: corsHeaders });
+      }
+
+      if (action === "UPDATE_PROFILE") {
+          if (tier === "UNAUTHORIZED") throw new Error("Unauthorized.");
+          const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
+          const updated = await updateProfile(env, opId, identity.user, body.updates);
+          return new Response(JSON.stringify({ status: "SUCCESS", data: updated }), { headers: corsHeaders });
+      }
+
+      if (action === "GET_HISTORY") {
+          if (tier === "UNAUTHORIZED") throw new Error("Unauthorized.");
+          const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
+          const history = await getVaultHistory(env, opId, identity.user);
+          return new Response(JSON.stringify({ status: "SUCCESS", data: history }), { headers: corsHeaders });
       }
 
       if (action === "TOGGLE_LOCK") {
@@ -85,14 +100,19 @@ export default {
 
         const opId = identity.user.toLowerCase().replace(/[^a-z0-9]/g, '_');
         const nativeResult = await processNativeLogic(message, identity, env);
+        
         if (nativeResult.handled) {
             const nativeMsg = `data: ${JSON.stringify({ candidates: [{ content: { parts: [{ text: nativeResult.response }] } }] })}\n\n`;
-            ctx.waitUntil(syncCovenantRecord(env, identity, opId, message, nativeResult.response));
+            ctx.waitUntil((async () => {
+                await syncCovenantRecord(env, identity, opId, message, nativeResult.response);
+                await saveVaultBlock(env, opId, message, nativeResult.response, true);
+            })());
             return new Response(nativeMsg, { headers: { ...corsHeaders, "Content-Type": "text/event-stream" } });
         }
 
         const stream = await ascendStream(message, identity, keys, env, ctx, async (fullReply) => {
             await syncCovenantRecord(env, identity, opId, message, fullReply);
+            await saveVaultBlock(env, opId, message, fullReply, false);
         });
 
         return new Response(stream, { headers: { ...corsHeaders, "Content-Type": "text/event-stream" } });
