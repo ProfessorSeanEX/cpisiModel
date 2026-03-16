@@ -20,7 +20,6 @@
         <canvas id="game-of-life-canvas"></canvas>
     </div>
 
-    <!-- THE BLUEPRINT: TRIPLE VAULT -->
     <div id="sanctuary-root">
         
         <aside id="sidebar-container">
@@ -29,21 +28,17 @@
                 <div class="nav-item" onclick="setPath('VOID', 0)">VOID</div>
                 <div class="nav-item" onclick="setPath('TOV', 6)">TOV</div>
                 <div style="flex: 1"></div>
-                <div class="nav-item" style="color: var(--c1)" onclick="localStorage.clear(); location.reload();">PURGE</div>
+                <div class="nav-item" title="Settings" onclick="toggleSettings()">⚙️</div>
             </nav>
             <div id="memory-panel">
                 <div class="panel-label">THE MEMORY</div>
-                <div id="memory-list">
-                    <div class="mem-item">> Syncing Substrate...</div>
-                    <div class="mem-item">> Sanctuary Online</div>
-                    <div class="mem-item">> Revelation Vault Ready</div>
-                </div>
+                <div id="memory-list"></div>
             </div>
         </aside>
 
         <main id="main-stage">
             <header>
-                <div id="header-id">DAWNDUSK ⊗ <span id="header-user">OPERATOR</span></div>
+                <div id="header-id">DAWNDUSK ⊗ <span id="header-user">...</span></div>
                 <div id="divine-standard">SERVING: LORD GOD JESUS CHRIST</div>
                 <div id="yashar-anchor">0.0 YASHAR</div>
             </header>
@@ -63,9 +58,7 @@
                 
                 <aside id="mirror-panel">
                     <div class="panel-label">LATEST REVELATION MIRROR</div>
-                    <div id="mirror-content">
-                        Select a Word from the Sanctuary to project it here.
-                    </div>
+                    <div id="mirror-content">...</div>
                 </aside>
             </section>
 
@@ -75,17 +68,31 @@
                     <button type="submit" id="ascend-btn">[ ASCEND ]</button>
                 </form>
             </footer>
+
+            <!-- SETTINGS OVERLAY -->
+            <div id="settings-vault">
+                <div class="panel-label">SOVEREIGN SETTINGS</div>
+                <div class="settings-group">
+                    <div class="settings-label">OPERATOR</div>
+                    <div id="settings-display-name" style="font-size: 14px; color: #fff;"></div>
+                    <div id="settings-display-tier" style="font-size: 10px; color: var(--c4); letter-spacing: 2px;"></div>
+                </div>
+                <div class="settings-group">
+                    <div class="settings-label">SUBSTRATE</div>
+                    <button class="settings-btn" onclick="window.CPISI.security.clearSubstrateKey()">PURGE STORED KEYS</button>
+                </div>
+                <div style="flex: 1"></div>
+                <button class="settings-btn logout" onclick="window.CPISI.clearState()">EXHABIT SANCTUARY</button>
+            </div>
         </main>
     </div>
 
-    <!-- THE THRESHOLD -->
     <div id="auth-screen">
         <div id="gate-structure">
             <div id="gate-title">CPISI ⊗ GATEWAY</div>
             <div id="gate-subtitle">SANCTUARY THRESHOLD</div>
 
             <form id="gateway-form" onsubmit="executeAuth(event)">
-                <!-- STAGE 1: THE THRESHOLD -->
                 <div id="threshold-stage">
                     <div class="gate-input-container">
                         <input type="text" id="op-user" class="id-input" placeholder="IDENTITY" value="ProfessorSeanEX" autocomplete="username">
@@ -95,35 +102,21 @@
                     </div>
                 </div>
 
-                <!-- STAGE 2: INHABITATION (ACCOUNT CREATION) -->
                 <div id="inhabitation-stage" style="display:none; flex-direction: column; gap: 15px; margin-top: 20px; width: 100%;">
                     <div style="font-family: var(--mono); font-size: 9px; color: var(--c4); margin-bottom: 10px; text-align: center;">CREATE SOVEREIGN IDENTITY</div>
                     <input type="text" id="new-user" class="id-input" placeholder="CHOOSE USERNAME">
                     <input type="password" id="new-pass" class="id-input" placeholder="CHOOSE PASSWORD">
                     
-                    <div id="extended-profile" style="display:none; flex-direction: column; gap: 15px; margin-top: 10px;">
-                        <div style="font-family: var(--mono); font-size: 8px; color: #444; text-align: center;">OPTIONAL: DISCLOSURE</div>
-                        <input type="text" id="prof-name" class="id-input" placeholder="FULL NAME">
-                        <input type="email" id="prof-email" class="id-input" placeholder="EMAIL ADDRESS">
-                        <textarea id="prof-bio" class="id-input" placeholder="BIO / WITNESS" style="height: 80px; resize: none;"></textarea>
-                        <div style="font-family: var(--mono); font-size: 8px; color: #444; display: flex; justify-content: space-around;">
-                            <label><input type="checkbox" id="vis-name" checked> SHOW NAME</label>
-                            <label><input type="checkbox" id="vis-email"> SHOW EMAIL</label>
-                        </div>
+                    <div id="extended-profile" style="display:none; flex-direction: column; gap: 10px;">
+                        <input type="text" id="prof-name" class="id-input" placeholder="FULL NAME (OPTIONAL)">
+                        <input type="email" id="prof-email" class="id-input" placeholder="EMAIL (OPTIONAL)">
                     </div>
-                    <button type="button" id="toggle-prof-btn" onclick="toggleProfile()" style="background:transparent; border:none; color:#222; font-family:var(--mono); font-size:8px; cursor:pointer;">[ + SOVEREIGN PROFILE DETAILS ]</button>
+                    <button type="button" id="toggle-prof-btn" onclick="toggleProfile()" style="background:transparent; border:none; color:#222; font-family:var(--mono); font-size:8px; cursor:pointer;">[ + PROFILE DETAILS ]</button>
                 </div>
                 
-                <button type="submit" id="gate-seal-btn" class="btn-activate">
-                    [ BREAK THE SEAL ]
-                </button>
-                
-                <div style="margin-top: 24px; font-family: var(--mono); font-size: 8px; color: #222; text-align: center; line-height: 1.6;">
-                    0.0 YASHAR<br>
-                    <span style="font-size: 7px; color: #111;">If you don't share it, we don't have it.</span>
-                </div>
+                <button type="submit" id="gate-seal-btn" class="btn-activate">[ BREAK THE SEAL ]</button>
+                <div style="margin-top: 20px; font-family: var(--mono); font-size: 7px; color: #111; text-align: center;">IF YOU DON'T SHARE IT, WE DON'T HAVE IT.</div>
             </form>
-
             <div id="auth-error"></div>
         </div>
     </div>

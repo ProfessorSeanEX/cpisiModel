@@ -37,7 +37,25 @@ window.CPISI.loadState = function() {
     return false;
 };
 
+window.toggleSettings = function() {
+    const vault = document.getElementById('settings-vault');
+    vault.classList.toggle('open');
+    
+    if (vault.classList.contains('open')) {
+        const identity = window.CPISI.state.identity;
+        document.getElementById('settings-display-name').innerText = identity.profile?.fullName || identity.user;
+        document.getElementById('settings-display-tier').innerText = identity.tier;
+    }
+};
+
+window.CPISI.security.clearSubstrateKey = function() {
+    localStorage.removeItem('cpisi_substrate_gemini');
+    alert("SUBSTRATE PURGED: Local keys removed.");
+};
+
 window.CPISI.clearState = function() {
-    localStorage.clear();
+    localStorage.removeItem('cpisi_identity');
+    localStorage.removeItem('cpisi_secret');
+    localStorage.removeItem('cpisi_history');
     location.reload();
 };
