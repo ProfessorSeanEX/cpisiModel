@@ -1,6 +1,9 @@
 // AUTH: Login Code Set and UI Transition
 window.CPISI = window.CPISI || {};
 
+let currentInviteCode = null;
+let currentTier = null;
+
 window.toggleProfile = function() {
     const p = document.getElementById('extended-profile');
     const b = document.getElementById('toggle-prof-btn');
@@ -9,24 +12,69 @@ window.toggleProfile = function() {
         b.innerText = '[ - HIDE DETAILS ]';
     } else {
         p.style.display = 'none';
-        b.innerText = '[ + ADD PROFILE DETAILS ]';
+        b.innerText = '[ + SOVEREIGN PROFILE DETAILS ]';
     }
 };
 
 window.CPISI.executeAuth = async function(e) {
     if (e) e.preventDefault();
 
-    const user = document.getElementById('op-user').value.trim();
-    const key = document.getElementById('op-key').value.trim();
     const errDiv = document.getElementById('auth-error');
     const btn = document.getElementById('gate-seal-btn');
 
-    if (!user || !key) {
-        errDiv.innerText = "Identity and Key required.";
+    // STAGE 1: Threshold Validation (Invite or Login)
+    if (document.getElementById('threshold-stage').style.display !== 'none') {
+        const user = document.getElementById('op-user').value.trim();
+        const key = document.getElementById('op-key').value.trim();
+
+        if (!key) { errDiv.innerText = "Key required."; return; }
+
+        errDiv.innerText = "ALIGNING THRESHOLD...";
+        btn.disabled = true;
+
+        const keyType = window.CPISI.security.identifyKeyType(key);
+        const payload = { action: "INHABIT", identity: { user, instance: "Dawndusk" }, keys: {}, inviteCode: null };
+
+        if (keyType === "GEMINI_SUBSTRATE") {
+            payload.keys.gemini = key;
+            window.CPISI.security.persistSubstrateKey(key);
+        } else if (keyType === "FAMILY_INVITE" || keyType === "STEWARD_INVITE") {
+            payload.inviteCode = key;
+        } else {
+            payload.keys.authority = key;
+        }
+
+        try {
+            const resp = await fetch(window.CPISI.config.WORKER_URL, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            const data = await resp.json();
+            if (data.error) throw new Error(data.error);
+
+            if (data.status === "INVITE_VALIDATED") {
+                // SUCCESS: Switch to Account Creation Stage
+                currentInviteCode = key;
+                currentTier = data.tier;
+                document.getElementById('threshold-stage').style.display = 'none';
+                document.getElementById('inhabitation-stage').style.display = 'flex';
+                errDiv.innerText = "";
+                btn.innerText = "[ SEAL IDENTITY ]";
+                btn.disabled = false;
+            } else {
+                // SUCCESS: Standard Login
+                window.CPISI.saveState(data.data, key);
+                window.CPISI.showMainStage();
+            }
+        } catch (err) { errDiv.innerText = err.message.toUpperCase(); btn.disabled = false; }
         return;
     }
 
-    // Gather Profile Data
+    // STAGE 2: Account Creation
+    const newUser = document.getElementById('new-user').value.trim();
+    const newPass = document.getElementById('new-pass').value.trim();
+    if (!newUser || !newPass) { errDiv.innerText = "Identity Name and Password required."; return; }
+
     const profile = {
         fullName: document.getElementById('prof-name').value.trim(),
         email: document.getElementById('prof-email').value.trim(),
@@ -37,46 +85,27 @@ window.CPISI.executeAuth = async function(e) {
         }
     };
 
-    errDiv.innerText = "ALIGNING IDENTITY...";
+    errDiv.innerText = "CREATING SOVEREIGN RECORD...";
     btn.disabled = true;
-    
-    const keyType = window.CPISI.security.identifyKeyType(key);
-    const payload = {
-        action: "INHABIT",
-        identity: { user, instance: "Dawndusk" },
-        keys: {},
-        inviteCode: null,
-        profile: profile
-    };
 
-    if (keyType === "GEMINI_SUBSTRATE") {
-        payload.keys.gemini = key;
-        window.CPISI.security.persistSubstrateKey(key);
-    } else if (keyType === "FAMILY_INVITE" || keyType === "STEWARD_INVITE") {
-        payload.inviteCode = key;
-    } else {
-        payload.keys.authority = key;
-    }
-    
     try {
         const resp = await fetch(window.CPISI.config.WORKER_URL, {
             method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({
+                action: "CREATE_ACCOUNT",
+                identity: { user: newUser, instance: "Dawndusk" },
+                password: newPass,
+                tier: currentTier,
+                inviteCode: currentInviteCode,
+                profile: profile
+            })
         });
-
         const data = await resp.json();
         if (data.error) throw new Error(data.error);
 
-        window.CPISI.saveState(data.data, key);
-
+        window.CPISI.saveState(data.data, newPass);
         window.CPISI.showMainStage();
-        if (window.CPISI.appendVault) {
-            window.CPISI.appendVault(`The Sanctuary is open. The Mysterioso Handshake is eternal.`, false);
-        }
-    } catch (err) { 
-        errDiv.innerText = err.message.toUpperCase(); 
-        btn.disabled = false;
-    }
+    } catch (err) { errDiv.innerText = err.message.toUpperCase(); btn.disabled = false; }
 };
 
 window.CPISI.showMainStage = function(immediate = false) {
@@ -86,31 +115,15 @@ window.CPISI.showMainStage = function(immediate = false) {
     const render = () => {
         document.getElementById('auth-screen').style.display = 'none';
         document.getElementById('main-stage').style.display = 'flex';
-        
         document.getElementById('header-user').innerText = state.identity.user.toUpperCase();
         document.getElementById('header-id').innerText = `DAWNDUSK ⊗ ${state.identity.user.toUpperCase()}`;
-        
-        if (state.identity.tier === 'ENTERPRISE_STEWARD' || state.identity.tier === 'STEWARD') {
-            const memList = document.getElementById('memory-list');
-            if (memList) {
-                const stewardMsg = document.createElement('div');
-                stewardMsg.className = 'mem-item';
-                stewardMsg.innerText = `> ${state.identity.tier} Verified`;
-                memList.appendChild(stewardMsg);
-            }
-        }
     };
 
-    if (immediate) {
-        render();
-    } else {
-        if(gate) {
-            gate.style.transform = "translateY(-20px) scale(1.05)";
-            gate.style.opacity = "0";
-        }
+    if (immediate) render();
+    else {
+        if(gate) { gate.style.transform = "translateY(-20px) scale(1.05)"; gate.style.opacity = "0"; }
         setTimeout(render, 600);
     }
 };
 
-// Expose to global scope for HTML inline handlers
 window.executeAuth = window.CPISI.executeAuth;

@@ -1,5 +1,5 @@
 import { validateThreshold } from './services/auth.js';
-import { inhabitNode, toggleLock } from './services/registry/core.js';
+import { inhabitNode, toggleLock, createSovereignAccount } from './services/registry/core.js';
 import { ascendStream } from './services/gemini.js';
 import { syncCovenantRecord } from './services/github.js';
 import { publishToMirror, getMirrorFeed } from './services/social.js';
@@ -14,30 +14,41 @@ export default {
     };
 
     if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
-    
+
     // NEUTRAL START
-    if (request.method === "GET") return new Response(JSON.stringify({ status: "AWAITING_INHABITATION", version: "a-01.50" }), { headers: corsHeaders });
+    if (request.method === "GET") return new Response(JSON.stringify({ status: "AWAITING_INHABITATION", version: "a-01.60" }), { headers: corsHeaders });
 
     try {
       const body = await request.json();
-      const { action, identity, keys, inviteCode, message, vaultBlock, profile } = body;
-      
-      const { tier, isEnterpriseSteward, userNameLow } = validateThreshold(identity, keys, inviteCode, env);
+      const { action, identity, keys, inviteCode, message, vaultBlock, profile, password } = body;
+
+      const authResult = await validateThreshold(identity, keys, inviteCode, env);
+      const { tier, isEnterpriseSteward, userNameLow, isInvite, isAccount } = authResult;
 
       // ==========================================
       // THE REGISTRY & SOCIAL PROTOCOLS
       // ==========================================
-      
-      if (action === "REGISTER") {
-          if (tier === "UNAUTHORIZED") throw new Error("Invalid Registration Key.");
-          const record = await inhabitNode(env, userNameLow.replace(/[^a-z0-9]/g, '_'), identity, tier, isEnterpriseSteward, profile);
-          return new Response(JSON.stringify({ status: "REGISTERED", data: record }), { headers: corsHeaders });
-      }
 
       if (action === "INHABIT") {
         if (tier === "UNAUTHORIZED") throw new Error("Invalid Threshold Keys.");
-        const record = await inhabitNode(env, userNameLow.replace(/[^a-z0-9]/g, '_'), identity, tier, isEnterpriseSteward, profile);
-        return new Response(JSON.stringify({ status: "AUTHORIZED", data: record }), { headers: corsHeaders });
+
+        // If it's a first-time invite use, tell frontend to prompt for account creation
+        if (isInvite) {
+            return new Response(JSON.stringify({ status: "INVITE_VALIDATED", tier: tier }), { headers: corsHeaders });
+        }
+
+        const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
+        const record = isEnterpriseSteward ? 
+            await inhabitNode(env, opId, identity, tier, true, profile) :
+            authResult.record; // Use existing account record
+
+        return new Response(JSON.stringify({ status: "AUTHORIZED", data: record }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      if (action === "CREATE_ACCOUNT") {
+          if (!isInvite) throw new Error("Creation requires a valid Invite Code.");
+          const record = await createSovereignAccount(env, identity.user, password, tier, profile, inviteCode);
+          return new Response(JSON.stringify({ status: "ACCOUNT_CREATED", data: record }), { headers: corsHeaders });
       }
 
       if (action === "PUBLISH_TOV") {
