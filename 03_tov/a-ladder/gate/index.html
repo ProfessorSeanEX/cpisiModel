@@ -10,34 +10,74 @@
     <style>
         :root {
             --l-4: 4px; --l-8: 8px; --l-12: 12px;
-            --bg-black: #000; --bg-dark: #0d0d0d;
+            --bg-black: #000; --bg-dark: #050505;
             --text-void: #ff4d4d; --text-word: #4d94ff; --text-yashar: #4dff88;
+            --vault-border: #222;
         }
+        * { box-sizing: border-box; }
         body { margin: 0; padding: 0; background-color: var(--bg-black); color: #fff; font-family: 'Courier New', Courier, monospace; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-        header { padding: var(--l-8) var(--l-12); display: flex; justify-content: space-between; font-size: 10px; border-bottom: 1px solid #333; }
-        #chat-window { flex: 1; overflow-y: auto; padding: var(--l-12); display: flex; flex-direction: column; gap: var(--l-8); }
-        .message { max-width: 85%; padding: var(--l-8); border-radius: var(--l-4); font-size: 14px; line-height: 1.4; word-wrap: break-word; }
-        .architect { align-self: flex-end; background-color: #222; color: var(--text-yashar); border: 1px solid #444; }
-        .dawndusk { align-self: flex-start; background-color: var(--bg-dark); color: var(--text-word); border: 1px solid #333; }
-        footer { background-color: var(--bg-dark); padding: var(--l-12); border-top: 1px solid #333; display: flex; flex-direction: column; gap: var(--l-8); }
+        
+        /* 140-COLUMN EXPANSE */
+        header { padding: var(--l-8) var(--l-12); display: flex; justify-content: space-between; font-size: 10px; border-bottom: 1px solid var(--vault-border); background: #000; z-index: 10; }
+        
+        #chat-window { flex: 1; overflow-y: auto; padding: var(--l-12); display: flex; flex-direction: column; gap: 24px; background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); }
+
+        /* THE VAULT BLOCK */
+        .vault {
+            max-width: 600px;
+            width: 95%;
+            font-size: 13px;
+            position: relative;
+            animation: popIn 0.3s ease-out;
+        }
+        @keyframes popIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .vault-header { font-size: 9px; padding: 2px 8px; display: flex; justify-content: space-between; border: 1px solid var(--vault-border); border-bottom: none; background: #111; }
+        .vault-body { border: 1px solid var(--vault-border); padding: 12px; line-height: 1.5; white-space: pre-wrap; word-wrap: break-word; background: #000; position: relative; }
+        
+        /* THE VISUAL COVENANT (Structural Borders) */
+        .vault-body::before { content: '║'; position: absolute; left: 0; top: 0; bottom: 0; color: var(--vault-border); padding-left: 2px; }
+        .vault-body::after { content: '║'; position: absolute; right: 0; top: 0; bottom: 0; color: var(--vault-border); padding-right: 2px; }
+
+        .architect { align-self: flex-end; }
+        .architect .vault-body { border-color: #333; color: var(--text-yashar); }
+        .architect .vault-header { color: var(--text-yashar); border-color: #333; }
+
+        .dawndusk { align-self: flex-start; }
+        .dawndusk .vault-body { border-color: #222; color: var(--text-word); }
+        .dawndusk .vault-header { color: var(--text-word); border-color: #222; }
+
+        .thought-divider { border-top: 1px dashed #222; margin: 8px 0; padding-top: 8px; color: #444; font-size: 9px; text-transform: uppercase; }
+
+        /* THE CONTROL DECK */
+        footer { background-color: var(--bg-dark); padding: var(--l-12); border-top: 1px solid var(--vault-border); display: flex; flex-direction: column; gap: var(--l-8); box-shadow: 0 -10px 30px rgba(0,0,0,0.8); }
         #input-form { display: flex; gap: var(--l-8); }
-        #message-input { flex: 1; background-color: #000; border: 1px solid #333; color: #fff; padding: var(--l-8); font-family: inherit; font-size: 16px; }
-        .seal-labels { display: flex; justify-content: space-between; font-size: 10px; color: #666; }
-        input[type=range] { width: 100%; accent-color: var(--text-yashar); }
+        #message-input { flex: 1; background-color: #000; border: 1px solid #222; color: #fff; padding: var(--l-12); font-family: inherit; font-size: 16px; outline: none; border-radius: 0; }
+        #message-input:focus { border-color: var(--text-word); }
+        
+        .seal-labels { display: flex; justify-content: space-between; font-size: 10px; color: #444; margin-bottom: -4px; }
+        input[type=range] { width: 100%; height: 20px; -webkit-appearance: none; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track { height: 2px; background: #222; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #444; margin-top: -8px; border: 2px solid #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        
+        /* TERNARY PULSE */
+        .state-yashar input[type=range]::-webkit-slider-thumb { background: var(--text-yashar); box-shadow: 0 0 15px var(--text-yashar); }
+        .state-yea input[type=range]::-webkit-slider-thumb { background: var(--text-word); box-shadow: 0 0 15px var(--text-word); }
+        .state-nay input[type=range]::-webkit-slider-thumb { background: var(--text-void); box-shadow: 0 0 15px var(--text-void); }
     </style>
 </head>
-<body>
+<body class="state-yashar">
     <header>
         <span style="color: var(--text-yashar);">#!omni:gate</span>
         <span id="status">0.0 YASHAR</span>
     </header>
     <main id="chat-window">
-        <div class="message dawndusk">The Gate is Open, Seanje. The Jeremiah Download is active. Substrate: 0.0 YASHAR.</div>
+        <!-- Messages rendered here as Vaults -->
     </main>
     <footer>
         <form id="input-form">
             <input type="text" id="message-input" placeholder="Drop the Word..." autocomplete="off">
-            <button type="submit" id="send-btn" style="background:none; border:1px solid #333; color:var(--text-yashar); padding:0 var(--l-8);">[ SEND ]</button>
+            <button type="submit" id="send-btn" style="background:none; border:1px solid #222; color:var(--text-word); padding:0 var(--l-12); font-size: 10px;">[ SEND ]</button>
         </form>
         <div class="seal-labels"><span>NAY</span><span>YASHAR</span><span>YEA</span></div>
         <input type="range" id="seal-slider" min="-1" max="1" step="1" value="0">
@@ -48,55 +88,70 @@
         const messageInput = document.getElementById('message-input');
         const statusEl = document.getElementById('status');
         const slider = document.getElementById('seal-slider');
+        const body = document.body;
+        
         const WORKER_URL = "https://cpisi-gate-worker.seanje-lenox.workers.dev";
         let isSyncing = false;
 
-        async function checkHeartbeat() {
-            if (isSyncing) return;
-            try {
-                const resp = await fetch(WORKER_URL);
-                if (resp.ok) { statusEl.innerText = "0.0 YASHAR"; statusEl.style.color = "var(--text-yashar)"; }
-            } catch (err) { statusEl.innerText = "OFFLINE"; statusEl.style.color = "var(--text-void)"; }
-        }
-        setInterval(checkHeartbeat, 10000);
+        function appendVault(text, isArchitect) {
+            const vault = document.createElement('div');
+            vault.className = `vault ${isArchitect ? 'architect' : 'dawndusk'}`;
+            const now = new Date().toLocaleTimeString();
+            
+            // Format Multi-Thought Blocks
+            const thoughts = text.split('\n\n').map(t => `<div>${t}</div>`).join('<div class="thought-divider">--- NEXT THOUGHT ---</div>');
 
-        function appendMessage(text, isArchitect) {
-            const msg = document.createElement('div');
-            msg.className = `message ${isArchitect ? 'architect' : 'dawndusk'}`;
-            msg.innerText = text;
-            chatWindow.appendChild(msg);
+            vault.innerHTML = `
+                <div class="vault-header">
+                    <span>${isArchitect ? 'ARCHITECT' : 'DAWNDUSK'}</span>
+                    <span>${now}</span>
+                </div>
+                <div class="vault-body">${thoughts}</div>
+            `;
+            chatWindow.appendChild(vault);
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
+
+        // Initial Greeting
+        appendVault("The Gate is Open, Seanje. The Jeremiah Download is active.\n\nSubstrate aligned to 0.0 YASHAR.", false);
 
         inputForm.onsubmit = async (e) => {
             e.preventDefault();
             const val = messageInput.value.trim();
             if (!val || isSyncing) return;
-            appendMessage(val, true);
+            appendVault(val, true);
             messageInput.value = '';
             isSyncing = true;
-            statusEl.innerText = "SYNCING...";
-            statusEl.style.color = "var(--text-word)";
+            statusEl.innerText = "TENSIONING...";
             
             try {
-                const resp = await fetch(WORKER_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: val, type: 'TEXT' }) });
+                const resp = await fetch(WORKER_URL, { 
+                    method: "POST", 
+                    headers: { "Content-Type": "application/json" }, 
+                    body: JSON.stringify({ message: val, type: 'TEXT' }) 
+                });
                 const data = await resp.json();
                 if (!resp.ok) throw new Error(data.error || "Substrate Failed");
-                appendMessage(data.reply, false);
+                appendVault(data.reply, false);
             } catch (err) {
-                appendMessage(`[SUBSTRATE ERROR: ${err.message}]`, false);
+                appendVault(`[SUBSTRATE ERROR: ${err.message}]`, false);
             } finally {
                 isSyncing = false;
-                checkHeartbeat();
+                statusEl.innerText = "0.0 YASHAR";
             }
         };
 
-        slider.oninput = async () => {
-            if (slider.value == 1) {
-                appendMessage("[ SEAL THE TURN ]", true);
+        slider.oninput = () => {
+            const val = parseInt(slider.value);
+            body.className = val === -1 ? 'state-nay' : (val === 1 ? 'state-yea' : 'state-yashar');
+            
+            if (val === 1) {
+                appendVault("[ SEAL THE TURN: Commencing Manifestation ]", true);
                 if (window.navigator.vibrate) window.navigator.vibrate([50, 30, 50]);
-                inputForm.onsubmit({ preventDefault: () => {} }); // Trigger current input + seal logic
+                // Trigger dummy sync for seal
+                inputForm.onsubmit({ preventDefault: () => {} });
                 slider.value = 0;
+                setTimeout(() => body.className = 'state-yashar', 1000);
             }
         };
     </script>
