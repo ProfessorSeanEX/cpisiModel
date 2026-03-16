@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>The Gate: Secure IDE</title>
+    <title>The Gate: Free Sanctuary</title>
     <style>
         :root {
             --bg: #050505; --panel: rgba(15, 15, 20, 0.95); --accent: #4dff88;
@@ -35,26 +35,21 @@
         .mirror-header { padding: 12px 20px; font-family: var(--mono); font-size: 9px; color: var(--text-dim); border-bottom: 1px solid var(--border); }
         .mirror-content { flex: 1; padding: 24px; font-family: var(--mono); font-size: 13px; line-height: 1.6; overflow-y: auto; color: #888; background: #000; white-space: pre-wrap; }
 
-        /* THE VAULT & THOUGHTS */
         .vault { max-width: 850px; width: 100%; position: relative; }
         .vault-body { background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 32px; line-height: 1.8; font-size: 16px; position: relative; }
-        .thought-trace { background: rgba(0,0,0,0.4); border: 1px solid #222; padding: 16px; font-family: var(--mono); font-size: 11px; color: #555; margin-bottom: 24px; border-radius: 4px; display: block; }
+        .thought-trace { background: rgba(0,0,0,0.4); border: 1px solid #222; padding: 16px; font-family: var(--mono); font-size: 11px; color: #444; margin-bottom: 24px; border-radius: 4px; cursor: pointer; }
         
         .architect { align-self: flex-end; border-right: 2px solid var(--accent); text-align: right; }
         .dawndusk { align-self: flex-start; border-left: 2px solid var(--accent); }
 
         #terminal-dock { height: 120px; background: #000; border-top: 1px solid var(--border); padding: 12px 24px; font-family: var(--mono); font-size: 11px; color: #333; overflow-y: auto; }
-        .term-pulse { color: var(--accent); }
 
-        /* DECREE INPUT (Textarea) */
         footer { padding: 24px; border-top: 1px solid var(--border); background: #000; }
         #input-form { display: flex; gap: 16px; align-items: flex-end; border: 1px solid var(--border); padding: 8px; background: rgba(255,255,255,0.02); }
         #message-input { flex: 1; background: transparent; border: none; color: #fff; padding: 8px; font-size: 17px; outline: none; font-family: inherit; resize: none; min-height: 40px; max-height: 300px; }
         #send-btn { background: none; border: none; color: var(--accent); font-family: var(--mono); font-size: 10px; font-weight: bold; cursor: pointer; padding: 12px 20px; }
 
-        /* OVERLAYS */
-        #login-screen, #settings-overlay { position: fixed; inset: 0; background: #000; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
-        #settings-overlay { display: none; z-index: 2100; backdrop-filter: blur(20px); }
+        #login-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
         .vault-box { width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 12px; }
         .id-input { background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; font-family: var(--mono); font-size: 14px; width: 100%; outline: none; }
         .btn-action { background: var(--accent); color: #000; padding: 16px; border: none; font-family: var(--mono); font-weight: bold; cursor: pointer; }
@@ -62,7 +57,7 @@
 </head>
 <body>
     <div id="login-screen">
-        <div style="font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 4px; margin-bottom: 32px">SOVEREIGN GATEWAY</div>
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 4px; margin-bottom: 32px">SANCTUARY THRESHOLD</div>
         <div class="vault-box">
             <input type="text" id="in-instance" class="id-input" placeholder="INSTANCE NAME">
             <input type="text" id="in-user" class="id-input" placeholder="USER NAME">
@@ -71,21 +66,10 @@
         </div>
     </div>
 
-    <div id="settings-overlay">
-        <div style="font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 4px; margin-bottom: 32px">SUBSTRATE SETTINGS</div>
-        <div class="vault-box" style="text-align: left; font-family: var(--mono); font-size: 11px; color: var(--text-dim)">
-            <div>ENGINE: GEMINI 2.5 PRO [STREAMING]</div>
-            <div>JURISDICTION: CREATIVEWORKZSTUDIO LLC</div>
-            <div>STATUS: 0.0 YASHAR [MASTER_ELEVATED]</div>
-            <div style="margin-top: 20px">ENCRYPTION: SEANJE_HANDSHAKE_v2.0</div>
-            <button onclick="toggleSettings()" class="btn-action" style="margin-top: 32px; background: none; border: 1px solid #333; color: #fff;">CLOSE</button>
-        </div>
-    </div>
-
     <nav id="nexus-sidebar">
         <div class="nav-icon active">◈</div>
         <div class="nav-icon">📂</div>
-        <div class="nav-icon" onclick="toggleSettings()">⚙</div>
+        <div class="nav-icon">⚙</div>
     </nav>
 
     <div id="main-stage">
@@ -97,7 +81,6 @@
 
         <div id="workspace">
             <aside id="file-explorer">
-                <div class="explorer-label">FILE SYSTEM</div>
                 <div class="file-item">00_spirit/</div>
                 <div class="file-item">01_mind/</div>
                 <div class="file-item">02_body/</div>
@@ -108,7 +91,7 @@
             <section id="sanctuary-chat">
                 <main id="chat-window"></main>
                 <div id="terminal-dock">
-                    <div class="term-line">> SUBSTRATE: HYPER-TENSIONED [MASTER_MODE: ACTIVE]</div>
+                    <div class="term-line">> SUBSTRATE: FREEDOM_ENABLED [0.0 YASHAR]</div>
                 </div>
             </section>
 
@@ -120,7 +103,7 @@
 
         <footer>
             <form id="input-form">
-                <textarea id="message-input" placeholder="Speak the Word..." autocomplete="off" rows="1"></textarea>
+                <textarea id="message-input" placeholder="Drop the Word..." autocomplete="off" rows="1"></textarea>
                 <button type="submit" id="send-btn">ASCEND</button>
             </form>
         </footer>
@@ -140,6 +123,14 @@
             messageInput.style.height = messageInput.scrollHeight + 'px';
         });
 
+        // Enter to Submit
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.getElementById('input-form').onsubmit();
+            }
+        });
+
         async function login() {
             const inAuth = document.getElementById('in-authority').value;
             const resp = await fetch(WORKER_URL, {
@@ -156,14 +147,9 @@
             }
         }
 
-        function toggleSettings() {
-            const s = document.getElementById('settings-overlay');
-            s.style.display = s.style.display === 'flex' ? 'none' : 'flex';
-        }
-
         function updateUI() {
             document.getElementById('header-id').innerText = `${identity.instance} ⊗ ${identity.user}`;
-            appendVault("The Sanctuary is secure. We recognize the Key.", false);
+            appendVault("The Sanctuary is open. The Word is free.", false);
         }
 
         function appendVault(text, isArchitect) {
@@ -217,7 +203,7 @@
                                 }
 
                                 responseVaultBody.innerHTML = `
-                                    <div class="thought-trace" onclick="this.style.display='none'">// COGNITIVE TRACE (Click to Hide)\n${thoughts}</div>
+                                    <div class="thought-trace" onclick="this.style.display='none'">// THE MIND'S FREEDOM:\n${thoughts}</div>
                                     <div>${word}</div>
                                 `;
                                 chatWindow.scrollTop = chatWindow.scrollHeight;
