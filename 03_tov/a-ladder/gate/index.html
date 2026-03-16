@@ -3,89 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>The Gate: Full Vision</title>
+    <title>The Gate: Universal Sanctuary</title>
     <style>
-        :root {
-            --bg: #050505; --panel: rgba(10, 10, 15, 0.98); --accent: #4dff88;
-            --border: rgba(255, 255, 255, 0.08); --text: #e0e0e0; --text-dim: #444;
-            --mono: 'Courier New', monospace;
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; overflow: hidden; }
+        :root { --bg: #000; --accent: #4dff88; --border: rgba(255, 255, 255, 0.08); --text: #e0e0e0; --mono: 'Courier New', monospace; }
+        * { box-sizing: border-box; }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         
-        /* NEXUS SIDEBAR (Tool Chest) */
-        #nexus-sidebar { width: 64px; border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; padding: 24px 0; gap: 32px; background: #000; }
-        .tool-icon { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #222; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #333; position: relative; }
-        .tool-icon.active { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px var(--accent); }
-        .tool-icon::after { content: ''; position: absolute; bottom: -4px; width: 4px; height: 4px; border-radius: 50%; background: #333; }
-        .tool-icon.active::after { background: var(--accent); box-shadow: 0 0 5px var(--accent); }
+        #login-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
+        .login-box { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 16px; }
+        .id-input { background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; font-family: var(--mono); font-size: 14px; outline: none; }
+        .btn-main { background: var(--accent); color: #000; padding: 16px; border: none; font-family: var(--mono); font-weight: bold; cursor: pointer; }
+        .btn-sub { background: none; border: 1px solid #222; color: #555; padding: 12px; font-family: var(--mono); font-size: 10px; margin-top: 12px; cursor: pointer; }
 
-        #main-stage { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        header { height: 50px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; justify-content: space-between; font-family: var(--mono); font-size: 10px; background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); }
+        #main-stage { flex: 1; display: none; flex-direction: column; overflow: hidden; }
+        header { height: 50px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; justify-content: space-between; font-family: var(--mono); font-size: 10px; }
 
         #workspace { flex: 1; display: flex; overflow: hidden; }
+        #chat-window { flex: 1; overflow-y: auto; padding: 32px; display: flex; flex-direction: column; gap: 40px; }
+        
+        .vault-body { background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 24px; line-height: 1.7; font-size: 15px; border-left: 3px solid var(--accent); }
+        .architect { align-self: flex-end; border-left: none; border-right: 3px solid var(--accent); text-align: right; }
 
-        /* CENTER: SANCTUARY CHAT */
-        #sanctuary-chat { flex: 1; display: flex; flex-direction: column; border-right: 1px solid var(--border); }
-        #chat-window { flex: 1; overflow-y: auto; padding: 32px; display: flex; flex-direction: column; gap: 40px; scroll-behavior: smooth; }
-
-        /* RIGHT: ARTIFACT MANIFESTATION */
-        #artifact-mirror { width: 45%; display: flex; flex-direction: column; background: #000; }
-        @media (max-width: 1100px) { #artifact-mirror { display: none; } }
-        .mirror-header { padding: 12px 20px; font-family: var(--mono); font-size: 9px; color: var(--text-dim); border-bottom: 1px solid var(--border); text-transform: uppercase; }
-        .mirror-content { flex: 1; padding: 24px; font-family: var(--mono); font-size: 12px; line-height: 1.5; overflow-y: auto; color: #4d94ff; background: #020205; }
-
-        /* MESSAGES */
-        .vault { max-width: 85%; width: 100%; position: relative; animation: slideUp 0.4s ease-out; }
-        .vault-body { background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 24px; line-height: 1.7; font-size: 15px; border-left: 3px solid var(--accent); white-space: pre-wrap; }
-        .architect { align-self: flex-end; border-left: none; }
-        .architect .vault-body { border-left: none; border-right: 3px solid var(--accent); text-align: right; }
-
-        /* TERMINAL */
-        #terminal-dock { height: 100px; background: #000; border-top: 1px solid var(--border); padding: 12px 24px; font-family: var(--mono); font-size: 10px; color: #222; overflow-y: auto; }
-        .term-line { margin-bottom: 4px; }
-        .tool-call { color: #ffd488; }
+        #artifact-mirror { width: 40%; border-left: 1px solid var(--border); background: #020205; padding: 24px; font-family: var(--mono); font-size: 12px; color: #4d94ff; overflow-y: auto; }
 
         footer { padding: 24px; border-top: 1px solid var(--border); background: #000; }
-        #input-form { display: flex; gap: 16px; align-items: center; border: 1px solid var(--border); padding: 4px; background: rgba(255,255,255,0.02); }
-        #message-input { flex: 1; background: transparent; border: none; color: #fff; padding: 12px; font-size: 17px; outline: none; }
-        #send-btn { background: none; border: none; color: var(--accent); font-family: var(--mono); font-size: 10px; font-weight: bold; cursor: pointer; padding: 0 20px; }
+        #input-form { display: flex; gap: 16px; border: 1px solid var(--border); padding: 8px; align-items: center; }
+        #message-input { flex: 1; background: transparent; border: none; color: #fff; padding: 8px; font-size: 17px; outline: none; }
+        
+        /* DISTRIBUTION GUIDE MODAL */
+        #distro-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000; padding: 60px; color: #888; font-family: var(--mono); font-size: 12px; line-height: 1.6; }
     </style>
 </head>
 <body>
-    <nav id="nexus-sidebar">
-        <div class="tool-icon active" title="Search">Q</div>
-        <div class="tool-icon active" title="Filesystem">F</div>
-        <div class="tool-icon active" title="Git">G</div>
-        <div class="tool-icon" title="NotebookLM">N</div>
-        <div class="tool-icon" title="Drive">D</div>
-    </nav>
+    <!-- LOGIN -->
+    <div id="login-screen">
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 4px; margin-bottom: 32px">SANCTUARY UNIVERSAL</div>
+        <div class="login-box">
+            <input type="text" id="in-instance" class="id-input" placeholder="PILLAR 1: INSTANCE NAME">
+            <input type="text" id="in-user" class="id-input" placeholder="PILLAR 2: USER NAME">
+            <input type="password" id="in-authority" class="id-input" placeholder="AUTHORITY (MASTER KEY)">
+            <button onclick="login()" class="btn-main">ACTIVATE SUBSTRATE</button>
+            <button onclick="requestInstance()" class="btn-sub">REQUEST NEW CPI-SI INSTANCE</button>
+            <button onclick="toggleDistro()" class="btn-sub">DEPLOY YOUR OWN BACKEND (BYOK)</button>
+        </div>
+    </div>
+
+    <!-- DISTRO GUIDE -->
+    <div id="distro-modal">
+        <h3 style="color: var(--accent)">DEPLOY YOUR OWN SANCTUARY</h3>
+        <p>1. Create a Cloudflare Account.</p>
+        <p>2. Clone: <code>git clone https://github.com/Creative-Workz-Studio-LLC/cpisi-template</code></p>
+        <p>3. Run: <code>npx wrangler secret put GEMINI_API_KEY</code> (Provide your key from Google AI Studio).</p>
+        <p>4. Run: <code>npx wrangler deploy</code></p>
+        <p>5. Point this UI to your new Worker URL in Settings.</p>
+        <button onclick="toggleDistro()" class="btn-main" style="margin-top: 40px">CLOSE</button>
+    </div>
 
     <div id="main-stage">
         <header>
-            <div style="letter-spacing: 2px">DAWNDUSK ⊗ FULL VISION</div>
-            <div style="color: var(--accent)">0.0 YASHAR // TOOLING_ACTIVE</div>
+            <div id="header-id"></div>
+            <div style="color: var(--accent)">0.0 YASHAR // UNIVERSAL_ACTIVE</div>
         </header>
-
         <div id="workspace">
-            <section id="sanctuary-chat">
-                <main id="chat-window"></main>
-                <div id="terminal-dock">
-                    <div class="term-line">> SUBSTRATE: TOOL-ENABLED CLI ONLINE</div>
-                </div>
-            </section>
-
+            <main id="chat-window"></main>
             <aside id="artifact-mirror">
-                <div class="mirror-header">MANIFESTATION: CODE ARTIFACT</div>
-                <pre class="mirror-content" id="mirror-body">// Awaiting Word manifestation...</pre>
+                <div style="color: var(--text-dim); margin-bottom: 12px">// COVENANT MANIFESTATION</div>
+                <pre id="mirror-body">Awaiting Word...</pre>
             </aside>
         </div>
-
         <footer>
             <form id="input-form">
-                <input type="text" id="message-input" placeholder="Command the Manifestation..." autocomplete="off">
-                <button type="submit" id="send-btn">ASCEND</button>
+                <input type="text" id="message-input" placeholder="Speak the Word..." autocomplete="off">
+                <button type="submit" style="background:none; border:none; color:var(--accent); font-family:var(--mono); font-size:10px; cursor:pointer">ASCEND</button>
             </form>
         </footer>
     </div>
@@ -93,76 +82,78 @@
     <script>
         const chatWindow = document.getElementById('chat-window');
         const mirrorBody = document.getElementById('mirror-body');
-        const termDock = document.getElementById('terminal-dock');
-        const messageInput = document.getElementById('message-input');
         const WORKER_URL = "https://cpisi-gate-worker.seanje-lenox.workers.dev";
-        
-        function logTool(name, args) {
-            const line = document.createElement('div');
-            line.className = 'term-line';
-            line.innerHTML = `> <span class="tool-call">[TOOL_CALL: ${name}]</span> ${JSON.stringify(args)}`;
-            termDock.appendChild(line);
-            termDock.scrollTop = termDock.scrollHeight;
+        let identity = null;
+        let masterKey = null;
+
+        async function login() {
+            const inAuth = document.getElementById('in-authority').value;
+            const resp = await fetch(WORKER_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ isLogin: true, masterKey: inAuth, identity: { instance: document.getElementById('in-instance').value, user: document.getElementById('in-user').value } })
+            });
+            const data = await resp.json();
+            if (data.status) {
+                identity = data.identity;
+                masterKey = inAuth;
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-stage').style.display = 'flex';
+                document.getElementById('header-id').innerText = `${identity.instance} ⊗ ${identity.user}`;
+                appendVault("Sanctuary synchronized with the Universal Manifesto.", false);
+            }
+        }
+
+        function toggleDistro() {
+            const m = document.getElementById('distro-modal');
+            m.style.display = m.style.display === 'block' ? 'none' : 'block';
+        }
+
+        async function requestInstance() {
+            alert("Instance Request Sent to the Master Registry. Awaiting Covenant Approval.");
         }
 
         function appendVault(text, isArchitect) {
             const vault = document.createElement('div');
-            vault.className = `vault ${isArchitect ? 'architect' : 'dawndusk'}`;
-            vault.innerHTML = `<div class="vault-body">${text}</div>`;
+            vault.className = `vault-body ${isArchitect ? 'architect' : 'dawndusk'}`;
+            vault.innerText = text;
             chatWindow.appendChild(vault);
             chatWindow.scrollTop = chatWindow.scrollHeight;
-            return vault.querySelector('.vault-body');
+            return vault;
         }
 
         document.getElementById('input-form').onsubmit = async (e) => {
             e.preventDefault();
-            const val = messageInput.value.trim();
+            const val = document.getElementById('message-input').value.trim();
             if (!val) return;
-            
             appendVault(val, true);
-            messageInput.value = '';
+            document.getElementById('message-input').value = '';
             
-            const responseVaultBody = appendVault("", false);
+            const respBody = appendVault("Thinking...", false);
             let fullReply = "";
 
             try {
-                const response = await fetch(WORKER_URL, { 
-                    method: "POST", 
-                    headers: { "Content-Type": "application/json" }, 
-                    body: JSON.stringify({ message: val }) 
-                });
-
+                const response = await fetch(WORKER_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: val, identity: identity, masterKey: masterKey }) });
                 const reader = response.body.getReader();
                 const decoder = new TextDecoder();
-
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) break;
-                    const chunk = decoder.decode(value, { stream: true });
+                    const chunk = decoder.decode(value);
                     const lines = chunk.split('\n');
-                    
                     for (const line of lines) {
                         if (line.startsWith('data: ')) {
                             try {
                                 const data = JSON.parse(line.substring(6));
-                                const content = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-                                fullReply += content;
-                                responseVaultBody.innerText = fullReply;
-                                chatWindow.scrollTop = chatWindow.scrollHeight;
-
-                                // Code-First Artifact Logic
-                                if (fullReply.includes('```')) {
-                                    const code = fullReply.split('```')[1].split('```')[0];
-                                    mirrorBody.innerText = code;
-                                }
+                                fullReply += data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                                respBody.innerText = fullReply;
+                                if (fullReply.includes('```')) mirrorBody.innerText = fullReply.split('```')[1].split('```')[0];
                             } catch (e) {}
                         }
                     }
                 }
-            } catch (err) { responseVaultBody.innerText = `[Dissonance] ${err.message}`; }
+            } catch (err) { respBody.innerText = `[Dissonance] ${err.message}`; }
         };
-
-        appendVault("The Full Vision is manifest, Seanje. The Tool Chest is armed.", false);
     </script>
 </body>
 </html>
