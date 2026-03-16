@@ -5,10 +5,11 @@ window.CPISI.appendVault = function(text, isSteward, skipSave = false) {
     const vault = document.createElement('div');
     vault.className = `vault-body ${isSteward ? 'steward' : 'dawndusk'}`;
     
-    // THE SEAL TRIGGER
+    // THE SEAL TRIGGER (ALWAYS VISIBLE QOL)
     const seal = document.createElement('div');
     seal.className = 'vault-seal';
     seal.innerText = '✧';
+    seal.title = 'Seal to Mirror';
     seal.onclick = () => window.CPISI.sealWord(text, vault);
     vault.appendChild(seal);
 
@@ -23,7 +24,6 @@ window.CPISI.appendVault = function(text, isSteward, skipSave = false) {
     }
 
     if (!skipSave) {
-        // We now primarily save to the Substrate, but keep local for immediate feedback
         const history = JSON.parse(localStorage.getItem('cpisi_history') || '[]');
         history.push({ text, isSteward });
         localStorage.setItem('cpisi_history', JSON.stringify(history.slice(-50)));
@@ -34,11 +34,11 @@ window.CPISI.appendVault = function(text, isSteward, skipSave = false) {
 window.CPISI.sealWord = async function(text, element) {
     element.classList.add('projecting');
     const mirror = document.getElementById('mirror-content');
-    setTimeout(() => {
-        mirror.innerText = text;
-        mirror.classList.add('active');
-        element.classList.remove('projecting');
-    }, 300);
+    
+    // Immediate Visual Feedback
+    mirror.innerText = text;
+    mirror.classList.add('active');
+    setTimeout(() => element.classList.remove('projecting'), 600);
 
     try {
         await fetch(window.CPISI.config.WORKER_URL, {
@@ -56,7 +56,7 @@ window.CPISI.sealWord = async function(text, element) {
 
 window.CPISI.restoreHistory = async function() {
     const chatWindow = document.getElementById('chat-window');
-    chatWindow.innerHTML = ''; // Clear local
+    chatWindow.innerHTML = '';
     
     try {
         const resp = await fetch(window.CPISI.config.WORKER_URL, {
@@ -73,7 +73,6 @@ window.CPISI.restoreHistory = async function() {
                 window.CPISI.appendVault(item.text, item.isSteward, true);
             });
         } else {
-            // Fallback to local if substrate is empty
             const history = JSON.parse(localStorage.getItem('cpisi_history') || '[]');
             history.forEach(item => window.CPISI.appendVault(item.text, item.isSteward, true));
         }
@@ -140,6 +139,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (window.CPISI.loadState()) {
         window.CPISI.showMainStage(true);
         window.CPISI.restoreHistory();
+        window.CPISI.updatePresence();
         if(window.CPISI.setPath) {
             window.CPISI.setPath(localStorage.getItem('cpisi_path') || 'WORD', localStorage.getItem('cpisi_path_idx') || 4);
         }

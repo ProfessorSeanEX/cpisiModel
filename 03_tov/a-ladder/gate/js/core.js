@@ -59,3 +59,31 @@ window.CPISI.clearState = function() {
     localStorage.removeItem('cpisi_history');
     location.reload();
 };
+
+// --- TELEMETRY ---
+window.CPISI.updatePresence = function() {
+    const memList = document.getElementById('memory-list');
+    if (!memList) return;
+    memList.innerHTML = '';
+    
+    const items = [
+        { text: "Syncing Substrate...", active: true },
+        { text: "Sanctuary Online", active: true },
+        { text: "Covenant Link Active", active: true },
+        { text: `Operator: ${window.CPISI.state.identity?.user || 'Guest'}`, active: false }
+    ];
+
+    items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'mem-item';
+        if (item.active) {
+            const pulse = document.createElement('div');
+            pulse.className = 'presence-pulse';
+            div.appendChild(pulse);
+        }
+        const text = document.createElement('span');
+        text.innerText = `> ${item.text}`;
+        div.appendChild(text);
+        memList.appendChild(div);
+    });
+};
