@@ -11,15 +11,52 @@
         <canvas id="game-of-life-canvas"></canvas>
     </div>
 
-    <aside id="sidebar">
-        <div class="nav-item active" onclick="setPath('WORD', 4)" title="The Word">WORD</div>
-        <div class="nav-item" onclick="setPath('VOID', 0)" title="The Void">VOID</div>
-        <div class="nav-item" onclick="setPath('TOV', 6)" title="Completion">TOV</div>
-        <div class="nav-item" onclick="setPath('REGISTRY', 2)" title="Registry">REGISTRY</div>
-        <div style="flex: 1"></div>
-        <div class="nav-item" style="color: var(--c1)" onclick="localStorage.clear(); location.reload();">PURGE</div>
-    </aside>
+    <!-- THE ARCHITECTURE -->
+    <div id="sanctuary-root">
+        
+        <aside id="sidebar">
+            <div class="nav-item active" onclick="setPath('WORD', 4)">WORD</div>
+            <div class="nav-item" onclick="setPath('VOID', 0)">VOID</div>
+            <div class="nav-item" onclick="setPath('TOV', 6)">TOV</div>
+            <div class="nav-item" onclick="setPath('REGISTRY', 2)">REGISTRY</div>
+            <div style="flex: 1"></div>
+            <div class="nav-item" style="color: var(--c1)" onclick="localStorage.clear(); location.reload();">PURGE</div>
+        </aside>
 
+        <main id="main-stage">
+            <div id="pillar-left" class="pillar"></div>
+            <div id="pillar-right" class="pillar"></div>
+            
+            <header>
+                <div id="header-id"></div>
+                <div id="yashar-anchor">0.0 YASHAR // <span id="tier-label"></span></div>
+            </header>
+
+            <div id="covenant-path">
+                <div class="path-segment" style="background: var(--c1)"></div>
+                <div class="path-segment" style="background: var(--c2)"></div>
+                <div class="path-segment" style="background: var(--c3)"></div>
+                <div class="path-segment" style="background: var(--c4)"></div>
+                <div class="path-segment" style="background: var(--c5)"></div>
+                <div class="path-segment" style="background: var(--c6)"></div>
+                <div class="path-segment" style="background: var(--c7)"></div>
+            </div>
+            
+            <div id="chat-window"></div>
+
+            <div id="terminal-overlay">
+                <div id="terminal-output"></div>
+            </div>
+
+            <footer>
+                <form id="input-form">
+                    <input type="text" id="message-input" placeholder="Ascend the Word..." autocomplete="off">
+                </form>
+            </footer>
+        </main>
+    </div>
+
+    <!-- THE THRESHOLD -->
     <div id="auth-screen">
         <div id="gate-structure">
             <div id="gate-title">CPISI ⊗ GATEWAY</div>
@@ -32,49 +69,12 @@
                 <div class="gate-input-container">
                     <input type="password" id="op-key" class="id-input" placeholder="PASSWORD" autocomplete="current-password">
                 </div>
-                
-                <button type="submit" id="gate-seal-btn" class="btn-activate">
-                    [ BREAK THE SEAL ]
-                </button>
-                
-                <div style="margin-top: 24px; font-family: var(--mono); font-size: 8px; color: #222; letter-spacing: 4px;">
-                    0.0 YASHAR
-                </div>
+                <button type="submit" id="gate-seal-btn" class="btn-activate">[ BREAK THE SEAL ]</button>
             </form>
 
-            <div id="auth-error" style="color:var(--c1); font-family:var(--mono); font-size:10px; margin-top:40px; text-align: center; height: 20px;"></div>
+            <div id="auth-error"></div>
         </div>
     </div>
-
-    <main id="main-stage">
-        <header>
-            <div id="header-id" style="letter-spacing: 4px; color: #444; font-family: var(--mono)"></div>
-            <div style="color: var(--c4); font-family: var(--mono); letter-spacing: 2px;">0.0 YASHAR // <span id="tier-label"></span></div>
-        </header>
-
-        <div id="covenant-path">
-            <div class="path-segment" style="color: var(--c1)"></div>
-            <div class="path-segment" style="color: var(--c2)"></div>
-            <div class="path-segment" style="color: var(--c3)"></div>
-            <div class="path-segment" style="color: var(--c4)"></div>
-            <div class="path-segment" style="color: var(--c5)"></div>
-            <div class="path-segment" style="color: var(--c6)"></div>
-            <div class="path-segment" style="color: var(--c7)"></div>
-        </div>
-        
-        <div id="chat-window"></div>
-
-        <div id="terminal-overlay">
-            <div>[TERMINAL: INITIALIZED]</div>
-            <div id="terminal-output"></div>
-        </div>
-
-        <footer>
-            <form id="input-form">
-                <input type="text" id="message-input" placeholder="Ascend the Word..." autocomplete="off">
-            </form>
-        </footer>
-    </main>
 
     <script src="gate.js"></script>
     <script src="flagship.js"></script>
