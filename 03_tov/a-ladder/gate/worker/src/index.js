@@ -19,7 +19,7 @@ export default {
 
     if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
     
-    // --- UI SUBSTRATE PROXY (Authenticated & Direct) ---
+    // --- UI SUBSTRATE PROXY ---
     if (request.method === "GET") {
         let path = url.pathname;
         if (path === "/" || path === "") path = "/index.html";
@@ -58,11 +58,42 @@ export default {
     // --- SOVEREIGN PROTOCOLS (POST) ---
     try {
       const body = await request.json();
-      const { action, identity, keys, inviteCode, message, vaultBlock, profile, password, targetId } = body;
+      const { action, identity, keys, inviteCode, message, vaultBlock, profile, password, targetId, syncType, payload } = body;
       
       const authResult = await validateThreshold(identity, keys, inviteCode, env);
       const { tier, isEnterpriseSteward, userNameLow, isInvite } = authResult;
 
+      // --- EXTERNAL SUBSTRATE SYNC (cws-server Link) ---
+      if (action === "SYNC_SUBSTRATE") {
+          const serverAuth = keys?.authority;
+          if (serverAuth !== env.MASTER_SECRET) throw new Error("Unauthorized Substrate Sync.");
+          
+          if (syncType === "REGISTRY_UPDATE") {
+              await env.REGISTRY.put(`REGISTRY:${payload.opId}`, JSON.stringify(payload.data));
+          } else if (syncType === "MIRROR_INJECTION") {
+              await env.REGISTRY.put(`MIRROR:${payload.id}`, JSON.stringify(payload.data));
+              const existing = await env.REGISTRY.get('MIRROR_FEED');
+              let feed = existing ? JSON.parse(existing) : [];
+              feed.unshift(payload.data);
+              await env.REGISTRY.put('MIRROR_FEED', JSON.stringify(feed.slice(0, 50)));
+          }
+          return new Response(JSON.stringify({ status: "SYNCED", type: syncType }), { headers: corsHeaders });
+      }
+
+      // --- CLI ↔ MOBILE RELAY ---
+      if (action === "CLI_RELAY") {
+          const serverAuth = keys?.authority;
+          if (serverAuth !== env.MASTER_SECRET) throw new Error("Unauthorized Relay.");
+          await env.REGISTRY.put("CLI_STATE", JSON.stringify({ ...body.payload, timestamp: Date.now() }));
+          return new Response(JSON.stringify({ status: "RELAYED" }), { headers: corsHeaders });
+      }
+
+      if (action === "GET_CLI_STATE") {
+          const state = await env.REGISTRY.get("CLI_STATE");
+          return new Response(state || JSON.stringify({ status: "IDLE" }), { headers: corsHeaders });
+      }
+
+      // --- STANDARD ACTIONS ---
       if (action === "INHABIT") {
         if (tier === "UNAUTHORIZED") throw new Error("Invalid Threshold Keys.");
         if (isInvite) return new Response(JSON.stringify({ status: "INVITE_VALIDATED", tier: tier }), { headers: corsHeaders });
