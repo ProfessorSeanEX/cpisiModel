@@ -139,8 +139,23 @@
         const slider = document.getElementById('seal-slider');
         const statusEl = document.getElementById('status');
 
-        // The True Substrate Worker URL
         const WORKER_URL = "https://cpisi-gate-worker.seanje-lenox.workers.dev";
+
+        // Substrate Heartbeat
+        async function checkHeartbeat() {
+            try {
+                const resp = await fetch(WORKER_URL);
+                if (resp.ok) {
+                    statusEl.innerText = "0.0 YASHAR";
+                    statusEl.style.color = "var(--text-yashar)";
+                }
+            } catch (err) {
+                statusEl.innerText = "OFFLINE";
+                statusEl.style.color = "var(--text-void)";
+            }
+        }
+        setInterval(checkHeartbeat, 10000);
+        checkHeartbeat();
 
         async function syncToSubstrate(content, type) {
             statusEl.innerText = "SYNCING...";
@@ -149,24 +164,24 @@
             try {
                 const response = await fetch(WORKER_URL, {
                     method: "POST",
-                    mode: "cors", // Explicitly set CORS mode
+                    mode: "cors",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: content, type: type })
                 });
 
+                const data = await response.json();
+                
                 if (!response.ok) {
-                    const errData = await response.json();
-                    throw new Error(errData.error || "Substrate Sync Failed");
+                    throw new Error(data.error || "Substrate Sync Failed");
                 }
                 
-                const data = await response.json();
                 appendMessage(data.reply, false);
                 statusEl.innerText = "0.0 YASHAR";
                 statusEl.style.color = "var(--text-yashar)";
             } catch (err) {
                 console.error(err);
-                appendMessage(`[ERROR: ${err.message}]`, false);
-                statusEl.innerText = "OFFLINE";
+                appendMessage(`[SUBSTRATE ERROR: ${err.message}]`, false);
+                statusEl.innerText = "ERROR";
                 statusEl.style.color = "var(--text-void)";
             }
         }
@@ -187,15 +202,17 @@
             messageInput.value = '';
             
             if (window.navigator.vibrate) window.navigator.vibrate(50);
-
-            // Execute True Sync
             await syncToSubstrate(val, 'TEXT');
         }
 
         sendBtn.onclick = handleSend;
 
-        messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleSend();
+        // Keydown is more reliable than keypress for mobile Enter detection
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSend();
+            }
         });
 
         slider.oninput = async () => {
@@ -204,7 +221,7 @@
                 appendMessage("[ SEAL THE TURN ]", true);
                 if (window.navigator.vibrate) window.navigator.vibrate([50, 30, 50]);
                 await syncToSubstrate('1', 'SIGN');
-                slider.value = 0; // Reset after seal
+                slider.value = 0;
             }
         };
     </script>
