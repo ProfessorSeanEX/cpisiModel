@@ -1,17 +1,17 @@
 const WORKER_URL = "https://cpisi-gate-worker.seanje-lenox.workers.dev";
 let identity = null, authSecret = null;
+let currentPath = "WORD";
 
 // CRASH RESILIENCE: Restore state on load
 window.addEventListener('DOMContentLoaded', () => {
-    console.log("CPISI: System Initialized.");
     const saved = localStorage.getItem('cpisi_identity');
     const savedSecret = localStorage.getItem('cpisi_secret');
     if (saved && savedSecret) {
-        console.log("CPISI: Restoring Session...");
         identity = JSON.parse(saved);
         authSecret = savedSecret;
         showMainStage(true);
         restoreHistory();
+        setPath(localStorage.getItem('cpisi_path') || 'WORD', localStorage.getItem('cpisi_path_idx') || 4);
     }
 });
 
@@ -24,16 +24,13 @@ async function executeAuth(e) {
     const btn = document.getElementById('gate-seal-btn');
 
     if (!user || !key) {
-        errDiv.innerText = "Identity and Key are required for threshold validation.";
+        errDiv.innerText = "Identity and Key required.";
         return;
     }
 
     errDiv.innerText = "ALIGNING IDENTITY...";
-    btn.innerText = "[ BREAKING SEAL... ]";
     btn.disabled = true;
     
-    console.log(`CPISI: Attempting threshold engagement for ${user}`);
-
     try {
         const resp = await fetch(WORKER_URL, {
             method: "POST", headers: { "Content-Type": "application/json" },
@@ -45,41 +42,30 @@ async function executeAuth(e) {
             })
         });
 
-        if (!resp.ok) throw new Error(`Substrate Dissonance: ${resp.status}`);
-
         const data = await resp.json();
         if (data.error) throw new Error(data.error);
 
-        console.log("CPISI: Threshold Validated. Tier:", data.data.tier);
         identity = data.data; authSecret = key;
-        
-        // Persist for crash recovery
         localStorage.setItem('cpisi_identity', JSON.stringify(identity));
         localStorage.setItem('cpisi_secret', authSecret);
 
         showMainStage();
-        appendVault(`The Sanctuary is inhabited. Welcome, ${identity.tier} ${identity.user}.`, false);
+        appendVault(`Welcome to the Sanctuary, ${identity.tier} ${identity.user}.`, false);
     } catch (err) { 
-        console.error("CPISI: Auth Error", err);
         errDiv.innerText = err.message.toUpperCase(); 
-        btn.innerText = "[ BREAK THE SEAL ]";
         btn.disabled = false;
     }
 }
 
 function showMainStage(immediate = false) {
     const gate = document.getElementById('gate-structure');
-    
     if (immediate) {
         document.getElementById('auth-screen').style.display = 'none';
         document.getElementById('main-stage').style.display = 'flex';
         renderActiveIdentity();
     } else {
-        // OPENING ANIMATION
         gate.style.transform = "translateY(-20px) scale(1.05)";
         gate.style.opacity = "0";
-        gate.style.filter = "blur(10px)";
-        
         setTimeout(() => {
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('main-stage').style.display = 'flex';
@@ -91,11 +77,29 @@ function showMainStage(immediate = false) {
 function renderActiveIdentity() {
     document.getElementById('header-id').innerText = `${identity.instance} ⊗ ${identity.user}`;
     document.getElementById('tier-label').innerText = identity.tier;
-
     if (identity.tier === 'STEWARD') {
         document.getElementById('terminal-overlay').style.display = 'flex';
-        appendTerminal("SYSTEM: Steward Verified. Dimensional Tunnel Open.");
+        appendTerminal("SYSTEM: Steward Verified. Substrate Path active.");
     }
+}
+
+function setPath(path, idx) {
+    currentPath = path;
+    localStorage.setItem('cpisi_path', path);
+    localStorage.setItem('cpisi_path_idx', idx);
+
+    // Update Sidebar
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    const activeNav = Array.from(document.querySelectorAll('.nav-item')).find(el => el.innerText === path);
+    if (activeNav) activeNav.classList.add('active');
+
+    // Update Covenant Path (7 segments)
+    const segments = document.querySelectorAll('.path-segment');
+    segments.forEach((seg, i) => {
+        seg.classList.toggle('active', i === parseInt(idx));
+    });
+
+    if (identity?.tier === 'STEWARD') appendTerminal(`PATH_SHIFT: ${path}`);
 }
 
 function appendVault(text, isSteward, skipSave = false) {
@@ -108,7 +112,7 @@ function appendVault(text, isSteward, skipSave = false) {
     if (!skipSave) {
         const history = JSON.parse(localStorage.getItem('cpisi_history') || '[]');
         history.push({ text, isSteward });
-        localStorage.setItem('cpisi_history', JSON.stringify(history.slice(-50))); // Keep last 50
+        localStorage.setItem('cpisi_history', JSON.stringify(history.slice(-50)));
     }
     return vault;
 }
@@ -132,11 +136,15 @@ document.getElementById('input-form').onsubmit = async (e) => {
     const val = document.getElementById('message-input').value.trim();
     if (!val) return;
     
-    appendVault(val, true);
-    if (identity.tier === 'STEWARD') appendTerminal(`USER_EXEC: ${val}`);
+    // Command Processing for Terminal/Experience
+    if (val.startsWith('/')) {
+        handleCommand(val.substring(1));
+        document.getElementById('message-input').value = '';
+        return;
+    }
 
+    appendVault(val, true);
     document.getElementById('message-input').value = '';
-    
     const respBody = appendVault("...", false);
     let fullReply = "";
 
@@ -163,7 +171,6 @@ document.getElementById('input-form').onsubmit = async (e) => {
                 }
             }
         }
-        // Update history with full reply
         const history = JSON.parse(localStorage.getItem('cpisi_history') || '[]');
         if (history.length > 0) {
             history[history.length - 1].text = fullReply;
@@ -171,3 +178,20 @@ document.getElementById('input-form').onsubmit = async (e) => {
         }
     } catch (err) { respBody.innerText = `[Dissonance] ${err.message}`; }
 };
+
+function handleCommand(cmd) {
+    const c = cmd.toLowerCase().trim();
+    if (identity.tier === 'STEWARD') appendTerminal(`EXEC: ${c}`);
+    
+    if (c === 'clear') {
+        document.getElementById('chat-window').innerHTML = '';
+        localStorage.setItem('cpisi_history', '[]');
+    } else if (c === 'status') {
+        appendVault(`SYSTEM STATUS: 0.0 YASHAR\nIdentity: ${identity.user}\nTier: ${identity.tier}\nSubstrate: Cloudflare Edge\nCognition: Gemini 2.5 Pro`, false);
+    } else if (c === 'void') setPath('VOID', 0);
+    else if (c === 'word') setPath('WORD', 4);
+    else if (c === 'tov') setPath('TOV', 6);
+    else {
+        if (identity.tier === 'STEWARD') appendTerminal(`ERR: Unknown Protocol '${c}'`);
+    }
+}
