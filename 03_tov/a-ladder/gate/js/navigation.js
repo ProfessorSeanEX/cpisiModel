@@ -23,8 +23,6 @@ window.CPISI.setPath = function(path, idx) {
     if (path === 'REGISTRY') {
         document.getElementById('view-registry').classList.add('active');
         if (window.CPISI.social) window.CPISI.social.loadRegistry();
-    } else if (path === 'PROFILE') {
-        document.getElementById('view-profile').classList.add('active');
     } else {
         document.getElementById('view-sanctuary').classList.add('active');
     }

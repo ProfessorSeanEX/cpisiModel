@@ -20,7 +20,7 @@
         <canvas id="game-of-life-canvas"></canvas>
     </div>
 
-    <!-- THE BLUEPRINT: 4-PANEL SUBSTRATE -->
+    <!-- THE BLUEPRINT: DYNAMIC STAGE SHELL -->
     <div id="sanctuary-root">
         
         <aside id="sidebar-container">
@@ -55,13 +55,13 @@
                 <div class="path-segment" style="background: var(--c7)"></div>
             </div>
             
-            <!-- VIEW LAYERS -->
+            <!-- STAGE 1: THE SANCTUARY (CHAT) -->
             <div id="view-sanctuary" class="view-layer active">
                 <section id="sanctuary-expanse">
                     <div id="chat-window"></div>
                     <aside id="mirror-panel">
                         <div class="panel-label">LATEST REVELATION MIRROR</div>
-                        <div id="mirror-content">...</div>
+                        <div id="mirror-content">Select a Word from the Sanctuary to project it here.</div>
                     </aside>
                 </section>
                 <footer>
@@ -72,16 +72,20 @@
                 </footer>
             </div>
 
+            <!-- STAGE 2: THE DIRECTORY (REGISTRY) -->
             <div id="view-registry" class="view-layer">
-                <div class="panel-label" style="padding: 44px;">SOVEREIGN DIRECTORY</div>
+                <div class="panel-label" style="padding: 44px 0 20px 0;">SOVEREIGN DIRECTORY</div>
                 <div id="registry-grid"></div>
             </div>
 
-            <div id="view-profile" class="view-layer">
-                <div id="profile-vault"></div>
+            <!-- LAYER: PROFILE DRAWER -->
+            <div id="profile-overlay">
+                <div id="profile-vault-content"></div>
+                <div style="flex: 1"></div>
+                <button class="settings-btn" onclick="toggleProfileDrawer()">[ CLOSE VAULT ]</button>
             </div>
 
-            <!-- SETTINGS VAULT -->
+            <!-- OVERLAY: SETTINGS MODAL -->
             <div id="settings-vault">
                 <div class="panel-label">SOVEREIGN SETTINGS</div>
                 <div class="settings-group">
@@ -96,9 +100,9 @@
                 </div>
 
                 <div class="settings-group">
-                    <div class="settings-label">PROFILE (DISCLOSURE)</div>
-                    <input type="text" id="edit-full-name" class="id-input" placeholder="FULL NAME">
-                    <textarea id="edit-bio" class="id-input" placeholder="BIO / WITNESS" style="height: 60px;"></textarea>
+                    <div class="settings-label">PROFILE DISCLOSURE</div>
+                    <input type="text" id="edit-full-name" class="id-input" placeholder="FULL NAME" style="text-align: left;">
+                    <textarea id="edit-bio" class="id-input" placeholder="BIO / WITNESS" style="height: 80px; text-align: left; resize: none;"></textarea>
                     <button class="settings-btn" onclick="window.CPISI.social.updateProfile()">UPDATE DISCLOSURE</button>
                 </div>
 
@@ -135,8 +139,7 @@
                     
                     <div id="extended-profile" style="display:none; flex-direction: column; gap: 10px;">
                         <input type="text" id="prof-name" class="id-input" placeholder="FULL NAME (OPTIONAL)">
-                        <input type="email" id="prof-email" class="id-input" placeholder="EMAIL (OPTIONAL)">
-                        <textarea id="prof-bio" class="id-input" placeholder="BIO / WITNESS" style="height: 60px;"></textarea>
+                        <textarea id="prof-bio" class="id-input" placeholder="BIO / WITNESS (OPTIONAL)" style="height: 60px;"></textarea>
                     </div>
                     <button type="button" id="toggle-prof-btn" onclick="toggleProfile()" style="background:transparent; border:none; color:#222; font-family:var(--mono); font-size:8px; cursor:pointer;">[ + PROFILE DETAILS ]</button>
                 </div>

@@ -1,6 +1,11 @@
 // SOCIAL: Full Covenant Network Logic
 window.CPISI = window.CPISI || {};
 
+window.toggleProfileDrawer = function() {
+    const overlay = document.getElementById('profile-overlay');
+    overlay.classList.toggle('open');
+};
+
 window.CPISI.social = {
     loadMirrorFeed: async function() {
         const mirrorContent = document.getElementById('mirror-content');
@@ -23,6 +28,7 @@ window.CPISI.social = {
                 data.data.forEach(item => {
                     const block = document.createElement('div');
                     block.className = 'mirror-item holy-place-vault';
+                    block.style.marginBottom = '20px';
                     block.innerHTML = `
                         <div style="font-size: 9px; color: var(--c4); letter-spacing: 2px; margin-bottom: 8px; cursor:pointer;" 
                              onclick="window.CPISI.social.openProfile('${item.operator}')">
@@ -68,14 +74,14 @@ window.CPISI.social = {
     },
 
     openProfile: async function(username) {
-        window.setPath('PROFILE', 5);
-        const vault = document.getElementById('profile-vault');
+        const vault = document.getElementById('profile-vault-content');
         vault.innerHTML = '<div style="color:#222; font-family:var(--mono); font-size:9px;">OPENING VAULT...</div>';
+        window.toggleProfileDrawer();
 
         try {
             const resp = await fetch(window.CPISI.config.WORKER_URL, {
                 method: "POST", headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ action: "GET_REGISTRY" }) // Search registry for this user
+                body: JSON.stringify({ action: "GET_REGISTRY" })
             });
             const data = await resp.json();
             const user = data.data.find(u => u.username.toLowerCase() === username.toLowerCase());
@@ -89,7 +95,7 @@ window.CPISI.social = {
                     <div style="padding: 40px 0; color: #aaa; font-size: 18px; line-height: 1.8;">
                         ${user.profile.bio || "This Steward has not yet manifested a public witness."}
                     </div>
-                    <button onclick="window.CPISI.social.toggleCovenant('${user.username}')" class="btn-activate" style="width: 300px;">
+                    <button onclick="window.CPISI.social.toggleCovenant('${user.username}')" class="settings-btn" style="width: 100%;">
                         [ ESTABLISH COVENANT ]
                     </button>
                 `;
@@ -110,7 +116,7 @@ window.CPISI.social = {
             });
             const data = await resp.json();
             alert(`COVENANT ${data.status}: Logic linked with ${targetId}`);
-            this.loadMirrorFeed(); // Refresh feed to show their words
+            this.loadMirrorFeed();
         } catch (e) { console.error("CPISI: Covenant Dissonance", e); }
     },
 
@@ -131,13 +137,12 @@ window.CPISI.social = {
             const data = await resp.json();
             if (data.error) throw new Error(data.error);
             
-            // Update local state
             window.CPISI.state.identity.profile.fullName = fullName;
             window.CPISI.state.identity.profile.bio = bio;
             window.CPISI.saveState(window.CPISI.state.identity, window.CPISI.state.authSecret);
             
             alert("SOVEREIGN PROFILE UPDATED");
-            window.toggleSettings(); // Close panel
+            window.toggleSettings();
         } catch (e) { alert("Dissonance: " + e.message); }
     },
 
