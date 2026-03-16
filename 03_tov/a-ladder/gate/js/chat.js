@@ -2,12 +2,13 @@
 window.CPISI = window.CPISI || {};
 
 window.CPISI.appendVault = function(text, isSteward, skipSave = false) {
-    const stream = document.getElementById('terminal-stream');
-    if (!stream) return;
+    const chatWindow = document.getElementById('chat-window');
+    if (!chatWindow) return;
 
     const vault = document.createElement('div');
     vault.className = `vault-body ${isSteward ? 'steward' : 'dawndusk'}`;
     
+    // THE SEAL TRIGGER
     const seal = document.createElement('div');
     seal.className = 'vault-seal';
     seal.innerText = '✧';
@@ -19,8 +20,8 @@ window.CPISI.appendVault = function(text, isSteward, skipSave = false) {
     content.innerText = text;
     vault.appendChild(content);
     
-    stream.appendChild(vault);
-    window.CPISI.terminal.scrollToBottom();
+    chatWindow.appendChild(vault);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
 
     if (!skipSave) {
         const history = JSON.parse(localStorage.getItem('cpisi_history') || '[]');
@@ -28,31 +29,6 @@ window.CPISI.appendVault = function(text, isSteward, skipSave = false) {
         localStorage.setItem('cpisi_history', JSON.stringify(history.slice(-50)));
     }
     return vault;
-};
-
-window.CPISI.restoreHistory = async function() {
-    const stream = document.getElementById('terminal-stream');
-    if (stream) stream.innerHTML = '';
-    
-    try {
-        const resp = await fetch(window.CPISI.config.WORKER_URL, {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                action: "GET_HISTORY",
-                identity: window.CPISI.state.identity,
-                inviteCode: window.CPISI.state.authSecret
-            })
-        });
-        const data = await resp.json();
-        if (data.data && data.data.length > 0) {
-            data.data.forEach(item => {
-                window.CPISI.appendVault(item.text, item.isSteward, true);
-            });
-        } else {
-            const history = JSON.parse(localStorage.getItem('cpisi_history') || '[]');
-            history.forEach(item => window.CPISI.appendVault(item.text, item.isSteward, true));
-        }
-    } catch (e) { console.error("CPISI: History Sync Dissonance", e); }
 };
 
 window.CPISI.handleMessageSubmit = async function(e) {
@@ -63,27 +39,15 @@ window.CPISI.handleMessageSubmit = async function(e) {
     
     const user = window.CPISI.state.identity?.user || 'steward';
 
-    // If it's a command, handle it via terminal logic
-    if (val.startsWith('/')) {
-        window.CPISI.handleCommand(val.substring(1));
-        inputEl.value = '';
-        return;
-    }
-
-    // If in Sandbox mode, route to sandbox executor
-    if (window.CPISI.state.currentPath === 'SANDBOX' && window.CPISI.sandbox) {
-        window.CPISI.sandbox.execute(val);
-        inputEl.value = '';
-        return;
-    }
-
-    // Otherwise, treat it as a natural language command (Revelation)
-    window.CPISI.terminal.command(user, val);
+    // 1. User Message (Revelation)
+    window.CPISI.appendVault(val, true);
     inputEl.value = '';
     
-    const respVault = window.CPISI.appendVault("...", false);
-    const respContent = respVault.querySelector('.vault-content');
-    respContent.classList.add('thinking');
+    // 2. Thinking State (Separate Block)
+    const thinkingVault = window.CPISI.appendVault("...", false);
+    const thinkingContent = thinkingVault.querySelector('.vault-content');
+    thinkingContent.classList.add('thinking');
+    
     let fullReply = "";
 
     try {
@@ -119,20 +83,21 @@ window.CPISI.handleMessageSubmit = async function(e) {
                         const part = json.candidates?.[0]?.content?.parts?.[0]?.text || "";
                         if (part) {
                             if (fullReply === "") {
-                                respContent.innerText = "";
-                                respContent.classList.remove('thinking');
+                                // Transition from Thinking to Response
+                                thinkingContent.innerText = "";
+                                thinkingContent.classList.remove('thinking');
                             }
                             fullReply += part;
-                            respContent.innerText = fullReply;
-                            window.CPISI.terminal.scrollToBottom();
+                            thinkingContent.innerText = fullReply;
+                            document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
                         }
                     } catch (e) {}
                 }
             }
         }
     } catch (err) { 
-        respContent.classList.remove('thinking');
-        respContent.innerText = `[Dissonance] ${err.message}`; 
+        thinkingContent.classList.remove('thinking');
+        thinkingContent.innerText = `[Dissonance] ${err.message}`; 
     }
 };
 
@@ -142,15 +107,6 @@ window.addEventListener('DOMContentLoaded', () => {
     
     if (window.CPISI.loadState()) {
         window.CPISI.showMainStage(true);
-        window.CPISI.restoreHistory();
-        window.CPISI.updatePresence();
-        
-        // Apply tiered visibility to the root
-        const tier = window.CPISI.state.identity?.tier || 'SUPPORT';
-        document.body.className = `tier-${tier.toLowerCase().replace('_', '-')}`;
-        
-        // Update prompt
-        const prompt = document.getElementById('terminal-prompt');
-        if (prompt) prompt.innerText = `${window.CPISI.state.identity.user}@dawndusk:~$`;
+        window.CPISI.restoreHistory ? window.CPISI.restoreHistory() : null;
     }
 });

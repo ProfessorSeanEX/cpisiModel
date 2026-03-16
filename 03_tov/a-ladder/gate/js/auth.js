@@ -1,9 +1,6 @@
 // AUTH: Login Code Set and UI Transition
 window.CPISI = window.CPISI || {};
 
-let currentInviteCode = null;
-let currentTier = null;
-
 window.toggleProfile = function() {
     const p = document.getElementById('extended-profile');
     const b = document.getElementById('toggle-prof-btn');
@@ -12,7 +9,7 @@ window.toggleProfile = function() {
         b.innerText = '[ - HIDE DETAILS ]';
     } else {
         p.style.display = 'none';
-        b.innerText = '[ + SOVEREIGN PROFILE DETAILS ]';
+        b.innerText = '[ + ADD PROFILE DETAILS ]';
     }
 };
 
@@ -22,7 +19,7 @@ window.CPISI.executeAuth = async function(e) {
     const errDiv = document.getElementById('auth-error');
     const btn = document.getElementById('gate-seal-btn');
 
-    // STAGE 1: Threshold Validation (Invite or Login)
+    // STAGE 1: Threshold Validation
     if (document.getElementById('threshold-stage').style.display !== 'none') {
         const user = document.getElementById('op-user').value.trim();
         const key = document.getElementById('op-key').value.trim();
@@ -32,44 +29,29 @@ window.CPISI.executeAuth = async function(e) {
         errDiv.innerText = "ALIGNING THRESHOLD...";
         btn.disabled = true;
 
-        const keyType = window.CPISI.security.identifyKeyType(key);
-        const payload = { action: "INHABIT", identity: { user, instance: "Dawndusk" }, keys: {}, inviteCode: null };
-
-        if (keyType === "GEMINI_SUBSTRATE") {
-            payload.keys.gemini = key;
-            window.CPISI.security.persistSubstrateKey(key);
-        } else if (keyType === "FAMILY_INVITE" || keyType === "STEWARD_INVITE") {
-            payload.inviteCode = key;
-        } else {
-            payload.keys.authority = key;
-        }
-
         try {
             const resp = await fetch(window.CPISI.config.WORKER_URL, {
                 method: "POST", headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({ 
+                    action: "INHABIT", 
+                    identity: { user, instance: "Dawndusk" }, 
+                    keys: { authority: key }, 
+                    inviteCode: key 
+                })
             });
             const data = await resp.json();
             if (data.error) throw new Error(data.error);
 
             if (data.status === "INVITE_VALIDATED") {
-                currentInviteCode = key;
-                currentTier = data.tier;
+                // MOVE TO STAGE 2: New User Registration
+                window.currentInviteCode = key;
                 document.getElementById('threshold-stage').style.display = 'none';
                 document.getElementById('inhabitation-stage').style.display = 'flex';
-                
-                // SHOW PROVISIONING STATUS
-                const setupHint = document.getElementById('toggle-prof-btn');
-                if (currentTier === 'FAMILY_COVENANT' || currentTier === 'FIRST_ADOPTER') {
-                    errDiv.style.color = "var(--c4)";
-                    errDiv.innerText = "SUBSTRATE: COMPANY PROVISIONED (READY)";
-                    setupHint.innerText = "[ + SOVEREIGN WITNESS ]";
-                }
-
                 btn.innerText = "[ SEAL IDENTITY ]";
                 btn.disabled = false;
+                errDiv.innerText = "";
             } else {
-                // SUCCESS: Standard Login
+                // Standard Login Success
                 window.CPISI.saveState(data.data, key);
                 window.CPISI.showMainStage();
             }
@@ -85,11 +67,7 @@ window.CPISI.executeAuth = async function(e) {
     const profile = {
         fullName: document.getElementById('prof-name').value.trim(),
         email: document.getElementById('prof-email').value.trim(),
-        bio: document.getElementById('prof-bio').value.trim(),
-        visibility: {
-            fullName: document.getElementById('vis-name').checked,
-            email: document.getElementById('vis-email').checked
-        }
+        bio: document.getElementById('prof-bio').value.trim()
     };
 
     errDiv.innerText = "CREATING SOVEREIGN RECORD...";
@@ -102,8 +80,7 @@ window.CPISI.executeAuth = async function(e) {
                 action: "CREATE_ACCOUNT",
                 identity: { user: newUser, instance: "Dawndusk" },
                 password: newPass,
-                tier: currentTier,
-                inviteCode: currentInviteCode,
+                inviteCode: window.currentInviteCode,
                 profile: profile
             })
         });
@@ -116,19 +93,19 @@ window.CPISI.executeAuth = async function(e) {
 };
 
 window.CPISI.showMainStage = function(immediate = false) {
-    const gate = document.getElementById('gate-structure');
-    const state = window.CPISI.state;
+    const gate = document.getElementById('auth-screen');
+    const stage = document.getElementById('main-stage');
     
     const render = () => {
-        document.getElementById('auth-screen').style.display = 'none';
-        document.getElementById('main-stage').style.display = 'flex';
-        document.getElementById('header-user').innerText = state.identity.user.toUpperCase();
-        document.getElementById('header-id').innerText = `DAWNDUSK ⊗ ${state.identity.user.toUpperCase()}`;
+        gate.style.display = 'none';
+        stage.style.display = 'flex';
+        document.getElementById('header-id').innerText = `DAWNDUSK ⊗ ${window.CPISI.state.identity.user.toUpperCase()}`;
     };
 
     if (immediate) render();
     else {
-        if(gate) { gate.style.transform = "translateY(-20px) scale(1.05)"; gate.style.opacity = "0"; }
+        document.getElementById('gate-structure').style.transform = "scale(1.1)";
+        document.getElementById('gate-structure').style.opacity = "0";
         setTimeout(render, 600);
     }
 };
