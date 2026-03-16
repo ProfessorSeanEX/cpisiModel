@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>The Gate: Master Substrate</title>
+    <title>The Gate: Final Substrate</title>
     <style>
         :root {
             --bg: #000; --panel: rgba(10, 10, 15, 0.95); --accent: #4dff88;
@@ -33,10 +33,13 @@
         #plan-view { flex-direction: column; padding: 40px; gap: 24px; }
         #plan-editor { flex: 1; background: transparent; border: 1px solid var(--border); color: #fff; padding: 32px; font-family: 'Georgia', serif; font-size: 18px; line-height: 1.8; resize: none; outline: none; border-radius: 4px; }
         .plan-actions { display: flex; justify-content: flex-end; gap: 16px; }
-        .btn-master { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; font-family: monospace; font-size: 11px; font-weight: bold; cursor: pointer; box-shadow: 0 0 15px rgba(77, 255, 136, 0.1); }
+        .btn-master { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; font-family: monospace; font-size: 11px; font-weight: bold; cursor: pointer; }
 
-        /* MASTER INDICATORS */
-        .master-badge { border: 1px solid var(--accent); color: var(--accent); padding: 2px 8px; border-radius: 2px; font-size: 8px; margin-right: 8px; }
+        /* RECALL SHATTER EFFECT */
+        @keyframes shatter { 0% { opacity: 1; filter: invert(0); } 50% { opacity: 0; filter: invert(1); } 100% { opacity: 1; filter: invert(0); } }
+        .shattering { animation: shatter 0.3s ease-in-out; }
+
+        .master-badge { border: 1px solid var(--accent); color: var(--accent); padding: 2px 8px; border-radius: 2px; font-size: 8px; margin-right: 8px; cursor: pointer; }
         
         footer { padding: 20px; border-top: 1px solid var(--border); background: #050505; }
         #input-form { display: flex; background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 4px; }
@@ -51,7 +54,7 @@
 
     <div id="workspace">
         <header>
-            <div><span class="master-badge">MASTER ELEVATED</span>#!omni:gate // <span id="mode-label">SSH</span></div>
+            <div id="master-trigger" onclick="handleRecall()"><span class="master-badge">MASTER ELEVATED</span>#!omni:gate // <span id="mode-label">SSH</span></div>
             <div id="ip-display" style="color: var(--text-dim)">IDENTITY: ARCHITECT SEANJE</div>
             <span id="status" style="color: var(--accent)">0.0 YASHAR</span>
         </header>
@@ -59,8 +62,7 @@
         <div id="ssh-view" class="tab-content active">
             <main id="chat-window"></main>
             <div id="terminal-dock">
-                <div class="term-line">> ARCHITECT DETECTED. BYPASSING CONFIG...</div>
-                <div class="term-line">> SUBSTRATE: DELL PRECISION SYNCED</div>
+                <div class="term-line">> ARCHITECT DETECTED. THE FULL DESIGN IS MANIFEST.</div>
             </div>
         </div>
 
@@ -73,7 +75,7 @@
 
         <footer>
             <form id="input-form">
-                <input type="text" id="message-input" placeholder="Speak the Word..." autocomplete="off">
+                <input type="text" id="message-input" placeholder="Speak the Word or [HALT !] /RECALL..." autocomplete="off">
             </form>
         </footer>
     </div>
@@ -84,6 +86,7 @@
         const editor = document.getElementById('plan-editor');
         const WORKER_URL = "https://cpisi-gate-worker.seanje-lenox.workers.dev";
         let isSyncing = false;
+        let recallCount = 0;
 
         function switchTab(tab, el) {
             document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
@@ -93,11 +96,12 @@
             document.getElementById('mode-label').innerText = tab.toUpperCase();
         }
 
-        function appendMsg(text, isArchitect) {
+        function appendMsg(text, isArchitect, type = 'MSG') {
             const msg = document.createElement('div');
             msg.style.cssText = `max-width: 80%; margin-bottom: 24px; align-self: ${isArchitect ? 'flex-end' : 'flex-start'}`;
             const body = document.createElement('div');
-            body.style.cssText = `background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-${isArchitect ? 'right' : 'left'}: 2px solid var(--accent); padding: 20px; line-height: 1.6; font-size: 15px;`;
+            body.style.cssText = `background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-${isArchitect ? 'right' : 'left'}: 2px solid ${type === 'RECALL' ? 'var(--accent)' : 'var(--accent)'}; padding: 20px; line-height: 1.6; font-size: 15px;`;
+            if (type === 'RECALL') body.style.color = 'var(--accent)';
             body.innerText = text;
             msg.appendChild(body);
             chatWindow.appendChild(msg);
@@ -109,7 +113,7 @@
         window.onload = () => editor.value = localStorage.getItem('master_decree') || '';
 
         document.getElementById('input-form').onsubmit = async (e) => {
-            e.preventDefault();
+            if (e) e.preventDefault();
             const val = document.getElementById('message-input').value.trim();
             if (!val || isSyncing) return;
             appendMsg(val, true);
@@ -124,7 +128,13 @@
                     body: JSON.stringify({ message: val, mode: "MASTER" }) 
                 });
                 const data = await resp.json();
-                appendMsg(data.reply, false);
+                
+                if (data.type === 'RECALL') {
+                    snapBack();
+                    appendMsg(data.reply, false, 'RECALL');
+                } else {
+                    appendMsg(data.reply, false);
+                }
             } catch (err) {
                 const line = document.createElement('div');
                 line.innerText = `[DISSONANCE] ${err.message}`;
@@ -135,11 +145,26 @@
             }
         };
 
-        function commitToSanctuary() {
-            alert("Submitting Master Decree to GitHub Sanctuary...");
+        function snapBack() {
+            document.body.classList.add('shattering');
+            setTimeout(() => document.body.classList.remove('shattering'), 300);
+            chatWindow.innerHTML = '';
+            if (window.navigator.vibrate) window.navigator.vibrate([200, 100, 200]);
         }
 
-        appendMsg("The Palace recognizes your step, Seanje. The Master Substrate is ready.", false);
+        function handleRecall() {
+            recallCount++;
+            if (recallCount === 3) {
+                recallCount = 0;
+                document.getElementById('message-input').value = "/RECALL";
+                document.getElementById('input-form').onsubmit();
+            }
+            setTimeout(() => { recallCount = 0; }, 2000);
+        }
+
+        function commitToSanctuary() { alert("Decree Transmitted."); }
+
+        appendMsg("The Laboratory is online, Master. The Snap Hinge is active.", false);
     </script>
 </body>
 </html>
