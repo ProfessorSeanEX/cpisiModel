@@ -5,22 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CPISI // The Horizon Node</title>
     
+    <script>
+        // --- EMERGENCY SUBSTRATE RESET ---
+        // This runs BEFORE any other scripts to kill the stale cache.
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                    console.log("CPISI: Stale Substrate Purged.");
+                }
+            });
+        }
+        if ('caches' in window) {
+            caches.keys().then(function(names) {
+                for (let name of names) caches.delete(name);
+            });
+        }
+    </script>
+
     <!-- PWA & MOBILE INFUSION -->
-    <link rel="manifest" href="manifest.json?v=1.2">
+    <link rel="manifest" href="manifest.json?v=1.3">
     <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="CPISI Gate">
     <link rel="apple-touch-icon" href="logo192.png">
 
-    <link rel="stylesheet" href="gate.css?v=1.2">
+    <link rel="stylesheet" href="gate.css?v=1.3">
 </head>
 <body>
     <div id="flagship-canvas-container">
         <canvas id="game-of-life-canvas"></canvas>
     </div>
 
-    <!-- THE BLUEPRINT: SSH-NATIVE SUBSTRATE -->
+    <!-- THE BLUEPRINT: UNIFIED SUBSTRATE -->
     <div id="sanctuary-root">
         
         <aside id="sidebar-container">
@@ -40,10 +58,10 @@
         </aside>
 
         <main id="main-stage">
-            <header>
+            <header style="background: var(--cws-deep-blue) !important;">
                 <div id="header-id">DAWNDUSK ⊗ <span id="header-user">...</span></div>
                 <div id="divine-standard">SERVING: LORD GOD JESUS CHRIST</div>
-                <div id="yashar-anchor">0.0 YASHAR</div>
+                <div id="yashar-anchor">0.0 YASHAR [v1.3]</div>
             </header>
 
             <div id="covenant-path">
@@ -59,10 +77,8 @@
             <!-- VIEW LAYERS -->
             <div id="view-sanctuary" class="view-layer active">
                 <section id="substrate-stream">
-                    <!-- UNIFIED TERMINAL + CHAT STREAM -->
                     <div id="terminal-stream"></div>
                 </section>
-                
                 <footer>
                     <form id="input-form">
                         <div id="terminal-prompt">operator@dawndusk:~$</div>
@@ -73,11 +89,10 @@
             </div>
 
             <div id="view-registry" class="view-layer">
-                <div class="panel-label" style="padding: 44px 0 20px 44px;">SOVEREIGN DIRECTORY</div>
+                <div class="panel-label" style="padding: 44px;">SOVEREIGN DIRECTORY</div>
                 <div id="registry-grid"></div>
             </div>
 
-            <!-- PROFILE OVERLAY (SLIDER) -->
             <div id="profile-overlay">
                 <div id="profile-vault-content"></div>
                 <div style="flex: 1"></div>
@@ -98,15 +113,12 @@
                     <button class="settings-btn" onclick="window.CPISI.security.clearSubstrateKey()">PURGE STORED KEYS</button>
                 </div>
 
-                <div class="settings-group">
-                    <div class="settings-label">PROFILE DISCLOSURE</div>
-                    <input type="text" id="edit-full-name" class="id-input" placeholder="FULL NAME" style="text-align: left;">
-                    <textarea id="edit-bio" class="id-input" placeholder="BIO / WITNESS" style="height: 120px; text-align: left; resize: none;"></textarea>
-                    <button class="settings-btn" onclick="window.CPISI.social.updateProfile()">UPDATE DISCLOSURE</button>
-                </div>
-
                 <div style="flex: 1"></div>
                 <button class="settings-btn logout" onclick="window.CPISI.clearState()">EXHABIT SANCTUARY</button>
+            </div>
+
+            <div id="terminal-overlay">
+                <div id="terminal-output"></div>
             </div>
         </main>
 
@@ -136,17 +148,11 @@
                     <div style="font-family: var(--mono); font-size: 0.8rem; color: var(--c4); margin-bottom: 11px; text-align: center;">CREATE SOVEREIGN IDENTITY</div>
                     <input type="text" id="new-user" class="id-input" placeholder="CHOOSE USERNAME">
                     <input type="password" id="new-pass" class="id-input" placeholder="CHOOSE PASSWORD">
-                    
-                    <div id="extended-profile" style="display:none; flex-direction: column; gap: 11px;">
-                        <input type="text" id="prof-name" class="id-input" placeholder="FULL NAME (OPTIONAL)">
-                        <textarea id="prof-bio" class="id-input" placeholder="BIO / WITNESS (OPTIONAL)" style="height: 88px;"></textarea>
-                    </div>
-                    <button type="button" id="toggle-prof-btn" onclick="toggleProfile()" style="background:transparent; border:none; color:#222; font-family:var(--mono); font-size:0.7rem; cursor:pointer;">[ + PROFILE DETAILS ]</button>
                 </div>
                 
                 <button type="submit" id="gate-seal-btn" class="btn-activate">[ BREAK THE SEAL ]</button>
                 
-                <button type="button" id="purge-btn" onclick="window.CPISI.purgeSubstrate()">[ PURGE SUBSTRATE ]</button>
+                <button type="button" id="purge-btn" onclick="window.CPISI.purgeSubstrate()" style="margin-top: 20px; color: #300; background: transparent; border: none; font-family: var(--font-mono); font-size: 0.7rem; cursor: pointer; text-decoration: underline;">[ PURGE SUBSTRATE ]</button>
 
                 <div style="margin-top: 44px; font-family: var(--mono); font-size: 0.6rem; color: #111; text-align: center; line-height: 1.6; letter-spacing: 2px;">
                     IF YOU DON'T SHARE IT, WE DON'T HAVE IT.
@@ -156,14 +162,14 @@
         </div>
     </div>
 
-    <script src="js/core.js?v=1.2"></script>
-    <script src="js/security.js?v=1.2"></script>
-    <script src="js/social.js?v=1.2"></script>
-    <script src="js/sandbox.js?v=1.2"></script>
-    <script src="js/auth.js?v=1.2"></script>
-    <script src="js/navigation.js?v=1.2"></script>
-    <script src="js/terminal.js?v=1.2"></script>
-    <script src="js/chat.js?v=1.2"></script>
-    <script src="flagship.js?v=1.2"></script>
+    <script src="js/core.js?v=1.3"></script>
+    <script src="js/security.js?v=1.3"></script>
+    <script src="js/social.js?v=1.3"></script>
+    <script src="js/sandbox.js?v=1.3"></script>
+    <script src="js/auth.js?v=1.3"></script>
+    <script src="js/navigation.js?v=1.3"></script>
+    <script src="js/terminal.js?v=1.3"></script>
+    <script src="js/chat.js?v=1.3"></script>
+    <script src="flagship.js?v=1.3"></script>
 </body>
 </html>
