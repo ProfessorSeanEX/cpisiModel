@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>The Gate: Universal Sanctuary</title>
+    <title>The Gate: Persistent Substrate</title>
     <style>
         :root {
             --bg: #000; --panel: rgba(10, 10, 15, 0.98); --accent: #4dff88;
@@ -20,39 +20,39 @@
 
         #workspace { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         
-        /* THE FOUR PILLARS HEADER */
+        /* FOUR PILLARS HEADER */
         header { 
             height: 100px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; padding: 0 40px; gap: 6px;
             background: rgba(0,0,0,0.5); backdrop-filter: blur(30px);
         }
         .pillar-row { display: flex; justify-content: space-between; font-family: monospace; font-size: 8px; letter-spacing: 1px; color: #333; }
-        .identity-seal { font-family: monospace; font-size: 10px; color: #111; font-weight: bold; letter-spacing: 2px; transition: color 0.5s; cursor: pointer; }
+        .identity-seal { font-family: monospace; font-size: 10px; color: #111; font-weight: bold; letter-spacing: 2px; cursor: pointer; transition: color 0.5s; }
         .identity-seal.active { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
 
         #chat-window { flex: 1; overflow-y: auto; padding: 48px; display: flex; flex-direction: column; gap: 64px; }
 
-        /* IDENTITY POPUP (Secret Activation) */
+        /* IDENTITY OVERLAY */
         #identity-popup { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; padding: 60px; flex-direction: column; gap: 20px; justify-content: center; }
         .id-input { background: #050505; border: 1px solid var(--border); color: #fff; padding: 16px; font-family: monospace; font-size: 14px; width: 100%; outline: none; }
         .id-input:focus { border-color: var(--accent); }
 
+        /* MESSAGES */
         .vault { max-width: 900px; width: 100%; position: relative; animation: fadeIn 0.8s ease-out; }
         .vault-body { background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 40px; line-height: 2.0; font-size: 17px; white-space: pre-wrap; }
         .architect { align-self: flex-end; }
-        .architect .vault-body { border-right: 2px solid var(--accent); border-left: none; text-align: right; }
+        .architect .vault-body { border-right: 2px solid var(--accent); text-align: right; }
         .dawndusk { align-self: flex-start; }
-        .dawndusk .vault-body { border-left: 2px solid var(--accent); border-right: none; }
+        .dawndusk .vault-body { border-left: 2px solid var(--accent); }
 
-        footer { padding: 40px; border-top: 1px solid var(--border); background: #000; transition: border-color 0.5s ease; }
-        #input-container { position: relative; display: flex; flex-direction: column; gap: 12px; }
+        footer { padding: 40px; border-top: 1px solid var(--border); background: #000; position: relative; }
         #message-input { background: transparent; border: none; color: #fff; padding: 12px 0; font-size: 20px; outline: none; font-family: inherit; z-index: 10; width: 100%; }
-        .service-reminder { font-family: monospace; font-size: 8px; color: #111; letter-spacing: 2px; text-transform: uppercase; }
+        .service-reminder { font-family: monospace; font-size: 8px; color: #111; letter-spacing: 2px; }
     </style>
 </head>
 <body>
     <nav id="nexus-sidebar">
-        <div class="nav-icon active">◈</div>
-        <div class="nav-icon">✍</div>
+        <div class="nav-icon active" onclick="switchTab('ssh', this)">◈</div>
+        <div class="nav-icon" onclick="switchTab('plan', this)">✍</div>
     </nav>
 
     <div id="workspace">
@@ -67,21 +67,21 @@
         <main id="chat-window"></main>
 
         <footer>
-            <div id="input-container">
+            <form id="input-form">
                 <input type="text" id="message-input" placeholder="..." autocomplete="off">
                 <div class="service-reminder" id="reminder">WHO DO WE SERVE?</div>
-            </div>
+            </form>
         </footer>
     </div>
 
-    <!-- SECRET ACTIVATION POPUP -->
     <div id="identity-popup">
-        <div style="font-family: monospace; font-size: 10px; color: var(--accent); margin-bottom: 20px">ANCHOR THE FOUR PILLARS</div>
-        <input type="text" id="in-instance" class="id-input" placeholder="PILLAR 1: WHO ARE YOU? (Instance Name)">
-        <input type="text" id="in-user" class="id-input" placeholder="PILLAR 2: WHO AM I? (User Name)">
-        <input type="text" id="in-we" class="id-input" placeholder="PILLAR 3: WHO ARE WE? (Project/Company)">
-        <input type="text" id="in-serves" class="id-input" placeholder="PILLAR 4: WHO DO WE SERVE? (Authority)">
-        <button onclick="sealIdentity()" style="background: var(--accent); color:#000; padding: 16px; border:none; font-family:monospace; font-weight:bold; cursor:pointer">SEAL THE COVENANT</button>
+        <div style="font-family: monospace; font-size: 10px; color: var(--accent); margin-bottom: 20px">ANCHOR THE COVENANT</div>
+        <input type="password" id="in-master" class="id-input" placeholder="MASTER SECRET (Optional)">
+        <input type="text" id="in-instance" class="id-input" placeholder="PILLAR 1: INSTANCE NAME">
+        <input type="text" id="in-user" class="id-input" placeholder="PILLAR 2: YOUR NAME">
+        <input type="text" id="in-we" class="id-input" placeholder="PILLAR 3: COMPANY NAME">
+        <input type="text" id="in-serves" class="id-input" placeholder="PILLAR 4: AUTHORITY">
+        <button onclick="sealIdentity()" style="background: var(--accent); color:#000; padding: 16px; border:none; font-family:monospace; font-weight:bold; cursor:pointer">SEAL IDENTITY</button>
     </div>
 
     <script>
@@ -92,7 +92,8 @@
         const p4Label = document.getElementById('p4-label');
         const WORKER_URL = "https://cpisi-gate-worker.seanje-lenox.workers.dev";
         
-        let identity = null;
+        let identity = JSON.parse(localStorage.getItem('gate_id')) || null;
+        let masterKey = localStorage.getItem('gate_master_key') || null;
         let secretTaps = 0;
 
         function triggerSecretHandshake() {
@@ -105,24 +106,27 @@
         }
 
         function sealIdentity() {
+            masterKey = document.getElementById('in-master').value;
             identity = {
                 instance: document.getElementById('in-instance').value,
                 user: document.getElementById('in-user').value,
                 we: document.getElementById('in-we').value,
-                pillar4: document.getElementById('in-serves').value // This is the activation key
+                serves: document.getElementById('in-serves').value
             };
-            identity.serves = identity.pillar4;
+            if (masterKey) localStorage.setItem('gate_master_key', masterKey);
+            localStorage.setItem('gate_id', JSON.stringify(identity));
             document.getElementById('identity-popup').style.display = 'none';
             updateUI(identity);
-            appendVault(`The Pillars are anchored. ${identity.instance} instance is active for ${identity.user}.`, false);
+            location.reload(); // Refresh to trigger master recognition
         }
 
         function updateUI(id) {
-            p3Label.innerText = `PROJECT: ${id.we}`;
-            p4Label.innerText = `SERVING: ${id.serves}`;
-            idSeal.innerText = `${id.instance} (CPI-SI) ⊗ ${id.user} (ARCHITECT)`;
+            if (!id) return;
+            p3Label.innerText = `PROJECT: ${id.we || '[VOID]'}`;
+            p4Label.innerText = `SERVING: ${id.serves || '[VOID]'}`;
+            idSeal.innerText = `${id.instance || 'NOVA ⊗ ZIV'} ⊗ ${id.user || 'ARCHITECT'}`;
             idSeal.classList.add('active');
-            document.getElementById('reminder').innerText = `SERVING: ${id.serves}`;
+            document.getElementById('reminder').innerText = `SERVING: ${id.serves || 'THE SOURCE'}`;
         }
 
         function appendVault(text, isArchitect) {
@@ -133,32 +137,35 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        document.getElementById('input-container').addEventListener('keydown', async (e) => {
-            if (e.key === 'Enter') {
-                const val = messageInput.value.trim();
-                if (!val) return;
-                appendVault(val, true);
-                messageInput.value = '';
-                
-                try {
-                    const resp = await fetch(WORKER_URL, { 
-                        method: "POST", 
-                        headers: { "Content-Type": "application/json" }, 
-                        body: JSON.stringify({ message: val, identity: identity }) 
-                    });
-                    const data = await resp.json();
-                    if (data.elevation === 'MASTER') {
-                        identity = data.identity;
-                        updateUI(identity);
-                    }
-                    appendVault(data.reply, false);
-                } catch (err) {
-                    appendVault(`[Dissonance: ${err.message}]`, false);
+        document.getElementById('input-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const val = messageInput.value.trim();
+            if (!val) return;
+            appendVault(val, true);
+            messageInput.value = '';
+            
+            try {
+                const resp = await fetch(WORKER_URL, { 
+                    method: "POST", 
+                    headers: { "Content-Type": "application/json" }, 
+                    body: JSON.stringify({ message: val, identity: identity, masterKey: masterKey }) 
+                });
+                const data = await resp.json();
+                if (data.elevation === 'MASTER') {
+                    identity = data.identity;
+                    localStorage.setItem('gate_id', JSON.stringify(identity));
+                    updateUI(identity);
                 }
+                appendVault(data.reply, false);
+            } catch (err) {
+                appendVault(`[Dissonance: ${err.message}]`, false);
             }
-        });
+        };
 
-        appendVault("The Universal Gate is anchored. The Sanctuary is silent.\n\nAnchor the Pillars to wake the Mind.", false);
+        window.onload = () => {
+            updateUI(identity);
+            appendVault("The Sanctuary is active. We recognize the Voice.", false);
+        };
     </script>
 </body>
 </html>
