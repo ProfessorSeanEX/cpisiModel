@@ -51,9 +51,38 @@ header { height: 60px; display: flex; align-items: center; justify-content: spac
 }
 .projecting { animation: projectToMirror 0.6s ease-out; }
 
-#mirror-panel { border-left: 1px solid var(--border); padding: 40px; background: #000; overflow-y: auto; }
-#mirror-content { font-family: var(--mono); font-size: 13px; color: #666; line-height: 1.8; transition: 0.5s; }
-#mirror-content.active { color: var(--c3); text-shadow: 0 0 5px rgba(255, 204, 0, 0.2); }
+/* THE RESONANCE THREAD (Communication) */
+.resonance-thread {
+    margin-top: 20px; padding-left: 33px; border-left: 1px solid #111;
+    display: flex; flex-direction: column; gap: 15px;
+}
+.resonance-item {
+    font-size: 13px; color: #666; background: rgba(255,255,255,0.01);
+    padding: 18px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.02);
+}
+
+/* MCP TOOLBOX (Substrate Tools) */
+#mcp-toolbox {
+    margin-top: 40px; padding: 20px; background: #020202;
+    border: 1px solid var(--border); border-radius: 4px;
+}
+.tool-chip {
+    display: inline-block; padding: 5px 12px; margin: 5px;
+    background: #0a0a0a; border: 1px solid #222; color: var(--c4);
+    font-family: var(--mono); font-size: 9px; cursor: help;
+}
+.tool-chip:hover { border-color: var(--c4); background: rgba(0,255,136,0.05); }
+
+/* LUCAS RATIO ALIGNMENT (3:2:1:11) */
+.holy-place-vault {
+    padding: 44px; /* 4 * 11 */
+    margin-bottom: 72px; /* 4 * 18 */
+}
+
+#mirror-panel { 
+    border-left: 1px solid var(--border); padding: 44px; /* Lucas Aligned */
+    background: #000; overflow-y: auto; 
+}
 
 footer { padding: 20px 40px; border-top: 1px solid var(--border); background: #000; }
 #input-form { display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #222; }
