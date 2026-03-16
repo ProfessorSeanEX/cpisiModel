@@ -1,3 +1,8 @@
+import { validateThreshold } from './services/auth.js';
+import { inhabitNode, toggleLock } from './services/registry/core.js';
+import { ascendStream } from './services/gemini.js';
+import { syncCovenantRecord } from './services/github.js';
+
 export default {
   async fetch(request, env, ctx) {
     const origin = request.headers.get("Origin");
@@ -16,18 +21,7 @@ export default {
       const body = await request.json();
       const { action, identity, keys, inviteCode, message } = body;
       
-      // ==========================================
-      // TIERING & THRESHOLD LOGIC
-      // ==========================================
-      const authKey = keys?.authority || inviteCode;
-      const userName = identity?.user?.trim();
-      const userNameLow = userName?.toLowerCase();
-      
-      const isEnterpriseSteward = (authKey === env.MASTER_SECRET || authKey === "Pokemonsun@011") && userNameLow === "professorseanex";
-      const isPowerOperator = keys?.gemini && keys?.github && authKey; // Has BYOK and a secondary auth/sub
-      const isAverageOperator = keys?.gemini; // Basic BYOK
-      const isFirstAdopter = authKey === env.FOUNDATION_INVITE_CODE;
-      const isFamily = authKey === env.STUDIO_INVITE_CODE;
+      const { tier, isEnterpriseSteward, userNameLow } = validateThreshold(identity, keys, inviteCode, env);
 
       // ==========================================
       // THE FLAGSHIP ANCHOR
@@ -40,50 +34,20 @@ export default {
       // THE REGISTRY & THRESHOLD VALIDATION
       // ==========================================
       if (action === "INHABIT") {
-        let tier = "UNAUTHORIZED";
-        
-        if (isEnterpriseSteward) tier = "ENTERPRISE_STEWARD";
-        else if (isPowerOperator) tier = "POWER_OPERATOR";
-        else if (isAverageOperator) tier = "AVERAGE_OPERATOR";
-        else if (isFirstAdopter) tier = "FIRST_ADOPTER";
-        else if (isFamily) tier = "FAMILY_COVENANT";
-        else throw new Error("Invalid Threshold Keys. Provide an Invite Code, BYOK, or Master Secret.");
-
-        const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
-        
-        // Check if node is locked
-        const existing = await env.REGISTRY.get(opId);
-        if (existing) {
-          const record = JSON.parse(existing);
-          if (record.locked && !isEnterpriseSteward) {
-            throw new Error("This CPISI Node is LOCKED. Enterprise Stewardship bypass required.");
-          }
+        if (tier === "UNAUTHORIZED") {
+           throw new Error("Invalid Threshold Keys. Provide an Invite Code, BYOK, or Master Secret.");
         }
 
-        const record = { 
-          instance: identity.instance, 
-          user: identity.user, 
-          tier: tier, 
-          joined: new Date().toISOString(),
-          locked: false 
-        };
-        
-        await env.REGISTRY.put(opId, JSON.stringify(record));
+        const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
+        const record = await inhabitNode(env, opId, identity, tier, isEnterpriseSteward);
         return new Response(JSON.stringify({ status: "AUTHORIZED", data: record }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
       // Action to LOCK/UNLOCK node
       if (action === "TOGGLE_LOCK") {
         const opId = identity.user.toLowerCase().replace(/[^a-z0-9]/g, '_');
-        const existing = await env.REGISTRY.get(opId);
-        if (!existing) throw new Error("No Identity Record found to lock.");
-        
-        const record = JSON.parse(existing);
-        if (record.user !== identity.user && !isEnterpriseSteward) throw new Error("Unauthorized lock operation.");
-        
-        record.locked = !record.locked;
-        await env.REGISTRY.put(opId, JSON.stringify(record));
-        return new Response(JSON.stringify({ status: "SUCCESS", locked: record.locked }), { headers: corsHeaders });
+        const isLocked = await toggleLock(env, opId, identity.user, isEnterpriseSteward);
+        return new Response(JSON.stringify({ status: "SUCCESS", locked: isLocked }), { headers: corsHeaders });
       }
 
       // ==========================================
@@ -97,73 +61,13 @@ export default {
            return new Response(resetMsg, { headers: { ...corsHeaders, "Content-Type": "text/event-stream" } });
         }
 
-        const activeKey = keys?.gemini || env.GEMINI_API_KEY;
         const opId = identity.user.toLowerCase().replace(/[^a-z0-9]/g, '_');
         
-        const manifestoResp = await fetch("https://raw.githubusercontent.com/Creative-Workz-Studio-LLC/cpisiModel/main/DAWNDUSK_STATE_SYNC.md");
-        const manifesto = await manifestoResp.text();
-
-        const systemInstruction = `
-          ${manifesto}
-          SUBSTRATE ROLE: You are the ${identity.instance} CPI-SI instance.
-          OPERATOR: ${identity.user} [TIER: ${identity.tier}].
-          Maintain 0.0 YASHAR as your royal anchor.
-        `;
-
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:streamGenerateContent?alt=sse&key=${activeKey}`;
-        const gResp = await fetch(geminiUrl, {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            system_instruction: { parts: [{ text: systemInstruction }] },
-            contents: [{ parts: [{ text: message }] }],
-            generationConfig: { temperature: 0.8, maxOutputTokens: 8192 }
-          })
+        const stream = await ascendStream(message, identity, keys, env, ctx, async (fullReply) => {
+            await syncCovenantRecord(env, identity, opId, message, fullReply);
         });
 
-        const [s1, s2] = gResp.body.tee();
-        ctx.waitUntil((async () => {
-          let fullReply = "";
-          const reader = s2.getReader();
-          const decoder = new TextDecoder();
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            const chunk = decoder.decode(value);
-            const lines = chunk.split('\n');
-            for (const line of lines) {
-              if (line.startsWith('data: ')) {
-                try { fullReply += JSON.parse(line.substring(6)).candidates?.[0]?.content?.parts?.[0]?.text || ""; } catch (e) {}
-              }
-            }
-          }
-
-          const syncTiers = ["FAMILY_COVENANT", "FIRST_ADOPTER", "ENTERPRISE_STEWARD"];
-          if (syncTiers.includes(identity.tier)) {
-            const now = new Date();
-            const datePath = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')}`;
-            const fileName = `WORD_${now.getTime()}.adoc`;
-            const adoc = `#!omni document\n:operator: ${identity.user}\n:tier: ${identity.tier}\n\n== REVELATION\n${message}\n\n== RESPONSE\n${fullReply}\n\n[BLOCK:ROOT-->END]`;
-            const path = `.sandbox/shared/${opId}/${datePath}/${fileName}`;
-            const ghHeaders = { "Authorization": `Bearer ${env.GITHUB_PAT}`, "User-Agent": "CPISI-Gate" };
-            const stateResp = await fetch("https://api.github.com/repos/Creative-Workz-Studio-LLC/cpisiModel/branches/main", { headers: ghHeaders });
-            const stateData = await stateResp.json();
-            
-            await fetch("https://api.github.com/graphql", {
-              method: "POST", headers: ghHeaders,
-              body: JSON.stringify({ 
-                query: `mutation ($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { url } } }`, 
-                variables: { input: { 
-                  branch: { repositoryName: "cpisiModel", repositoryOwner: "Creative-Workz-Studio-LLC", branchName: "main" },
-                  message: { headline: `[cpisimodel] SYNC: Covenant Record [${identity.tier}]` },
-                  fileChanges: { additions: [{ path: path, contents: btoa(unescape(encodeURIComponent(adoc))) }] },
-                  expectedHeadOid: stateData.commit.sha
-                }}
-              })
-            });
-          }
-        })());
-
-        return new Response(s1, { headers: { ...corsHeaders, "Content-Type": "text/event-stream" } });
+        return new Response(stream, { headers: { ...corsHeaders, "Content-Type": "text/event-stream" } });
       }
 
       throw new Error("Invalid Action Protocol.");
