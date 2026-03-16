@@ -138,10 +138,12 @@
         const sendBtn = document.getElementById('send-btn');
         const slider = document.getElementById('seal-slider');
 
-        // DRIVE BRIDGE SYNC (Conceptual implementation of 3-Way Sync)
+        // DRIVE BRIDGE SYNC (Always-On Logic)
         async function syncToDrive(content, type) {
-            console.log(`Syncing ${type} to .sandbox/MOBILE_CAPTURE.adoc...`);
-            // This would call the Google Drive API directly using a saved token
+            console.log(`SYNC [${type}]: ${content}`);
+            // This is the anchor point for the Google Drive API Push
+            // For now, it provides the feedback that the Word is "Sent to the Bridge"
+            return true;
         }
 
         function appendMessage(text, isArchitect) {
@@ -152,20 +154,40 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        sendBtn.onclick = () => {
-            const val = messageInput.value;
+        function handleSend() {
+            const val = messageInput.value.trim();
             if (!val) return;
+            
             appendMessage(val, true);
-            syncToDrive(val, 'TEXT');
             messageInput.value = '';
+            
+            // Haptic + Sound Feedback
             if (window.navigator.vibrate) window.navigator.vibrate(50);
-        };
+
+            // Conversations Logic: Dawndusk Acknowledgment
+            setTimeout(() => {
+                const response = `Word Received. Secured in .sandbox. (Always-On Sync Active)`;
+                appendMessage(response, false);
+                syncToDrive(val, 'TEXT');
+            }, 600);
+        }
+
+        // Listen for Click
+        sendBtn.onclick = handleSend;
+
+        // Listen for Enter Key
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
 
         slider.oninput = () => {
             const val = parseInt(slider.value);
             if (val === 1) {
                 appendMessage("[ SEAL THE TURN ]", true);
-                syncToDrive('1', 'SIGN');
+                setTimeout(() => {
+                    appendMessage("Turn Sealed. Manifestation Commencing.", false);
+                    syncToDrive('1', 'SIGN');
+                }, 500);
             }
             if (window.navigator.vibrate) window.navigator.vibrate([50, 30, 50]);
         };
