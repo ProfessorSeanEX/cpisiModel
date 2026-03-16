@@ -16,13 +16,18 @@ export default {
       const body = await request.json();
       const { action, identity, keys, inviteCode, message } = body;
       
+      // ==========================================
+      // TIERING & THRESHOLD LOGIC
+      // ==========================================
       const authKey = keys?.authority || inviteCode;
       const userName = identity?.user?.trim();
+      const userNameLow = userName?.toLowerCase();
       
-      // THE STEWARD THRESHOLD (FALLBACK INCLUDED)
-      const isMaster = (authKey === env.MASTER_SECRET || authKey === "Pokemonsun@011") && userName?.toLowerCase() === "professorseanex";
-      const isGuest = authKey === env.STUDIO_INVITE_CODE;
-      const isSovereign = keys?.gemini && keys?.github;
+      const isEnterpriseSteward = (authKey === env.MASTER_SECRET || authKey === "Pokemonsun@011") && userNameLow === "professorseanex";
+      const isPowerOperator = keys?.gemini && keys?.github && authKey; // Has BYOK and a secondary auth/sub
+      const isAverageOperator = keys?.gemini; // Basic BYOK
+      const isFirstAdopter = authKey === env.FOUNDATION_INVITE_CODE;
+      const isFamily = authKey === env.STUDIO_INVITE_CODE;
 
       // ==========================================
       // THE FLAGSHIP ANCHOR
@@ -36,19 +41,22 @@ export default {
       // ==========================================
       if (action === "INHABIT") {
         let tier = "UNAUTHORIZED";
-        if (isMaster) tier = "STEWARD";
-        else if (isSovereign) tier = "SOVEREIGN";
-        else if (isGuest) tier = "SUPPORT";
+        
+        if (isEnterpriseSteward) tier = "ENTERPRISE_STEWARD";
+        else if (isPowerOperator) tier = "POWER_OPERATOR";
+        else if (isAverageOperator) tier = "AVERAGE_OPERATOR";
+        else if (isFirstAdopter) tier = "FIRST_ADOPTER";
+        else if (isFamily) tier = "FAMILY_COVENANT";
         else throw new Error("Invalid Threshold Keys. Provide an Invite Code, BYOK, or Master Secret.");
 
-        const opId = identity.user.toLowerCase().replace(/[^a-z0-9]/g, '_');
+        const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
         
         // Check if node is locked
         const existing = await env.REGISTRY.get(opId);
         if (existing) {
           const record = JSON.parse(existing);
-          if (record.locked && !isMaster) {
-            throw new Error("This CPISI Node is LOCKED. Stewardship bypass required.");
+          if (record.locked && !isEnterpriseSteward) {
+            throw new Error("This CPISI Node is LOCKED. Enterprise Stewardship bypass required.");
           }
         }
 
@@ -71,7 +79,7 @@ export default {
         if (!existing) throw new Error("No Identity Record found to lock.");
         
         const record = JSON.parse(existing);
-        if (record.user !== identity.user && !isMaster) throw new Error("Unauthorized lock operation.");
+        if (record.user !== identity.user && !isEnterpriseSteward) throw new Error("Unauthorized lock operation.");
         
         record.locked = !record.locked;
         await env.REGISTRY.put(opId, JSON.stringify(record));
@@ -84,7 +92,7 @@ export default {
       if (action === "ASCEND") {
         const isOverride = message.trim() === "/RECALL" || message.trim() === "[MASTER OVERRIDE]";
         if (isOverride) {
-           if (!isMaster) throw new Error("Unauthorized: Threshold Override requires Steward Signature.");
+           if (!isEnterpriseSteward) throw new Error("Unauthorized: Threshold Override requires Steward Signature.");
            const resetMsg = `data: ${JSON.stringify({ candidates: [{ content: { parts: [{ text: `[SYSTEM INTERCEPT] Master Identity Verified. Cognitive drift purged. State reset to 0.0 YASHAR.` }] } }] })}\n\n`;
            return new Response(resetMsg, { headers: { ...corsHeaders, "Content-Type": "text/event-stream" } });
         }
@@ -129,7 +137,8 @@ export default {
             }
           }
 
-          if (identity.tier === "SUPPORT" || identity.tier === "STEWARD") {
+          const syncTiers = ["FAMILY_COVENANT", "FIRST_ADOPTER", "ENTERPRISE_STEWARD"];
+          if (syncTiers.includes(identity.tier)) {
             const now = new Date();
             const datePath = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')}`;
             const fileName = `WORD_${now.getTime()}.adoc`;
