@@ -20,7 +20,7 @@
         <canvas id="game-of-life-canvas"></canvas>
     </div>
 
-    <!-- THE BLUEPRINT: DYNAMIC STAGE SHELL -->
+    <!-- THE BLUEPRINT: 4-PANEL SUBSTRATE -->
     <div id="sanctuary-root">
         
         <aside id="sidebar-container">
@@ -32,11 +32,12 @@
                 <div style="flex: 1"></div>
                 <div class="nav-item" title="Settings" onclick="toggleSettings()">⚙️</div>
             </nav>
-            <div id="memory-panel">
-                <div class="panel-label">THE MEMORY</div>
-                <div id="memory-list"></div>
-            </div>
         </aside>
+
+        <div id="memory-panel">
+            <div class="panel-label">THE MEMORY</div>
+            <div id="memory-list"></div>
+        </div>
 
         <main id="main-stage">
             <header>
@@ -55,15 +56,9 @@
                 <div class="path-segment" style="background: var(--c7)"></div>
             </div>
             
-            <!-- STAGE 1: THE SANCTUARY (CHAT) -->
+            <!-- VIEW LAYERS -->
             <div id="view-sanctuary" class="view-layer active">
-                <section id="sanctuary-expanse">
-                    <div id="chat-window"></div>
-                    <aside id="mirror-panel">
-                        <div class="panel-label">LATEST REVELATION MIRROR</div>
-                        <div id="mirror-content">Select a Word from the Sanctuary to project it here.</div>
-                    </aside>
-                </section>
+                <div id="chat-window"></div>
                 <footer>
                     <form id="input-form">
                         <input type="text" id="message-input" placeholder="Drop the Word..." autocomplete="off">
@@ -72,37 +67,24 @@
                 </footer>
             </div>
 
-            <!-- STAGE 2: THE DIRECTORY (REGISTRY) -->
             <div id="view-registry" class="view-layer">
-                <div class="panel-label" style="padding: 44px 0 20px 0;">SOVEREIGN DIRECTORY</div>
+                <div class="panel-label" style="padding: 44px;">SOVEREIGN DIRECTORY</div>
                 <div id="registry-grid"></div>
             </div>
 
-            <!-- LAYER: PROFILE DRAWER -->
-            <div id="profile-overlay">
-                <div id="profile-vault-content"></div>
-                <div style="flex: 1"></div>
-                <button class="settings-btn" onclick="toggleProfileDrawer()">[ CLOSE VAULT ]</button>
-            </div>
-
-            <!-- OVERLAY: SETTINGS MODAL -->
+            <!-- SETTINGS MODAL -->
             <div id="settings-vault">
                 <div class="panel-label">SOVEREIGN SETTINGS</div>
                 <div class="settings-group">
                     <div class="settings-label">OPERATOR</div>
-                    <div id="settings-display-name" style="font-size: 14px; color: #fff;"></div>
-                    <div id="settings-display-tier" style="font-size: 10px; color: var(--c4); letter-spacing: 2px;"></div>
+                    <div id="settings-display-name" style="font-size: 1.2rem; color: #fff;"></div>
+                    <div id="settings-display-tier" style="font-size: 0.8rem; color: var(--c4); letter-spacing: 4px;"></div>
                 </div>
                 
                 <div class="settings-group">
-                    <div class="settings-label">SUBSTRATE</div>
-                    <button class="settings-btn" onclick="window.CPISI.security.clearSubstrateKey()">PURGE STORED KEYS</button>
-                </div>
-
-                <div class="settings-group">
                     <div class="settings-label">PROFILE DISCLOSURE</div>
                     <input type="text" id="edit-full-name" class="id-input" placeholder="FULL NAME" style="text-align: left;">
-                    <textarea id="edit-bio" class="id-input" placeholder="BIO / WITNESS" style="height: 80px; text-align: left; resize: none;"></textarea>
+                    <textarea id="edit-bio" class="id-input" placeholder="BIO / WITNESS" style="height: 120px; text-align: left; resize: none;"></textarea>
                     <button class="settings-btn" onclick="window.CPISI.social.updateProfile()">UPDATE DISCLOSURE</button>
                 </div>
 
@@ -114,6 +96,11 @@
                 <div id="terminal-output"></div>
             </div>
         </main>
+
+        <aside id="mirror-panel">
+            <div class="panel-label">COVENANT MIRROR</div>
+            <div id="mirror-content">Select a Word from the Sanctuary to project it here.</div>
+        </aside>
     </div>
 
     <!-- THE THRESHOLD -->
@@ -132,20 +119,25 @@
                     </div>
                 </div>
 
-                <div id="inhabitation-stage" style="display:none; flex-direction: column; gap: 15px; margin-top: 20px; width: 100%;">
-                    <div style="font-family: var(--mono); font-size: 9px; color: var(--c4); margin-bottom: 10px; text-align: center;">CREATE SOVEREIGN IDENTITY</div>
+                <div id="inhabitation-stage" style="display:none; flex-direction: column; gap: 22px; margin-top: 22px; width: 100%;">
+                    <div style="font-family: var(--mono); font-size: 0.8rem; color: var(--c4); margin-bottom: 11px; text-align: center;">CREATE SOVEREIGN IDENTITY</div>
                     <input type="text" id="new-user" class="id-input" placeholder="CHOOSE USERNAME">
                     <input type="password" id="new-pass" class="id-input" placeholder="CHOOSE PASSWORD">
                     
-                    <div id="extended-profile" style="display:none; flex-direction: column; gap: 10px;">
+                    <div id="extended-profile" style="display:none; flex-direction: column; gap: 11px;">
                         <input type="text" id="prof-name" class="id-input" placeholder="FULL NAME (OPTIONAL)">
-                        <textarea id="prof-bio" class="id-input" placeholder="BIO / WITNESS (OPTIONAL)" style="height: 60px;"></textarea>
+                        <textarea id="prof-bio" class="id-input" placeholder="BIO / WITNESS (OPTIONAL)" style="height: 88px;"></textarea>
                     </div>
-                    <button type="button" id="toggle-prof-btn" onclick="toggleProfile()" style="background:transparent; border:none; color:#222; font-family:var(--mono); font-size:8px; cursor:pointer;">[ + PROFILE DETAILS ]</button>
+                    <button type="button" id="toggle-prof-btn" onclick="toggleProfile()" style="background:transparent; border:none; color:#222; font-family:var(--mono); font-size:0.7rem; cursor:pointer;">[ + PROFILE DETAILS ]</button>
                 </div>
                 
                 <button type="submit" id="gate-seal-btn" class="btn-activate">[ BREAK THE SEAL ]</button>
-                <div style="margin-top: 20px; font-family: var(--mono); font-size: 7px; color: #111; text-align: center;">IF YOU DON'T SHARE IT, WE DON'T HAVE IT.</div>
+                
+                <button type="button" id="purge-btn" onclick="window.CPISI.purgeSubstrate()">[ PURGE SUBSTRATE ]</button>
+
+                <div style="margin-top: 44px; font-family: var(--mono); font-size: 0.6rem; color: #111; text-align: center; line-height: 1.6; letter-spacing: 2px;">
+                    IF YOU DON'T SHARE IT, WE DON'T HAVE IT.
+                </div>
             </form>
             <div id="auth-error"></div>
         </div>

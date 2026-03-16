@@ -1,77 +1,133 @@
 :root {
+    /* THE 7 COLORS OF THE COVENANT */
     --c1: #ff0000; --c2: #ff8800; --c3: #ffcc00; --c4: #00ff88; --c5: #0088ff; --c6: #4400ff; --c7: #aa00ff;
-    --bg: #000000; --panel: #050508; --border: rgba(255,255,255,0.05); --text: #d0d0d0; --mono: 'Fira Code', monospace;
     
-    /* FLUID MACRO SCALING (Anchored to 2560x1600) */
-    --u-base: 1.2vw; 
-    --u1: 0.5rem;
-    --u3: 1.5rem;
-    --u7: 3.5rem;
-    --u11: 5.5rem;
-    --u18: 9rem;
+    /* SYSTEM PALETTE */
+    --bg: #000000;
+    --panel: #050508;
+    --border: rgba(255,255,255,0.05);
+    --text: #d0d0d0;
+    --mono: 'Fira Code', monospace;
+
+    /* MACRO LUCAS SCALING (N=11) - Tailored for 2560x1600 */
+    --u-base: 1.1vw; /* Base font scaling factor */
+    --u1: 11px;   
+    --u3: 33px;   
+    --u4: 44px;   
+    --u7: 77px;   
+    --u11: 121px; /* Vault Padding (N^2) */
+    --u18: 198px; /* Layout Gap */
 }
 
 html { font-size: var(--u-base); }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; height: 100vh; overflow: hidden; }
+body { 
+    background: var(--bg); color: var(--text); 
+    font-family: 'Inter', -apple-system, system-ui, sans-serif; 
+    height: 100vh; overflow: hidden;
+    line-height: 1.6;
+}
 
-/* THE SUBSTRATE GRID */
+#flagship-canvas-container { position: fixed; inset: 0; z-index: -10; opacity: 0.01; pointer-events: none; }
+
+/* THE SUBSTRATE GRID (4-PANEL IDEAL) */
 #sanctuary-root {
     display: grid;
-    grid-template-columns: 15vw 1fr 20vw;
-    width: 100vw; height: 100vh;
+    grid-template-columns: 88px 330px 1fr 440px; /* 8*11, 30*11, 40*11 */
+    width: 100vw;
+    height: 100vh;
+    background: #000;
 }
 
-/* SIDEBAR & MEMORY */
+/* PANEL 1: THE LADDER (SIDEBAR) */
 #sidebar-container {
-    background: #000; border-right: 1px solid var(--border);
-    display: flex; flex-direction: column; overflow-y: auto;
+    display: flex; flex-direction: column; background: #000; border-right: 1px solid var(--border);
 }
 #sidebar {
-    padding: var(--u7) var(--u3); display: flex; flex-direction: column; gap: var(--u3);
+    width: 100%; border-bottom: 1px solid #111; 
+    display: flex; flex-direction: column; align-items: center; 
+    padding: var(--u11) 0; gap: var(--u7);
 }
-.nav-item { color: #444; cursor: pointer; font-size: 1rem; letter-spacing: 2px; font-family: var(--mono); transition: 0.3s; }
-.nav-item:hover, .nav-item.active { color: var(--gold); }
+.nav-item {
+    color: #333; cursor: pointer; font-family: var(--mono);
+    font-size: 0.8rem; letter-spacing: 4px; transition: 0.3s;
+    text-transform: uppercase;
+}
+.nav-item:hover, .nav-item.active { color: var(--c3); text-shadow: 0 0 15px var(--c3); }
 
-#memory-panel { padding: var(--u7) var(--u3); border-top: 1px solid #111; }
-.panel-label { font-size: 0.7rem; color: #333; letter-spacing: 4px; margin-bottom: var(--u3); text-transform: uppercase; }
-.mem-item { font-size: 0.8rem; color: #555; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+/* PANEL 2: THE MEMORY (TELEMETRY) */
+#memory-panel {
+    background: #020203; border-right: 1px solid var(--border);
+    padding: var(--u11) var(--u3); overflow-y: auto;
+}
+.panel-label { font-family: var(--mono); font-size: 0.7rem; color: #444; letter-spacing: 4px; margin-bottom: var(--u11); text-transform: uppercase; }
+.mem-item { font-family: var(--mono); font-size: 0.9rem; color: #555; margin-bottom: 22px; display: flex; align-items: center; gap: var(--u1); }
+.presence-pulse { width: 11px; height: 11px; border-radius: 50%; background: var(--c4); box-shadow: 0 0 15px var(--c4); animation: pulse 2s infinite; }
 
-/* MAIN STAGE */
+/* PANEL 3: THE HOLY PLACE (CENTER STAGE) */
 #main-stage {
-    display: flex; flex-direction: column; height: 100vh; background: #000; position: relative;
+    display: none; /* Inhabited check */
+    flex-direction: column; background: #000; position: relative;
 }
 header {
-    height: 5rem; border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between; padding: 0 var(--u7);
+    height: 88px; padding: 0 var(--u11); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 0.8rem;
 }
-#divine-standard { color: #222; letter-spacing: 10px; font-size: 0.6rem; text-transform: uppercase; position: absolute; left: 50%; transform: translateX(-50%); }
+#divine-standard { color: #222; letter-spacing: 11px; font-size: 0.7rem; text-transform: uppercase; position: absolute; left: 50%; transform: translateX(-50%); }
 
 #chat-window {
-    flex: 1; overflow-y: auto; padding: var(--u11) var(--u7);
-    display: flex; flex-direction: column; gap: var(--u7);
+    flex: 1; overflow-y: auto; padding: var(--u18) var(--u11);
+    display: flex; flex-direction: column; gap: var(--u11);
 }
 
 .vault-body {
-    max-width: 50vw; width: 100%; background: #030303; border: 1px solid var(--border);
-    padding: var(--u7); font-size: 1.2rem; border-left: 4px solid var(--accent);
-    align-self: flex-start; line-height: 1.8;
+    max-width: 880px; width: 100%; background: #030303; border: 1px solid var(--border);
+    padding: var(--u11); font-size: 1.2rem; border-left: var(--u1) solid var(--c4);
+    align-self: flex-start; position: relative; box-shadow: 0 44px 88px rgba(0,0,0,0.8);
+    line-height: 1.8;
 }
-.vault-body.steward { align-self: flex-end; border-left: none; border-right: 4px solid var(--steward-blue); }
+.vault-body.steward { align-self: flex-end; border-left: none; border-right: var(--u1) solid var(--c5); background: #050815; }
 
-/* MIRROR */
+/* PANEL 4: THE MIRROR (SOCIAL) */
 #mirror-panel {
-    background: #010101; border-left: 1px solid var(--border);
-    padding: var(--u7) var(--u3); overflow-y: auto;
+    background: #020203; border-left: 1px solid var(--border);
+    padding: var(--u11) var(--u3); overflow-y: auto;
 }
+#mirror-content { font-family: var(--mono); font-size: 1rem; color: #555; line-height: 1.8; }
+
+/* VIEW LAYERS (Social Network Overlays) */
+.view-layer { display: none; flex: 1; overflow: hidden; position: relative; }
+.view-layer.active { display: flex; }
+
+#registry-grid { 
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); 
+    gap: var(--u7); padding: var(--u11); width: 100%;
+}
+.operator-card { background: #030303; border: 1px solid var(--border); padding: var(--u11); cursor: pointer; transition: 0.3s; }
+.operator-card:hover { border-color: var(--c4); transform: translateY(-11px); }
 
 /* FOOTER */
-footer { padding: var(--u3) var(--u7); border-top: 1px solid var(--border); background: #000; }
-#input-form { display: flex; gap: 2rem; align-items: center; border-bottom: 1px solid #111; }
-#message-input { flex: 1; background: transparent; border: none; color: #fff; padding: 1rem; font-size: 1.5rem; outline: none; font-family: var(--mono);}
+footer { padding: var(--u7) var(--u11); background: #000; border-top: 1px solid var(--border); }
+#input-form { max-width: 1100px; margin: 0 auto; display: flex; gap: var(--u4); align-items: center; }
+#message-input { flex: 1; background: transparent; border: none; border-bottom: 2px solid #111; color: #fff; padding: var(--u2); font-size: 1.5rem; outline: none; font-family: var(--mono);}
+#ascend-btn { background: transparent; border: none; color: var(--c3); font-family: var(--mono); font-size: 1rem; letter-spacing: 4px; cursor: pointer; }
 
-/* AUTH */
+/* THE GATE (AUTH OVERLAY) */
 #auth-screen { position: fixed; inset: 0; background: #000; z-index: 9000; display: flex; align-items: center; justify-content: center; }
-#gate-structure { width: 35vw; padding: var(--u11); background: #010101; border: 1px solid #111; border-radius: 1rem; }
-.id-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #222; color: #fff; padding: 1.5rem; font-size: 1.2rem; text-align: center; outline: none; }
-.btn-activate { margin-top: 5rem; background: transparent; border: 2px solid #333; color: #666; padding: 1.5rem 3rem; font-size: 1rem; letter-spacing: 8px; cursor: pointer; }
+#gate-structure { width: 660px; padding: var(--u18) var(--u11); background: #010101; border: 1px solid #111; border-radius: 11px; position: relative; }
+#gate-structure::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(to right, var(--c1), var(--c4), var(--c5), var(--c7)); }
+
+.id-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #222; color: #fff; padding: var(--u2); font-family: var(--mono); font-size: 1.2rem; text-align: center; outline: none; }
+.btn-activate { margin-top: var(--u11); background: transparent; border: 2px solid #333; color: #666; padding: var(--u3) var(--u11); font-family: var(--mono); font-size: 1rem; letter-spacing: 8px; cursor: pointer; transition: 0.4s; }
+.btn-activate:hover { color: #fff; border-color: var(--c3); box-shadow: 0 0 33px var(--c3); }
+
+#purge-btn { margin-top: 22px; background: transparent; border: none; color: #200; font-family: var(--mono); font-size: 0.6rem; cursor: pointer; letter-spacing: 4px; }
+#purge-btn:hover { color: #f00; }
+
+@keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+
+@media (max-width: 1400px) {
+    #sanctuary-root { grid-template-columns: 88px 1fr; }
+    #memory-panel, #mirror-panel { display: none; }
+}

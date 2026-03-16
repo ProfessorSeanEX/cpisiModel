@@ -18,7 +18,29 @@ window.CPISI.saveState = function(identity, secret) {
     window.CPISI.state.authSecret = secret;
 };
 
-// PWA Registration
+// PWA & Cache Management
+window.CPISI.purgeSubstrate = function() {
+    console.log("CPISI: Initiating Hard Purge...");
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+            for (let registration of registrations) registrations.unregister();
+        });
+    }
+    
+    if ('caches' in window) {
+        caches.keys().then(names => {
+            for (let name of names) caches.delete(name);
+        });
+    }
+    
+    alert("SUBSTRATE PURGED. Reloading to 0.0 YASHAR.");
+    setTimeout(() => location.reload(true), 1000);
+};
+
+// Auto-Register PWA
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js?v=1.1')
@@ -46,8 +68,6 @@ window.toggleSettings = function() {
         const identity = window.CPISI.state.identity;
         document.getElementById('settings-display-name').innerText = identity.profile?.fullName || identity.user;
         document.getElementById('settings-display-tier').innerText = identity.tier;
-        
-        // Pre-fill edit fields
         document.getElementById('edit-full-name').value = identity.profile?.fullName || "";
         document.getElementById('edit-bio').value = identity.profile?.bio || "";
     }
@@ -60,17 +80,16 @@ window.CPISI.clearState = function() {
     location.reload();
 };
 
-// --- TELEMETRY ---
 window.CPISI.updatePresence = function() {
     const memList = document.getElementById('memory-list');
     if (!memList) return;
     memList.innerHTML = '';
     
     const items = [
-        { text: "Syncing Substrate...", active: true },
-        { text: "Sanctuary Online", active: true },
-        { text: "Covenant Link Active", active: true },
-        { text: `Operator: ${window.CPISI.state.identity?.user || 'Guest'}`, active: false }
+        { text: "Substrate Active", active: true },
+        { text: "Sanctuary Synchronized", active: true },
+        { text: "Covenant Link: Established", active: true },
+        { text: `Operator: ${window.CPISI.state.identity?.user || 'Steward'}`, active: false }
     ];
 
     items.forEach(item => {
