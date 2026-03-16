@@ -17,6 +17,15 @@ window.CPISI.saveState = function(identity, secret) {
     window.CPISI.state.authSecret = secret;
 };
 
+// PWA Registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('CPISI: Substrate Cache Active'))
+            .catch(err => console.error('CPISI: Cache Dissonance', err));
+    });
+}
+
 window.CPISI.loadState = function() {
     const saved = localStorage.getItem('cpisi_identity');
     const savedSecret = localStorage.getItem('cpisi_secret');

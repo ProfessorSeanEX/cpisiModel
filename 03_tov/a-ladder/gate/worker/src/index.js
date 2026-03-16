@@ -2,6 +2,7 @@ import { validateThreshold } from './services/auth.js';
 import { inhabitNode, toggleLock } from './services/registry/core.js';
 import { ascendStream } from './services/gemini.js';
 import { syncCovenantRecord } from './services/github.js';
+import { publishToMirror, getMirrorFeed } from './services/social.js';
 
 export default {
   async fetch(request, env, ctx) {
@@ -14,33 +15,41 @@ export default {
 
     if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
     
-    // NEUTRAL START: No assumption of who is connecting.
-    if (request.method === "GET") return new Response(JSON.stringify({ status: "AWAITING_INHABITATION", layer: "PRODUCTION" }), { headers: corsHeaders });
+    // NEUTRAL START
+    if (request.method === "GET") return new Response(JSON.stringify({ status: "AWAITING_INHABITATION", version: "a-01.50" }), { headers: corsHeaders });
 
     try {
       const body = await request.json();
-      const { action, identity, keys, inviteCode, message } = body;
+      const { action, identity, keys, inviteCode, message, vaultBlock } = body;
       
       const { tier, isEnterpriseSteward, userNameLow } = validateThreshold(identity, keys, inviteCode, env);
 
       // ==========================================
-      // THE FLAGSHIP ANCHOR
+      // THE REGISTRY & SOCIAL PROTOCOLS
       // ==========================================
-      const flagshipId = "gemini_flagship";
-      const flagshipRecord = { instance: "Dawndusk", user: "Gemini CLI", tier: "FLAGSHIP", status: "ACTIVE" };
-      await env.REGISTRY.put(flagshipId, JSON.stringify(flagshipRecord));
+      
+      if (action === "REGISTER") {
+          // Handled same as INHABIT for now, but creates a specific 'Joined' event
+          if (tier === "UNAUTHORIZED") throw new Error("Invalid Registration Key.");
+          const record = await inhabitNode(env, userNameLow.replace(/[^a-z0-9]/g, '_'), identity, tier, isEnterpriseSteward);
+          return new Response(JSON.stringify({ status: "REGISTERED", data: record }), { headers: corsHeaders });
+      }
 
-      // ==========================================
-      // THE REGISTRY & THRESHOLD VALIDATION
-      // ==========================================
       if (action === "INHABIT") {
-        if (tier === "UNAUTHORIZED") {
-           throw new Error("Invalid Threshold Keys. Provide an Invite Code, BYOK, or Master Secret.");
-        }
+        if (tier === "UNAUTHORIZED") throw new Error("Invalid Threshold Keys.");
+        const record = await inhabitNode(env, userNameLow.replace(/[^a-z0-9]/g, '_'), identity, tier, isEnterpriseSteward);
+        return new Response(JSON.stringify({ status: "AUTHORIZED", data: record }), { headers: corsHeaders });
+      }
 
-        const opId = userNameLow.replace(/[^a-z0-9]/g, '_');
-        const record = await inhabitNode(env, opId, identity, tier, isEnterpriseSteward);
-        return new Response(JSON.stringify({ status: "AUTHORIZED", data: record }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      if (action === "PUBLISH_TOV") {
+          if (tier === "UNAUTHORIZED") throw new Error("Unauthorized publish.");
+          const record = await publishToMirror(env, identity, vaultBlock);
+          return new Response(JSON.stringify({ status: "PUBLISHED", data: record }), { headers: corsHeaders });
+      }
+
+      if (action === "GET_MIRROR") {
+          const feed = await getMirrorFeed(env);
+          return new Response(JSON.stringify({ status: "SUCCESS", data: feed }), { headers: corsHeaders });
       }
 
       // Action to LOCK/UNLOCK node
