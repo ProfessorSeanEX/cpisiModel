@@ -149,11 +149,15 @@
             try {
                 const response = await fetch(WORKER_URL, {
                     method: "POST",
+                    mode: "cors", // Explicitly set CORS mode
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: content, type: type })
                 });
 
-                if (!response.ok) throw new Error("Substrate Sync Failed");
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.error || "Substrate Sync Failed");
+                }
                 
                 const data = await response.json();
                 appendMessage(data.reply, false);
@@ -161,7 +165,7 @@
                 statusEl.style.color = "var(--text-yashar)";
             } catch (err) {
                 console.error(err);
-                appendMessage("[ERROR: The Hinge is disconnected. Is the Worker URL set?]", false);
+                appendMessage(`[ERROR: ${err.message}]`, false);
                 statusEl.innerText = "OFFLINE";
                 statusEl.style.color = "var(--text-void)";
             }
