@@ -148,12 +148,33 @@
 
     <!-- [CONTAINER:THRESHOLD-->START] -->
     <div id="auth-screen" class="overlay-screen" style="display:flex;">
-        <!-- Threshold login logic will be wired here -->
-        <div class="wire-vault" style="border-color:var(--gold); height:auto;">
+        <div id="gate-structure" class="wire-vault" style="border-color:var(--gold); height:auto; transition: 0.6s;">
             <div class="box-label">OUTER COURT // THRESHOLD</div>
-            <input type="text" id="op-user" class="id-input" placeholder="IDENTITY" style="background:#000; border:1px solid var(--border); color:#fff; padding:8px;">
-            <input type="password" id="op-key" class="id-input" placeholder="KEY" style="background:#000; border:1px solid var(--border); color:#fff; padding:8px;">
-            <button onclick="executeAuth(event)" style="background:var(--gold); border:none; color:#000; padding:8px; cursor:pointer; font-weight:bold;">[ BREAK THE SEAL ]</button>
+            
+            <form id="gateway-form" onsubmit="executeAuth(event)" style="display:flex; flex-direction:column; gap:11px; width:100%;">
+                <div id="threshold-stage" style="display:flex; flex-direction:column; gap:11px;">
+                    <input type="text" id="op-user" class="id-input" placeholder="IDENTITY" style="background:#000; border:1px solid var(--border); color:#fff; padding:8px;" value="ProfessorSeanEX">
+                    <input type="password" id="op-key" class="id-input" placeholder="KEY" style="background:#000; border:1px solid var(--border); color:#fff; padding:8px;">
+                </div>
+
+                <div id="inhabitation-stage" style="display:none; flex-direction:column; gap:11px;">
+                    <div class="box-label" style="text-align:center">CREATE SOVEREIGN IDENTITY</div>
+                    <input type="text" id="new-user" class="id-input" placeholder="CHOOSE USERNAME" style="background:#000; border:1px solid var(--border); color:#fff; padding:8px;">
+                    <input type="password" id="new-pass" class="id-input" placeholder="CHOOSE PASSWORD" style="background:#000; border:1px solid var(--border); color:#fff; padding:8px;">
+                    
+                    <!-- Profile fields required by auth.js -->
+                    <div id="extended-profile" style="display:none; flex-direction:column; gap:11px;">
+                        <input type="text" id="prof-name" class="id-input" placeholder="FULL NAME" style="background:#000; border:1px solid var(--border); color:#fff; padding:8px;">
+                        <input type="text" id="prof-email" class="id-input" placeholder="EMAIL" style="background:#000; border:1px solid var(--border); color:#fff; padding:8px;">
+                        <textarea id="prof-bio" class="id-input" placeholder="BIO" style="background:#000; border:1px solid var(--border); color:#fff; padding:8px; height:66px;"></textarea>
+                    </div>
+                    <button type="button" id="toggle-prof-btn" onclick="toggleProfile()" style="background:transparent; border:none; color:var(--blue); font-size:0.6rem; cursor:pointer;">[ + ADD PROFILE DETAILS ]</button>
+                </div>
+                
+                <button type="submit" id="gate-seal-btn" style="background:var(--gold); border:none; color:#000; padding:8px; cursor:pointer; font-weight:bold;">[ BREAK THE SEAL ]</button>
+            </form>
+
+            <div id="auth-error" style="color:var(--scarlet); font-size:0.6rem; margin-top:11px; text-align:center; min-height:1em;"></div>
         </div>
     </div>
     <!-- [CONTAINER:THRESHOLD-->END] -->
