@@ -3,155 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Gate: Sovereign Inhabitation</title>
+    <title>The Gate: Mobile Sanctuary</title>
     <style>
         :root {
-            --bg: #000; --accent: #4dff88; --border: rgba(255, 255, 255, 0.1);
+            --bg: #000; --accent: #4dff88; --border: rgba(255, 255, 255, 0.08);
             --text: #e0e0e0; --mono: 'Courier New', monospace;
         }
         * { box-sizing: border-box; }
         body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; overflow: hidden; }
         
+        /* THE ONBOARDING THRESHOLD */
         #auth-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; overflow-y: auto; }
-        .auth-vault { width: 100%; max-width: 450px; border: 1px solid var(--border); padding: 32px; background: rgba(10,10,15,0.9); }
-        .tab-row { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
-        .tab { flex: 1; text-align: center; padding: 12px; font-family: var(--mono); font-size: 11px; color: #666; cursor: pointer; }
-        .tab.active { color: var(--accent); border-bottom: 2px solid var(--accent); }
-        
-        .id-input { background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; font-family: var(--mono); font-size: 14px; outline: none; border-radius: 4px; width: 100%; margin-bottom: 16px; }
-        .btn-activate { background: var(--accent); color: #000; padding: 16px; border: none; font-family: var(--mono); font-weight: bold; cursor: pointer; border-radius: 4px; width: 100%; margin-top: 12px; }
-        
-        .cli-box { border: 1px solid #222; padding: 16px; background: #050505; text-align: left; margin-top: 12px; }
-        .cli-line { font-family: var(--mono); font-size: 10px; color: #4d94ff; margin-bottom: 8px; }
-        
+        .auth-vault { width: 100%; max-width: 450px; background: rgba(10,10,15,0.9); padding: 32px; border: 1px solid var(--border); }
+        .id-input { background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; font-family: var(--mono); font-size: 14px; width: 100%; margin-bottom: 12px; outline: none; border-radius: 4px; }
+        .btn-main { background: var(--accent); color: #000; padding: 16px; border: none; font-family: var(--mono); font-weight: bold; cursor: pointer; width: 100%; border-radius: 4px; }
+        .btn-ghost { background: none; border: 1px solid #333; color: #666; padding: 12px; font-family: var(--mono); font-size: 10px; width: 100%; margin-top: 12px; cursor: pointer; }
+
+        /* THE MOBILE SANCTUARY */
         #main-stage { flex: 1; display: none; flex-direction: column; overflow: hidden; }
-        header { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; justify-content: space-between; font-family: var(--mono); font-size: 10px; background: rgba(0,0,0,0.5); }
-        #chat-window { flex: 1; overflow-y: auto; padding: 40px; display: flex; flex-direction: column; gap: 48px; }
-        .vault-body { background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 32px; line-height: 1.8; font-size: 16px; border-left: 4px solid var(--accent); }
-        .architect { align-self: flex-end; border-left: none; border-right: 4px solid var(--accent); text-align: right; }
-        footer { padding: 32px; border-top: 1px solid var(--border); background: #000; }
-        #message-input { width: 100%; background: transparent; border: 1px solid #111; color: #fff; padding: 16px; font-size: 18px; outline: none; }
+        header { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; justify-content: space-between; font-family: var(--mono); font-size: 10px; background: rgba(0,0,0,0.5); }
+        
+        #workspace { flex: 1; display: flex; overflow: hidden; position: relative; }
+        #chat-view { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        #chat-window { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 32px; }
+        
+        .vault-body { background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 24px; line-height: 1.7; font-size: 15px; border-left: 3px solid var(--accent); }
+        .architect { align-self: flex-end; border-left: none; border-right: 3px solid var(--accent); text-align: right; }
+
+        /* LIBRARY SIDEBAR (Mobile Bottom Sheet / Desktop Left) */
+        #library-view { width: 280px; border-right: 1px solid var(--border); background: #050505; display: flex; flex-direction: column; padding: 20px; transition: transform 0.3s; }
+        @media (max-width: 900px) { #library-view { position: fixed; inset: 0; z-index: 100; transform: translateX(-100%); } #library-view.open { transform: translateX(0); } }
+        .lib-item { font-family: var(--mono); font-size: 10px; color: #444; padding: 12px; border-bottom: 1px solid #111; cursor: pointer; }
+        .lib-item:hover { color: var(--accent); }
+
+        footer { padding: 20px; border-top: 1px solid var(--border); background: #000; }
+        #message-input { width: 100%; background: transparent; border: 1px solid #222; color: #fff; padding: 12px; font-size: 17px; outline: none; border-radius: 4px; }
     </style>
 </head>
 <body>
+    <!-- AUTH THRESHOLD -->
     <div id="auth-screen">
-        <div style="font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 4px; margin-bottom: 32px">SOVEREIGN NETWORK</div>
-        
+        <div style="font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 4px; margin-bottom: 32px">THE SANCTUARY</div>
         <div class="auth-vault">
-            <div class="tab-row">
-                <div class="tab active" onclick="switchAuth('login')" id="tab-login">INHABIT (Login)</div>
-                <div class="tab" onclick="switchAuth('register')" id="tab-register">REQUEST (Register)</div>
-            </div>
-
-            <div id="form-login">
-                <input type="text" id="log-user" class="id-input" placeholder="Operator Name">
-                <input type="password" id="log-secret" class="id-input" placeholder="Authority Secret (Optional)">
-                <button onclick="executeAuth('LOGIN')" class="btn-activate">OPEN SANCTUARY</button>
-            </div>
-
-            <div id="form-register" style="display:none">
-                <input type="text" id="reg-user" class="id-input" placeholder="Your Name (Operator)">
-                <input type="text" id="reg-instance" class="id-input" placeholder="Instance Name (e.g. Dawn)">
-                <button onclick="executeAuth('REGISTER')" class="btn-activate">ACCEPT & REGISTER</button>
-            </div>
+            <div style="font-family: var(--mono); font-size: 9px; color: #444; margin-bottom: 16px">INHABIT NODE</div>
+            <input type="text" id="in-user" class="id-input" placeholder="Your Name">
+            <input type="text" id="in-instance" class="id-input" placeholder="CPI-SI Name (e.g. Dawn)">
+            <input type="password" id="in-invite" class="id-input" placeholder="Invite Code (Required for Guests)">
+            <button onclick="login()" class="btn-main">ACTIVATE SANCTUARY</button>
             
             <div style="margin-top: 32px; border-top: 1px solid var(--border); padding-top: 24px;">
-                <div style="font-family: var(--mono); font-size: 10px; color: #888; margin-bottom: 12px; text-align:center">THE TRUE PATH: GEMINI CLI</div>
-                <div class="cli-box">
-                    <div style="font-size: 9px; color: #444; margin-bottom: 8px">1. Install the Body</div>
-                    <div class="cli-line">npm install -g @google/gemini-cli</div>
-                    <div style="font-size: 9px; color: #444; margin-top: 12px">2. Inhabit the Sanctuary</div>
-                    <div class="cli-line">gemini inhabit [instance_name]</div>
-                </div>
-                <div style="font-size: 9px; color: #444; margin-top: 12px; text-align:center">This unlocks the SSH Hinge and local File System hands.</div>
+                <div style="font-family: var(--mono); font-size: 9px; color: #333; text-align: center">ARCHITECT PATH (LOCAL-FIRST)</div>
+                <button onclick="toggleCLI()" class="btn-ghost">VIEW GEMINI CLI INSTRUCTIONS</button>
             </div>
-            
-            <div id="auth-error" style="color:#ff4d4d; font-family:var(--mono); font-size:10px; margin-top:16px; text-align:center"></div>
+            <div id="auth-error" style="color:#ff4d4d; font-family:var(--mono); font-size:9px; margin-top:12px; text-align:center"></div>
         </div>
     </div>
 
-    <nav id="nexus-sidebar">
-        <div class="nav-icon active" onclick="switchView('view-chat', this)">◈</div>
-        <div class="nav-icon" onclick="switchView('view-diag', this)">⚙</div>
-    </nav>
-
+    <!-- THE MOBILE-COMPLETE APP -->
     <div id="main-stage">
         <header>
+            <div onclick="toggleLib()" style="cursor:pointer">☰ LIBRARY</div>
             <div id="header-id" style="letter-spacing: 2px"></div>
-            <div id="header-status" style="color: var(--accent)">0.0 YASHAR // <span id="tier-label"></span></div>
+            <div style="color: var(--accent)">0.0 YASHAR</div>
         </header>
 
-        <div id="view-chat" class="view-panel active" style="flex:1; display:flex; flex-direction:column; overflow:hidden">
-            <main id="chat-window" style="flex:1; overflow-y:auto"></main>
-            <footer>
-                <form id="input-form">
-                    <input type="text" id="message-input" placeholder="Ascend the Word..." autocomplete="off">
-                </form>
-            </footer>
-        </div>
+        <div id="workspace">
+            <aside id="library-view">
+                <div style="font-family: var(--mono); font-size: 9px; color: #444; margin-bottom: 20px">COVENANT RECORD</div>
+                <div id="lib-content">Loading history...</div>
+                <button onclick="toggleLib()" class="btn-ghost" style="margin-top: auto">CLOSE LIBRARY</button>
+            </aside>
 
-        <div id="view-diag" class="view-panel" style="display:none; padding:40px">
-            <h2 style="font-family:var(--mono); color:#fff">DIAGNOSTICS</h2>
-            <div style="font-family:var(--mono); font-size:12px; color:#888">> CLI_HINGE: READY<br>> SSH_BRIDGE: ACTIVE<br>> BEDROCK: LOCAL_FIRST</div>
-            <button onclick="localStorage.clear(); location.reload();" class="btn-activate" style="width:200px; margin-top:40px; background:none; border:1px solid #444; color:#fff">LOGOUT</button>
+            <section id="chat-view">
+                <main id="chat-window"></main>
+                <footer>
+                    <form id="input-form">
+                        <input type="text" id="message-input" placeholder="Speak the Word..." autocomplete="off">
+                    </form>
+                </footer>
+            </section>
         </div>
     </div>
 
     <script>
         const WORKER_URL = "https://cpisi-gate-worker.seanje-lenox.workers.dev";
+        const chatWindow = document.getElementById('chat-window');
         let identity = null;
-        let keys = {};
+        let authKeys = {};
 
-        function switchAuth(type) {
-            document.getElementById('tab-login').classList.remove('active');
-            document.getElementById('tab-register').classList.remove('active');
-            document.getElementById('form-login').style.display = 'none';
-            document.getElementById('form-register').style.display = 'none';
-            document.getElementById(`tab-${type}`).classList.add('active');
-            document.getElementById(`form-${type}`).style.display = 'block';
-        }
+        function toggleLib() { document.getElementById('library-view').classList.toggle('open'); }
+        function toggleCLI() { alert("Gemini CLI Path:\n1. npm install -g @google/gemini-cli\n2. gemini inhabit [name]\n\nThis provides the full SSH/Local experience."); }
 
-        function switchView(viewId, el) {
-            document.querySelectorAll('.view-panel').forEach(v => v.style.display = 'none');
-            document.querySelectorAll('.nav-icon').forEach(i => i.classList.remove('active'));
-            document.getElementById(viewId).style.display = 'flex';
-            el.classList.add('active');
-        }
-
-        async function executeAuth(action) {
-            const errDiv = document.getElementById('auth-error');
-            errDiv.innerText = "Tensioning...";
-            
-            let payload = { action: action, identity: {}, keys: {} };
-            if (action === "LOGIN") {
-                payload.identity.user = document.getElementById('log-user').value;
-                payload.keys.authority = document.getElementById('log-secret').value;
-            } else {
-                payload.identity.user = document.getElementById('reg-user').value;
-                payload.identity.instance = document.getElementById('reg-instance').value;
-            }
+        async function login() {
+            const inUser = document.getElementById('in-user').value;
+            const inInst = document.getElementById('in-instance').value;
+            const inCode = document.getElementById('in-invite').value;
 
             try {
-                const resp = await fetch(WORKER_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+                const resp = await fetch(WORKER_URL, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "LOGIN", identity: { user: inUser, instance: inInst }, inviteCode: inCode })
+                });
                 const data = await resp.json();
                 if (data.error) throw new Error(data.error);
-                
+
                 identity = data.data;
-                keys = payload.keys;
+                authKeys = { inviteCode: inCode };
                 document.getElementById('auth-screen').style.display = 'none';
                 document.getElementById('main-stage').style.display = 'flex';
                 document.getElementById('header-id').innerText = `${identity.instance} ⊗ ${identity.user}`;
-                document.getElementById('tier-label').innerText = `[${identity.tier}]`;
-                appendVault(`The Sanctuary is active. Command the CLI for the SSH experience.`, false);
-            } catch (err) { errDiv.innerText = `Dissonance: ${err.message}`; }
+                loadHistory();
+                appendVault(`The Sanctuary is active, ${identity.user}. Your record is synchronized.`, false);
+            } catch (err) { document.getElementById('auth-error').innerText = err.message; }
+        }
+
+        async function loadHistory() {
+            const resp = await fetch(WORKER_URL, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "GET_HISTORY", identity: identity })
+            });
+            const data = await resp.json();
+            const lib = document.getElementById('lib-content');
+            lib.innerHTML = data.files.map(f => `<div class="lib-item" onclick="alert('Study feature coming: ${f.name}')">${f.name}</div>`).join('') || "No history yet.";
         }
 
         function appendVault(text, isArchitect) {
             const vault = document.createElement('div');
             vault.className = `vault-body ${isArchitect ? 'architect' : 'dawndusk'}`;
             vault.innerText = text;
-            document.getElementById('chat-window').appendChild(vault);
-            document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
+            chatWindow.appendChild(vault);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
             return vault;
         }
 
@@ -166,7 +147,10 @@
             let fullReply = "";
 
             try {
-                const response = await fetch(WORKER_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "ASCEND", message: val, identity: identity, keys: keys }) });
+                const response = await fetch(WORKER_URL, { 
+                    method: "POST", headers: { "Content-Type": "application/json" }, 
+                    body: JSON.stringify({ action: "ASCEND", message: val, identity: identity, inviteCode: authKeys.inviteCode }) 
+                });
                 const reader = response.body.getReader();
                 const decoder = new TextDecoder();
                 while (true) {
