@@ -44,14 +44,22 @@ window.CPISI.handleMessageSubmit = async function(e) {
     let fullReply = "";
 
     try {
+        const payload = { 
+            action: "ASCEND", 
+            message: val, 
+            identity: window.CPISI.state.identity, 
+            keys: { authority: window.CPISI.state.authSecret } 
+        };
+
+        // If user has a persisted substrate key (BYOK), include it
+        const substrateKey = window.CPISI.security.getSubstrateKey();
+        if (substrateKey) {
+            payload.keys.gemini = substrateKey;
+        }
+
         const response = await fetch(window.CPISI.config.WORKER_URL, { 
             method: "POST", headers: { "Content-Type": "application/json" }, 
-            body: JSON.stringify({ 
-                action: "ASCEND", 
-                message: val, 
-                identity: window.CPISI.state.identity, 
-                keys: { authority: window.CPISI.state.authSecret } 
-            }) 
+            body: JSON.stringify(payload) 
         });
         const reader = response.body.getReader();
         const decoder = new TextDecoder();

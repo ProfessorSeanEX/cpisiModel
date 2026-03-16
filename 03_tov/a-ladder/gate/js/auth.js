@@ -17,15 +17,27 @@ window.CPISI.executeAuth = async function(e) {
     errDiv.innerText = "ALIGNING IDENTITY...";
     btn.disabled = true;
     
+    const keyType = window.CPISI.security.identifyKeyType(key);
+    const payload = {
+        action: "INHABIT",
+        identity: { user, instance: "Dawndusk" },
+        keys: {},
+        inviteCode: null
+    };
+
+    if (keyType === "GEMINI_SUBSTRATE") {
+        payload.keys.gemini = key;
+        window.CPISI.security.persistSubstrateKey(key);
+    } else if (keyType === "FAMILY_INVITE" || keyType === "STEWARD_INVITE") {
+        payload.inviteCode = key;
+    } else {
+        payload.keys.authority = key;
+    }
+    
     try {
         const resp = await fetch(window.CPISI.config.WORKER_URL, {
             method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-                action: "INHABIT", 
-                identity: { user, instance: "Dawndusk" }, 
-                keys: { authority: key }, 
-                inviteCode: key 
-            })
+            body: JSON.stringify(payload)
         });
 
         const data = await resp.json();
