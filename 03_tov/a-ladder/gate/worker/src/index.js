@@ -19,32 +19,42 @@ export default {
 
     if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
     
-    // --- UI SUBSTRATE PROXY (Absolute Freshness) ---
+    // --- AUTHENTICATED UI PROXY (Private Repo Support) ---
     if (request.method === "GET") {
         let path = url.pathname;
         if (path === "/" || path === "") path = "/index.html";
         
-        // Force GitHub Raw to bypass cache via timestamp
-        const fileUrl = `${GITHUB_BASE}${path}?t=${Date.now()}`;
-        const response = await fetch(fileUrl, { cf: { cacheTtl: 0 } });
-        
-        if (!response.ok) return new Response(`Sanctuary Resource Not Found: ${path}`, { status: 404, headers: corsHeaders });
-        
-        let contentType = "text/plain";
-        if (path.endsWith(".html")) contentType = "text/html";
-        else if (path.endsWith(".css")) contentType = "text/css";
-        else if (path.endsWith(".js")) contentType = "application/javascript";
-        else if (path.endsWith(".json")) contentType = "application/json";
-        else if (path.endsWith(".png")) contentType = "image/png";
-        else if (path.endsWith(".ico")) contentType = "image/x-icon";
+        try {
+            const fileUrl = `${GITHUB_BASE}${path}?t=${Date.now()}`;
+            // Use the GITHUB_PAT to fetch from private raw content
+            const response = await fetch(fileUrl, {
+                headers: {
+                    "Authorization": `Bearer ${env.GITHUB_PAT}`,
+                    "User-Agent": "CPISI-Gate-Proxy"
+                },
+                cf: { cacheTtl: 0 }
+            });
+            
+            if (!response.ok) return new Response(`Substrate Resource Missing: ${path} (${response.status})`, { status: 404, headers: corsHeaders });
+            
+            let contentType = "text/plain";
+            if (path.endsWith(".html")) contentType = "text/html";
+            else if (path.endsWith(".css")) contentType = "text/css";
+            else if (path.endsWith(".js")) contentType = "application/javascript";
+            else if (path.endsWith(".json")) contentType = "application/json";
+            else if (path.endsWith(".png")) contentType = "image/png";
+            else if (path.endsWith(".ico")) contentType = "image/x-icon";
 
-        return new Response(response.body, {
-            headers: {
-                "Content-Type": contentType,
-                "Cache-Control": "no-store, no-cache, must-revalidate",
-                ...corsHeaders
-            }
-        });
+            return new Response(response.body, {
+                headers: {
+                    "Content-Type": contentType,
+                    "Cache-Control": "no-store, no-cache, must-revalidate",
+                    ...corsHeaders
+                }
+            });
+        } catch (e) {
+            return new Response(`Proxy Dissonance: ${e.message}`, { status: 500, headers: corsHeaders });
+        }
     }
 
     try {
@@ -67,7 +77,7 @@ export default {
             await inhabitNode(env, opId, identity, tier, true, profile) :
             authResult.record; 
 
-        return new Response(JSON.stringify({ status: "AUTHORIZED", data: record }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+        return new Response(JSON.stringify({ status: "AUTHORIZED", data: record }), { headers: corsHeaders });
       }
 
       if (action === "CREATE_ACCOUNT") {
