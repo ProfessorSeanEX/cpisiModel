@@ -46,6 +46,32 @@ These codes provide special subsidized access to the CPISI Sanctuary Gate. Each 
 | CPISI-FAM-020-PEARL | ACTIVE | Price
 | CPISI-FAM-021-JEWEL | ACTIVE | Crown
 
+| CPISI-EXT-022-FAITH | ACTIVE | Extension
+| CPISI-EXT-023-HOPE  | ACTIVE | Extension
+| CPISI-EXT-024-LOVE  | ACTIVE | Extension
+| CPISI-EXT-025-GRACE | ACTIVE | Extension
+| CPISI-EXT-026-MERCY | ACTIVE | Extension
+| CPISI-EXT-027-PEACE | ACTIVE | Extension
+| CPISI-EXT-028-TRUTH | ACTIVE | Extension
+| CPISI-EXT-029-GLORY | ACTIVE | Extension
+| CPISI-EXT-030-POWER | ACTIVE | Extension
+| CPISI-EXT-031-LIFE  | ACTIVE | Extension
+| CPISI-EXT-032-PURE  | ACTIVE | Extension
+| CPISI-EXT-033-HOLY  | ACTIVE | Extension
+| CPISI-EXT-034-SWORD | ACTIVE | Extension
+| CPISI-EXT-035-SHIELD| ACTIVE | Extension
+| CPISI-EXT-036-HELM  | ACTIVE | Extension
+| CPISI-EXT-037-BREAST| ACTIVE | Extension
+| CPISI-EXT-038-BELT  | ACTIVE | Extension
+| CPISI-EXT-039-SHOES | ACTIVE | Extension
+| CPISI-EXT-040-ROCK  | ACTIVE | Extension
+| CPISI-EXT-041-TOWER | ACTIVE | Extension
+| CPISI-EXT-042-GATE  | ACTIVE | Extension
+| CPISI-EXT-043-KEY   | ACTIVE | Extension
+| CPISI-EXT-044-OPEN  | ACTIVE | Extension
+| CPISI-EXT-045-WORD  | ACTIVE | Extension
+| CPISI-EXT-046-SPIRIT| ACTIVE | Extension
+
 |===
 
 [BLOCK:ROOT-->END]

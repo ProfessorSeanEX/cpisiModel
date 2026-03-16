@@ -1,6 +1,6 @@
 // worker/src/services/registry/core.js
 
-export async function inhabitNode(env, opId, identity, tier, isEnterpriseSteward) {
+export async function inhabitNode(env, opId, identity, tier, isEnterpriseSteward, profile = {}) {
     // Check if node is locked
     const existing = await env.REGISTRY.get(opId);
     if (existing) {
@@ -15,7 +15,13 @@ export async function inhabitNode(env, opId, identity, tier, isEnterpriseSteward
         user: identity.user, 
         tier: tier, 
         joined: new Date().toISOString(),
-        locked: false 
+        locked: false,
+        profile: {
+            fullName: profile.fullName || "",
+            email: profile.email || "",
+            bio: profile.bio || "",
+            visibility: profile.visibility || { fullName: false, email: false, bio: true }
+        }
     };
     
     await env.REGISTRY.put(opId, JSON.stringify(record));

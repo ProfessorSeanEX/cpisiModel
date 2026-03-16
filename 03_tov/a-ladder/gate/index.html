@@ -89,9 +89,25 @@
                     <input type="text" id="op-user" class="id-input" placeholder="USERNAME" value="ProfessorSeanEX" autocomplete="username">
                 </div>
                 <div class="gate-input-container">
-                    <input type="password" id="op-key" class="id-input" placeholder="PASSWORD" autocomplete="current-password">
+                    <input type="password" id="op-key" class="id-input" placeholder="PASSWORD / INVITE" autocomplete="current-password">
                 </div>
-                <button type="submit" id="gate-seal-btn" class="btn-activate">[ BREAK THE SEAL ]</button>
+
+                <!-- EXTENDED PROFILE (HIDDEN BY DEFAULT) -->
+                <div id="extended-profile" style="display:none; flex-direction: column; gap: 15px; margin-top: 20px; width: 100%;">
+                    <input type="text" id="prof-name" class="id-input" placeholder="FULL NAME">
+                    <input type="email" id="prof-email" class="id-input" placeholder="EMAIL ADDRESS">
+                    <textarea id="prof-bio" class="id-input" placeholder="BIO / WITNESS" style="height: 80px; resize: none;"></textarea>
+                    <div style="font-family: var(--mono); font-size: 8px; color: #444; display: flex; justify-content: space-around;">
+                        <label><input type="checkbox" id="vis-name" checked> SHOW NAME</label>
+                        <label><input type="checkbox" id="vis-email"> SHOW EMAIL</label>
+                    </div>
+                </div>
+
+                <button type="button" id="toggle-prof-btn" onclick="toggleProfile()" style="background:transparent; border:none; color:#333; font-family:var(--mono); font-size:8px; cursor:pointer; margin-top:10px;">[ + ADD PROFILE DETAILS ]</button>
+
+                <button type="submit" id="gate-seal-btn" class="btn-activate">
+                    [ BREAK THE SEAL ]
+                </button>
             </form>
 
             <div id="auth-error"></div>

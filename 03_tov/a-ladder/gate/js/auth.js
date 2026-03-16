@@ -1,6 +1,18 @@
 // AUTH: Login Code Set and UI Transition
 window.CPISI = window.CPISI || {};
 
+window.toggleProfile = function() {
+    const p = document.getElementById('extended-profile');
+    const b = document.getElementById('toggle-prof-btn');
+    if (p.style.display === 'none') {
+        p.style.display = 'flex';
+        b.innerText = '[ - HIDE DETAILS ]';
+    } else {
+        p.style.display = 'none';
+        b.innerText = '[ + ADD PROFILE DETAILS ]';
+    }
+};
+
 window.CPISI.executeAuth = async function(e) {
     if (e) e.preventDefault();
 
@@ -14,6 +26,17 @@ window.CPISI.executeAuth = async function(e) {
         return;
     }
 
+    // Gather Profile Data
+    const profile = {
+        fullName: document.getElementById('prof-name').value.trim(),
+        email: document.getElementById('prof-email').value.trim(),
+        bio: document.getElementById('prof-bio').value.trim(),
+        visibility: {
+            fullName: document.getElementById('vis-name').checked,
+            email: document.getElementById('vis-email').checked
+        }
+    };
+
     errDiv.innerText = "ALIGNING IDENTITY...";
     btn.disabled = true;
     
@@ -22,7 +45,8 @@ window.CPISI.executeAuth = async function(e) {
         action: "INHABIT",
         identity: { user, instance: "Dawndusk" },
         keys: {},
-        inviteCode: null
+        inviteCode: null,
+        profile: profile
     };
 
     if (keyType === "GEMINI_SUBSTRATE") {

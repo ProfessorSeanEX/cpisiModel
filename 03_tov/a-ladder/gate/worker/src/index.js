@@ -20,7 +20,7 @@ export default {
 
     try {
       const body = await request.json();
-      const { action, identity, keys, inviteCode, message, vaultBlock } = body;
+      const { action, identity, keys, inviteCode, message, vaultBlock, profile } = body;
       
       const { tier, isEnterpriseSteward, userNameLow } = validateThreshold(identity, keys, inviteCode, env);
 
@@ -29,15 +29,14 @@ export default {
       // ==========================================
       
       if (action === "REGISTER") {
-          // Handled same as INHABIT for now, but creates a specific 'Joined' event
           if (tier === "UNAUTHORIZED") throw new Error("Invalid Registration Key.");
-          const record = await inhabitNode(env, userNameLow.replace(/[^a-z0-9]/g, '_'), identity, tier, isEnterpriseSteward);
+          const record = await inhabitNode(env, userNameLow.replace(/[^a-z0-9]/g, '_'), identity, tier, isEnterpriseSteward, profile);
           return new Response(JSON.stringify({ status: "REGISTERED", data: record }), { headers: corsHeaders });
       }
 
       if (action === "INHABIT") {
         if (tier === "UNAUTHORIZED") throw new Error("Invalid Threshold Keys.");
-        const record = await inhabitNode(env, userNameLow.replace(/[^a-z0-9]/g, '_'), identity, tier, isEnterpriseSteward);
+        const record = await inhabitNode(env, userNameLow.replace(/[^a-z0-9]/g, '_'), identity, tier, isEnterpriseSteward, profile);
         return new Response(JSON.stringify({ status: "AUTHORIZED", data: record }), { headers: corsHeaders });
       }
 
