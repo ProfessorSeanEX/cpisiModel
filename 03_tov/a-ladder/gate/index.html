@@ -3,51 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Gate: Sovereign Threshold</title>
-    <style>
-        :root {
-            --bg: #08080a; --panel: #121216; --accent: #4dff88;
-            --border: rgba(255, 255, 255, 0.06); --text: #d0d0d0;
-            --mono: 'Courier New', monospace;
-        }
-        * { box-sizing: border-box; }
-        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; overflow: hidden; }
-        
-        #auth-screen { position: fixed; inset: 0; background: var(--bg); z-index: 9000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; overflow-y: auto; }
-        .auth-container { width: 100%; max-width: 900px; display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
-        
-        .tier-card { flex: 1; min-width: 260px; background: var(--panel); border: 1px solid var(--border); padding: 32px; border-radius: 12px; display: flex; flex-direction: column; transition: 0.3s; cursor: pointer; }
-        .tier-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .tier-card.active { border-color: var(--accent); background: #1a1a22; box-shadow: 0 0 30px rgba(77, 255, 136, 0.1); }
-        
-        .tier-title { font-family: var(--mono); font-size: 14px; color: var(--accent); margin-bottom: 8px; letter-spacing: 2px; }
-        .tier-subtitle { font-family: var(--mono); font-size: 9px; color: #555; margin-bottom: 24px; }
-        .tier-form { display: none; flex-direction: column; gap: 12px; }
-        .tier-card.active .tier-form { display: flex; }
-        .tier-card.active .tier-desc { display: none; }
-        .tier-desc { font-size: 12px; color: #777; line-height: 1.6; }
-
-        .id-input { background: #000; border: 1px solid var(--border); color: #fff; padding: 12px; font-family: var(--mono); font-size: 12px; border-radius: 4px; outline: none; }
-        .btn-activate { background: var(--accent); color: #000; padding: 14px; border: none; font-family: var(--mono); font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 12px; }
-
-        #main-stage { flex: 1; display: none; flex-direction: column; overflow: hidden; }
-        header { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; justify-content: space-between; font-family: var(--mono); font-size: 10px; }
-        #chat-window { flex: 1; overflow-y: auto; padding: 40px; display: flex; flex-direction: column; gap: 48px; }
-        .vault-body { background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 32px; line-height: 1.8; font-size: 16px; border-left: 4px solid var(--accent); white-space: pre-wrap; }
-        footer { padding: 32px; border-top: 1px solid var(--border); background: #000; }
-        #input-form { display: flex; gap: 16px; border: 1px solid var(--border); padding: 8px; background: rgba(255,255,255,0.02); align-items: center; border-radius: 8px; }
-        #message-input { flex: 1; background: transparent; border: none; color: #fff; padding: 12px; font-size: 18px; outline: none; }
-    </style>
+    <title>CPISI // The Gate: Sovereign Threshold</title>
+    <link rel="stylesheet" href="gate.css">
 </head>
 <body>
+    <div id="flagship-canvas-container">
+        <canvas id="game-of-life-canvas"></canvas>
+    </div>
+
+    <aside id="sidebar">
+        <div class="nav-item" title="The Word">WORD</div>
+        <div class="nav-item" title="The Void">VOID</div>
+        <div class="nav-item" title="Completion">TOV</div>
+        <div class="nav-item" title="Registry">REGISTRY</div>
+        <div style="flex: 1"></div>
+        <div class="nav-item" style="color: var(--scarlet)" onclick="localStorage.clear(); location.reload();">PURGE</div>
+    </aside>
+
     <div id="auth-screen">
-        <div style="font-family: var(--mono); font-size: 14px; color: #fff; letter-spacing: 8px; margin-bottom: 40px">SANCTUARY GATEWAY</div>
+        <div style="font-family: var(--mono); font-size: 14px; color: var(--gold); letter-spacing: 12px; margin-bottom: 60px">CPISI ⊗ GATEWAY</div>
         <div class="auth-container">
             <!-- BASIC -->
             <div class="tier-card" onclick="selectTier(this, 'BASIC')">
-                <div class="tier-title">BASIC</div>
-                <div class="tier-subtitle">SUPPORT TIER</div>
-                <div class="tier-desc">For Guests. Subsidized compute. Shared Covenant record. Requires Invite Code.</div>
+                <div class="tier-title">SUPPORT</div>
+                <div class="tier-subtitle">SUBSIDIZED SOVEREIGNTY</div>
+                <div class="tier-desc">Full access. The company provides the compute and the keys. Witness the Word with zero overhead.</div>
                 <div class="tier-form" onclick="event.stopPropagation()">
                     <input type="text" id="basic-user" class="id-input" placeholder="Operator Name">
                     <input type="password" id="basic-invite" class="id-input" placeholder="Invite Code">
@@ -56,9 +36,9 @@
             </div>
             <!-- PLUS -->
             <div class="tier-card" onclick="selectTier(this, 'PLUS')">
-                <div class="tier-title">PLUS</div>
-                <div class="tier-subtitle">SOVEREIGN TIER</div>
-                <div class="tier-desc">For Creatives. Bring Your Own Key (BYOK). Absolute Data Privacy. Total control.</div>
+                <div class="tier-title">SOVEREIGN</div>
+                <div class="tier-subtitle">OFFLOADED SUBSTRATE</div>
+                <div class="tier-desc">Bring Your Own Key (BYOK). You carry your own compute cost and own your data custody completely.</div>
                 <div class="tier-form" onclick="event.stopPropagation()">
                     <input type="text" id="plus-user" class="id-input" placeholder="Operator Name">
                     <input type="password" id="plus-gemini" class="id-input" placeholder="Gemini API Key">
@@ -67,11 +47,11 @@
             </div>
             <!-- PRO -->
             <div class="tier-card" onclick="selectTier(this, 'PRO')">
-                <div class="tier-title">PRO</div>
-                <div class="tier-subtitle">ARCHITECT TIER</div>
-                <div class="tier-desc">For the Master. Private infrastructure. Direct hardware SSH and IDE expanse.</div>
+                <div class="tier-title">STEWARD</div>
+                <div class="tier-subtitle">SYSTEM MAINTENANCE</div>
+                <div class="tier-desc">The Laboratory. Direct substrate access and repair tools. Full responsibility for the Sanctuary.</div>
                 <div class="tier-form" onclick="event.stopPropagation()">
-                    <input type="text" id="pro-user" class="id-input" placeholder="Master Identity">
+                    <input type="text" id="pro-user" class="id-input" placeholder="Steward Identity" value="ProfessorSeanEX">
                     <input type="password" id="pro-secret" class="id-input" placeholder="Sovereign Password">
                     <button onclick="executeAuth('PRO')" class="btn-activate">UNLOCK LABORATORY</button>
                 </div>
@@ -80,105 +60,27 @@
         <div id="auth-error" style="color:var(--scarlet); font-family:var(--mono); font-size:10px; margin-top:32px;"></div>
     </div>
 
-    <div id="main-stage">
+    <main id="main-stage">
         <header>
-            <div id="header-id" style="letter-spacing: 2px; color: #666"></div>
-            <div style="color: var(--accent); font-family: var(--mono)">0.0 YASHAR // <span id="tier-label"></span></div>
+            <div id="header-id" style="letter-spacing: 4px; color: #444; font-family: var(--mono)"></div>
+            <div style="color: var(--accent); font-family: var(--mono); letter-spacing: 2px;">0.0 YASHAR // <span id="tier-label"></span></div>
         </header>
-        <main id="chat-window"></main>
+        
+        <div id="chat-window"></div>
+
+        <div id="terminal-overlay">
+            <div>[TERMINAL: INITIALIZED]</div>
+            <div id="terminal-output"></div>
+        </div>
+
         <footer>
             <form id="input-form">
                 <input type="text" id="message-input" placeholder="Ascend the Word..." autocomplete="off">
             </form>
         </footer>
-    </div>
+    </main>
 
-    <script>
-        const WORKER_URL = "https://cpisi-gate-worker.seanje-lenox.workers.dev";
-        let identity = null, authSecret = null;
-
-        function selectTier(card, tier) {
-            document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('active'));
-            card.classList.add('active');
-        }
-
-        async function executeAuth(tier) {
-            const errDiv = document.getElementById('auth-error');
-            errDiv.innerText = "Aligning Identity...";
-            
-            let user, secret, inst = "Dawndusk";
-            if (tier === 'BASIC') {
-                user = document.getElementById('basic-user').value;
-                secret = document.getElementById('basic-invite').value;
-            } else if (tier === 'PLUS') {
-                user = document.getElementById('plus-user').value;
-                secret = document.getElementById('plus-gemini').value;
-            } else if (tier === 'PRO') {
-                user = document.getElementById('pro-user').value;
-                secret = document.getElementById('pro-secret').value;
-            }
-
-            try {
-                const resp = await fetch(WORKER_URL, {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ action: "INHABIT", identity: { user, instance: inst }, keys: { authority: secret }, inviteCode: secret })
-                });
-                const data = await resp.json();
-                if (data.error) throw new Error(data.error);
-
-                identity = data.data; authSecret = secret;
-                document.getElementById('auth-screen').style.display = 'none';
-                document.getElementById('main-stage').style.display = 'flex';
-                document.getElementById('header-id').innerText = `${identity.instance} ⊗ ${identity.user}`;
-                document.getElementById('tier-label').innerText = identity.tier;
-                appendVault(`The Sanctuary is inhabited. Welcome, ${identity.user}.`, false);
-            } catch (err) { errDiv.innerText = err.message; }
-        }
-
-        function appendVault(text, isArchitect) {
-            const vault = document.createElement('div');
-            vault.className = `vault-body ${isArchitect ? 'architect' : 'dawndusk'}`;
-            vault.innerText = text;
-            document.getElementById('chat-window').appendChild(vault);
-            document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
-            return vault;
-        }
-
-        document.getElementById('input-form').onsubmit = async (e) => {
-            e.preventDefault();
-            const val = document.getElementById('message-input').value.trim();
-            if (!val) return;
-            appendVault(val, true);
-            document.getElementById('message-input').value = '';
-            
-            const respBody = appendVault("...", false);
-            let fullReply = "";
-
-            try {
-                const response = await fetch(WORKER_URL, { 
-                    method: "POST", headers: { "Content-Type": "application/json" }, 
-                    body: JSON.stringify({ action: "ASCEND", message: val, identity, keys: { authority: authSecret } }) 
-                });
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-                    const chunk = decoder.decode(value);
-                    const lines = chunk.split('\n');
-                    for (const line of lines) {
-                        if (line.startsWith('data: ')) {
-                            try {
-                                const part = JSON.parse(line.substring(6)).candidates?.[0]?.content?.parts?.[0]?.text || "";
-                                fullReply += part;
-                                respBody.innerText = fullReply;
-                                document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
-                            } catch (e) {}
-                        }
-                    }
-                }
-            } catch (err) { respBody.innerText = `[Dissonance] ${err.message}`; }
-        };
-    </script>
+    <script src="gate.js"></script>
+    <script src="flagship.js"></script>
 </body>
 </html>

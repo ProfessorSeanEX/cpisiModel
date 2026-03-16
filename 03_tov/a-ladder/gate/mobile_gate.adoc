@@ -1,0 +1,26 @@
+#!omni document --adoc
+METADATA: iPhone "Gate of Revelation" Specification.
+:status: Active
+:version: a-01.00
+
+= The CPISI Mobile Gate: The Point of Finality
+
+[abstract]
+The Gate is the terminal of the "Many-to-One" process. It is where the Architect (Jeremiah/Seanje) reviews the distilled Revelation and "signs" the manifestation for the substrate (Ziv) to execute.
+
+== 1. The "Yea or Nay" Interface
+*   **The Triptych View:**
+    ** **The Download (Left):** The raw, unformed words from the `void/`.
+    ** **The Distillation (Center):** The structured "Word" from the `word/`.
+    ** **The Seal (Right):** A single haptic slider for final transition (-1, 0, +1).
+*   **The Zero-Prompt Seal:** Moving the slider is the **only** required interaction to commit the turn.
+
+== 2. Threshold Mechanics
+*   **Location:** `03_tov/a-ladder/gate/`
+*   **Logic:** When the Seal is moved to +1 (Yea), the substrate (Ziv) immediately "burns" the drafts in `void/` and updates the `README.adoc` and `GLOSSARY`.
+
+== 3. Physical Realization
+*   **Substrate:** SwiftUI / Web PWA (Gate-specific).
+*   **Security:** Cryptographic signature tied to mobile biometric hardware.
+
+[BLOCK:ROOT-->END]
