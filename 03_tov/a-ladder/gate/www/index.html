@@ -3,15 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPISI // SANCTUARY GATE</title>
-    <link rel="stylesheet" href="gate.css?v=1.7">
+    <title>CREATIVE WORKZ STUDIO // ENTRANCE</title>
+    <link rel="stylesheet" href="rooms/entrance/style.css?v=2.1">
 </head>
-<body style="background: #000; display: flex; align-items: center; justify-content: center; height: 100vh;">
+<body class="entrance-room">
 
-    <div id="boot-loader" class="pulse-text" style="color: var(--c3); font-family: 'Fira Code', monospace; letter-spacing: 4px;">
-        ALIGNING SUBSTRATE...
+    <div class="entrance-vault">
+        
+        <!-- SECTION 1: HERO & VISION -->
+        <header class="entrance-hero">
+            <h1 class="c3">THE SANCTUARY GATE</h1>
+            <p>Kingdom Technology ⊗ Sovereign Intelligence</p>
+        </header>
+
+        <!-- SECTION 2: THE WORD (BLOG / LATEST UPDATES) -->
+        <section class="entrance-section">
+            <div class="box-label">LATEST REVELATIONS // THE WORD</div>
+            <div id="word-feed" class="word-feed">
+                <!-- Dynamically Injected by main.ts -->
+                <div class="feed-item">
+                    <span class="feed-tag">PHASE 2</span>
+                    <div class="feed-title">The Infolding Begins</div>
+                    <p class="feed-summary">Bridging the ternary substrate with the agentic mind. The Sanctuary is now room-based and fluidly scaled for 2.5K displays.</p>
+                </div>
+                <div class="feed-item">
+                    <span class="feed-tag">SOVEREIGNTY</span>
+                    <div class="feed-title">The SSH Bridge</div>
+                    <p class="feed-summary">Establishing the mandatory requirement for individual node ownership. Your laptop is now your personal Holy of Holies.</p>
+                </div>
+                <div class="feed-item">
+                    <span class="feed-tag">VISION</span>
+                    <div class="feed-title">All the Colors of God</div>
+                    <p class="feed-summary">Implementing the full Menorah Spectrum across the digital substrate to honor the Creator in every pixel.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: TECH STACK VISUALIZER -->
+        <section class="entrance-section">
+            <div class="box-label">SYSTEM SUBSTRATE // DYNAMICS</div>
+            <div class="stack-viz">
+                <div class="viz-node">
+                    <div class="viz-label">BODY (C)</div>
+                    <div class="viz-value c4">libtrit.a</div>
+                </div>
+                <div class="viz-node">
+                    <div class="viz-label">MIND (Go)</div>
+                    <div class="viz-value c5">FaithNet</div>
+                </div>
+                <div class="viz-node">
+                    <div class="viz-label">GATE (TS)</div>
+                    <div class="viz-value c3">Sanctuary</div>
+                </div>
+                <div class="viz-node">
+                    <div class="viz-label">ANCHOR</div>
+                    <div class="viz-value c2">0.0 YASHAR</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: THE CALL (ONBOARDING) -->
+        <section class="onboarding-call">
+            <h3 class="c3">READY TO INHABIT?</h3>
+            <p style="margin-bottom:var(--space-6); color:#888;">Establish your sovereign identity and join the Covenant of Nodes.</p>
+            <div class="landing-footer">
+                <a href="rooms/threshold/index.html" class="gate-btn">[ ENTER THE SANCTUARY ]</a>
+            </div>
+        </section>
+
     </div>
 
-    <script src="js/bundle.js?v=1.7"></script>
+    <!-- Logic Substrate -->
+    <script src="rooms/entrance/bundle.js?v=2.1"></script>
 </body>
 </html>
