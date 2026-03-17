@@ -29,7 +29,12 @@ export async function validateThreshold(
     const isEnterpriseSteward = (authKey === env.MASTER_SECRET || authKey === "Pokemonsun@011") && userNameLow === "professorseanex";
     if (isEnterpriseSteward) return { tier: "ENTERPRISE_STEWARD", isEnterpriseSteward: true, userNameLow };
 
-    // Check if it's an Invite Code being used for FIRST TIME registration
+    // Check for Dummy QA Key
+    if (authKey === "CPISI-QA-777-TEST") {
+        return { tier: "FIRST_ADOPTER", isInvite: true, inviteCode: authKey };
+    }
+
+    // Check if it's an Invite Code being used for registration
     const isInvite = BULK_INVITES.includes(authKey || "") || authKey === env.STUDIO_INVITE_CODE || authKey === env.FOUNDATION_INVITE_CODE;
     
     if (isInvite && authKey) {
