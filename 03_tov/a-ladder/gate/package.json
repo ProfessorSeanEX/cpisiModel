@@ -1,20 +1,16 @@
 {
   "name": "cpisi-gate",
-  "version": "1.5.0",
-  "description": "Sanctuary Gate Frontend - Unified Web & Mobile",
-  "main": "src/index.ts",
+  "version": "2.0.0",
+  "description": "Sanctuary Gate - Room-Based Architecture",
+  "main": "index.html",
   "author": "Creative Workz Studio LLC",
   "license": "UNLICENSED",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --outfile=js/bundle.js --minify --sourcemap --platform=browser",
-    "dev": "esbuild src/index.ts --bundle --outfile=js/bundle.js --sourcemap --platform=browser --watch",
-    "ionic:build": "npm run build",
-    "ionic:serve": "npm run dev",
+    "build:entrance": "esbuild rooms/entrance/main.ts --bundle --outfile=rooms/entrance/bundle.js --minify --sourcemap --platform=browser",
+    "build:threshold": "esbuild rooms/threshold/main.ts --bundle --outfile=rooms/threshold/bundle.js --minify --sourcemap --platform=browser",
+    "build:sanctuary": "esbuild rooms/sanctuary/main.ts --bundle --outfile=rooms/sanctuary/bundle.js --minify --sourcemap --platform=browser",
+    "build:all": "npm run build:entrance && npm run build:threshold && npm run build:sanctuary",
     "cap:sync": "npx cap sync",
-    "cap:add:android": "npx cap add android",
-    "cap:add:ios": "npx cap add ios",
-    "cap:open:android": "npx cap open android",
-    "cap:open:ios": "npx cap open ios",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

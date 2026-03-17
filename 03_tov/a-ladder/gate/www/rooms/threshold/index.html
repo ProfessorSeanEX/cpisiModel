@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPISI // THRESHOLD</title>
+    <link rel="stylesheet" href="../../shared/css/covenant.css?v=1.9">
+</head>
+<body class="threshold-room">
+
+    <div class="overlay-screen">
+        <div id="gate-structure" class="wire-vault">
+            <div class="box-label">OUTER COURT // THRESHOLD</div>
+            
+            <!-- STAGE 1: LOGIN -->
+            <form id="login-form" onsubmit="CPISI.auth.executeLogin(event)">
+                <div id="login-stage">
+                    <input type="text" id="op-user" class="id-input" placeholder="IDENTITY" required autocomplete="username">
+                    <input type="password" id="op-key" class="id-input" placeholder="KEY / PASSWORD" required autocomplete="current-password">
+                    <button type="submit" id="login-btn" class="gate-btn" style="margin-top:var(--space-4);">[ BREAK THE SEAL ]</button>
+                    
+                    <div style="text-align:center; margin-top:var(--space-4);">
+                        <span style="color:var(--label); font-size:0.6rem; font-family:var(--mono);">NO IDENTITY? </span>
+                        <button type="button" onclick="CPISI.auth.showSignup()" style="background:transparent; border:none; color:var(--c3); font-size:0.6rem; cursor:pointer; text-decoration:underline; font-family:var(--mono);">[ ESTABLISH COVENANT ]</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- STAGE 2: SIGNUP -->
+            <form id="signup-form" onsubmit="CPISI.auth.executeSignup(event)" style="display:none;">
+                <div id="signup-stage">
+                    <div class="box-label" style="text-align:center; color:var(--c3);">MANIFEST SOVEREIGN IDENTITY</div>
+                    
+                    <input type="text" id="invite-code" class="id-input" placeholder="INVITE CODE / MASTER KEY" required>
+                    <input type="text" id="new-user" class="id-input" placeholder="DESIRED USERNAME" required autocomplete="username">
+                    
+                    <div style="display:flex; gap:var(--space-2);">
+                        <input type="password" id="new-pass" class="id-input" placeholder="PASSWORD" required autocomplete="new-password">
+                        <input type="password" id="conf-pass" class="id-input" placeholder="CONFIRM" required autocomplete="new-password">
+                    </div>
+
+                    <div id="extended-profile" style="display:flex; flex-direction:column; gap:var(--space-2); margin-top:var(--space-2);">
+                        <div style="display:flex; gap:var(--space-2);">
+                            <input type="text" id="first-name" class="id-input" placeholder="FIRST NAME" required>
+                            <input type="text" id="last-name" class="id-input" placeholder="LAST NAME" required>
+                        </div>
+                        <input type="email" id="prof-email" class="id-input" placeholder="EMAIL ADDRESS" required>
+                        <div class="settings-label" style="font-size:0.5rem; margin-bottom: -8px;">BIRTHDAY</div>
+                        <input type="date" id="birth-date" class="id-input" required>
+                    </div>
+
+                    <button type="submit" id="signup-btn" class="gate-btn" style="margin-top:var(--space-4);">[ SEAL IDENTITY ]</button>
+                    
+                    <div style="text-align:center; margin-top:var(--space-4);">
+                        <button type="button" onclick="CPISI.auth.showLogin()" style="background:transparent; border:none; color:var(--label); font-size:0.5rem; cursor:pointer; font-family:var(--mono);">[ BACK TO LOGIN ]</button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="auth-error" style="color:var(--c1); font-size:0.6rem; margin-top:var(--space-4); text-align:center; min-height:1em;"></div>
+            
+            <div style="text-align:center; margin-top:var(--space-6);">
+                <a href="../entrance/index.html" style="color:var(--label); font-size:0.5rem; text-decoration:none; font-family:var(--mono);">[ BACK TO ENTRANCE ]</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="bundle.js?v=1.9"></script>
+</body>
+</html>
