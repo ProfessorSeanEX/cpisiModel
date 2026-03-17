@@ -1,6 +1,15 @@
 # CPISI SOVEREIGN SSH CONFIGURATION
 # This file bridges the Sanctuary Gate with the Individual Laptop.
 
+# Allow loopback for testing the 'Work from Anywhere' lifecycle
+Host cpisi-local
+    HostName localhost
+    User seanje-lenox-wise
+    IdentityFile ~/.ssh/id_cpisi
+    # Ensuring the absolute path to the mind is used
+    RemoteCommand ~/.local/bin/cpisi-agent repl -identity ~/.config/cpisi/sovereign_bio.md
+    RequestTTY yes
+
 Host cpisi-node-*
     User operator
     IdentityFile ~/.ssh/id_cpisi
